@@ -47,9 +47,9 @@ import java.util.Map;
 /**
  * Created by zhoubin on 16/7/24. 统一的异常处理,返回Json或者错误页面
  */
-public class QuickExceptionHandler implements HandlerExceptionResolver {
+public class ExceptionHandler implements HandlerExceptionResolver {
 
-	private static Logger logger = LogManager.getLogger(QuickExceptionHandler.class); // log4j日志对象
+	private static Logger logger = LogManager.getLogger(ExceptionHandler.class); // log4j日志对象
 
 	@Override
 	public ModelAndView resolveException(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,

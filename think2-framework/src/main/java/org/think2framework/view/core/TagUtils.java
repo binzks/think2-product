@@ -23,7 +23,7 @@ public class TagUtils {
 
 	public static final String TAG_TEXTAREA = "textarea"; // 长文本
 
-	public static final String TAG_ITEM_INT = "itemInt"; //整型单选
+	public static final String TAG_ITEM_INT = "itemInt"; // 整型单选
 
 	public static final String TAG_ITEM = "item"; // 单选
 
@@ -44,5 +44,9 @@ public class TagUtils {
 	public static final String TAG_TELEPHONE = "telephone"; // 座机
 
 	public static final String TAG_JSON = "json"; // json
+
+	public static final String DEFAULT_NOW = "now"; // 默认值当前时间时间戳
+
+	public static final String DEFAULT_LOGIN_CODE = "loginCode"; // 默认值当前动力用户编号
 
 }

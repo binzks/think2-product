@@ -2,6 +2,7 @@ package org.think2framework.controller;
 
 import org.think2framework.ConstantFactory;
 import org.think2framework.ModelFactory;
+import org.think2framework.bean.Admin;
 import org.think2framework.orm.Query;
 import org.think2framework.security.SessionHelp;
 import org.think2framework.utils.EncryptUtils;
@@ -38,7 +39,7 @@ public class AdminController {
 	public ModelAndView enter(HttpServletRequest request) {
 		String code = request.getParameter("code");
 		String password = request.getParameter("password");
-		Query adminQuery = ModelFactory.createQuery("quick_admin");
+		Query adminQuery = ModelFactory.createQuery(Admin.class.getName());
 		adminQuery.eq("code", code);
 		Map<String, Object> admin = adminQuery.queryForMap();
 		if (null == admin) {

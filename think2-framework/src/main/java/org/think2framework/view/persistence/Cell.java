@@ -1,5 +1,7 @@
 package org.think2framework.view.persistence;
 
+import org.think2framework.view.core.TagUtils;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
@@ -18,13 +20,11 @@ public @interface Cell {
 
 	String title(); // 标题
 
-	String tag() default "text"; // 标签，根据标签操作单元，默认问文本
+	String tag() default TagUtils.TAG_TEXT; // 标签，根据标签操作单元，默认问文本
 
 	boolean required() default false; // 是否必填项，默认false
 
 	String defaultValue() default ""; // 默认值，now当前时间，user.id登录用户id，user.name登录用户名，其他则填值
-
-	boolean center() default true; // 列是否居中默认true
 
 	int width() default 0; // 列长度，默认0表示自动
 

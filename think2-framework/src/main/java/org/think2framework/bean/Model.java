@@ -3,6 +3,7 @@ package org.think2framework.bean;
 import org.think2framework.orm.bean.Filter;
 import org.think2framework.orm.bean.Join;
 import org.think2framework.orm.bean.Order;
+import org.think2framework.orm.persistence.Table;
 import org.think2framework.view.bean.Action;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 /**
  * Created by zhoubin on 16/7/11. 模型
  */
+@Table(name = "think2_model")
 public class Model {
 
 	private String name; // 模型名称
@@ -27,14 +29,6 @@ public class Model {
 	private String[] uniques; // 主表的唯一性约束
 
 	private String[] indexes; // 主表索引
-
-	private String query; // 查询数据源名称
-
-	private String writer; // 写入数据源名称
-
-	private String redis; // redis缓存数据源名称
-
-	private Integer valid = 0; // redis缓存有效期，单位秒，0为永久有效
 
 	private List<Column> columns; // 模型列定义
 
@@ -110,38 +104,6 @@ public class Model {
 
 	public void setIndexes(String[] indexes) {
 		this.indexes = indexes;
-	}
-
-	public String getQuery() {
-		return query;
-	}
-
-	public void setQuery(String query) {
-		this.query = query;
-	}
-
-	public String getWriter() {
-		return writer;
-	}
-
-	public void setWriter(String writer) {
-		this.writer = writer;
-	}
-
-	public String getRedis() {
-		return redis;
-	}
-
-	public void setRedis(String redis) {
-		this.redis = redis;
-	}
-
-	public Integer getValid() {
-		return valid;
-	}
-
-	public void setValid(Integer valid) {
-		this.valid = valid;
 	}
 
 	public List<Column> getColumns() {

@@ -8,20 +8,37 @@
 
     <context:annotation-config/>
 
-    <bean class="com.quickframework.Configuration">
-        <property name="datasource" value="quick-datasource.json"/>
-        <property name="constant" value="constants/\\*.json"/>
-        <!--工作流需要在模型之前加载-->
-        <property name="workflow" value="workflows/\\*.json"/>
-        <property name="model" value="models/\\*.json"/>
+    <!--<bean class="org.think2framework.Configuration">-->
+    <!--<property name="datasource" value="quick-datasource.json"/>-->
+    <!--<property name="constant" value="constants/\\*.json"/>-->
+    <!--&lt;!&ndash;工作流需要在模型之前加载&ndash;&gt;-->
+    <!--<property name="workflow" value="workflows/\\*.json"/>-->
+    <!--<property name="model" value="models/\\*.json"/>-->
+    <!--</bean>-->
+
+    <bean class="org.think2framework.ide.Configuration">
+        <property name="name" value="think2ide"/>
+        <property name="type" value="mysql"/>
+        <property name="host" value="localhost"/>
+        <property name="db" value="think2ide"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+        <property name="models">
+            <list>
+                <map>
+                    <entry key="query" value="think2ide"/>
+                    <entry key="packages" value="org.think2framework.bean"/>
+                </map>
+            </list>
+        </property>
     </bean>
 
     <!-- Controller Service -->
-    <context:component-scan base-package="com.quickframework.controller"/>
+    <context:component-scan base-package="org.think2framework.controller"/>
 
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
-    <bean id="exceptionHandler" class="com.quickframework.exception.QuickExceptionHandler"/>
+    <bean id="exceptionHandler" class="org.think2framework.exception.ExceptionHandler"/>
 
     <mvc:interceptors>
         <mvc:interceptor>
@@ -37,7 +54,7 @@
             <mvc:exclude-mapping path="/**/*.jpg"/>
             <mvc:exclude-mapping path="/**/*.jpeg"/>
             <!--排除拦截-->
-            <bean class="com.quickframework.security.SecurityInterceptor"/>
+            <bean class="org.think2framework.security.SecurityInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 

@@ -23,18 +23,18 @@ public class ApiController {
 		writer.createTable();
 		HttpServletUtils.writeResponse(response, "success");
 	}
-
-	@RequestMapping(value = "/reloadDatabase.api")
-	public void reloadDatabases(HttpServletRequest request, HttpServletResponse response) {
-		ModelFactory.reloadDatabases();
-		HttpServletUtils.writeResponse(response, "success");
-	}
-
-	@RequestMapping(value = "/reloadModels.api")
-	public void reloadModels(HttpServletRequest request, HttpServletResponse response) {
-		ModelFactory.reloadModels();
-		HttpServletUtils.writeResponse(response, "success");
-	}
+//
+//	@RequestMapping(value = "/reloadDatabase.api")
+//	public void reloadDatabases(HttpServletRequest request, HttpServletResponse response) {
+//		ModelFactory.reloadDatabases();
+//		HttpServletUtils.writeResponse(response, "success");
+//	}
+//
+//	@RequestMapping(value = "/reloadModels.api")
+//	public void reloadModels(HttpServletRequest request, HttpServletResponse response) {
+//		ModelFactory.reloadModels();
+//		HttpServletUtils.writeResponse(response, "success");
+//	}
 
 	@RequestMapping(value = "/reloadConst.api")
 	public void reloadConstant(HttpServletRequest request, HttpServletResponse response) {

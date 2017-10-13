@@ -3,11 +3,15 @@ package org.think2framework;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.think2framework.support.DatasourceSupport;
+import org.think2framework.utils.StringUtils;
 
 /**
  * Created by zhoubin on 16/7/8. 配置
  */
 public class Configuration implements ApplicationContextAware {
+
+	private static String dsFiles;
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -21,7 +25,10 @@ public class Configuration implements ApplicationContextAware {
 	 *            数据源文件路径和名称
 	 */
 	public void setDatasource(String datasource) {
-		ModelFactory.setDatabaseFiles(this.getClass().getResource("/").getPath() + datasource);
+		if (StringUtils.isBlank(dsFiles)) {
+			DatasourceSupport.loadFiles(this.getClass().getResource("/").getPath() + datasource, false);
+			dsFiles = datasource;
+		}
 	}
 
 	/**
@@ -61,7 +68,7 @@ public class Configuration implements ApplicationContextAware {
 	 *            模型路径和名称
 	 */
 	public void setModel(String model) {
-		ModelFactory.setModelFiles(this.getClass().getResource("/").getPath() + model);
+//		ModelFactory.setModelFiles(this.getClass().getResource("/").getPath() + model);
 	}
 
 	// /**

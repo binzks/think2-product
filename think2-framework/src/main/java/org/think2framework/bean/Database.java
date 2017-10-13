@@ -5,20 +5,23 @@ package org.think2framework.bean;
  */
 public class Database {
 
-	private String query;
+	private String query; // 读取数据源名称
 
-	private String writer;
+	private String writer; // 写入数据源名称
 
-	private String redis;
+	private String redis; // 缓存redis数据源名称
+
+	private Integer valid = 0; // redis缓存有效期，单位秒，0为永久有效
 
 	public Database() {
 
 	}
 
-	public Database(String query, String writer, String redis) {
+	public Database(String query, String writer, String redis, Integer valid) {
 		this.query = query;
 		this.writer = writer;
 		this.redis = redis;
+		this.valid = valid;
 	}
 
 	public String getQuery() {
@@ -45,4 +48,11 @@ public class Database {
 		this.redis = redis;
 	}
 
+	public Integer getValid() {
+		return valid;
+	}
+
+	public void setValid(Integer valid) {
+		this.valid = valid;
+	}
 }
