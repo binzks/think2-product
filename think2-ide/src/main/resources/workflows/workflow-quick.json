@@ -1,0 +1,17 @@
+[
+  {
+    "name": "通用审核",
+    "field": "status",
+    "tag": "itemInt",
+    "nodes": [
+      {
+        "name": "新建",
+        "value": "1"
+      },
+      {
+        "name": "审核通过",
+        "value": "0"
+      }
+    ]
+  }
+]

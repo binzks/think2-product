@@ -1,0 +1,241 @@
+[
+  {
+    "name": "quick_admin",
+    "table": "quick_admin",
+    "cms": true,
+    "workflow": "通用审核",
+    "uniques": [
+      "code"
+    ],
+    "query": "quick",
+    "columns": [
+      {
+        "name": "code",
+        "title": "编号",
+        "required": true,
+        "search": true
+      },
+      {
+        "name": "name",
+        "title": "姓名",
+        "required": true
+      },
+      {
+        "name": "password",
+        "title": "密码",
+        "tag": "password",
+        "required": true
+      },
+      {
+        "name": "mobile",
+        "title": "手机号码",
+        "tag": "mobile"
+      },
+      {
+        "name": "email",
+        "title": "email",
+        "tag": "email"
+      },
+      {
+        "name": "role_id",
+        "title": "角色id",
+        "tag": "int"
+      }
+    ],
+    "actions": [
+      {
+        "name": "detail",
+        "title": "详情",
+        "type": "1",
+        "href": "/tpl/detail",
+        "clazz": "ace-icon fa fa-search-plus bigger-130"
+      }
+    ],
+    "filters": [],
+    "orders": [],
+    "comment": "系统管理员"
+  },
+  {
+    "name": "quick_admin_role",
+    "table": "quick_admin_role",
+    "cms": true,
+    "uniques": [
+      "name"
+    ],
+    "query": "quick",
+    "columns": [
+      {
+        "name": "name",
+        "title": "名称",
+        "required": true
+      }
+    ],
+    "comment": "系统角色"
+  },
+  {
+    "name": "quick_admin_role_power",
+    "table": "quick_admin_role_power",
+    "cms": true,
+    "indexes": [
+      "role_id"
+    ],
+    "query": "quick",
+    "columns": [
+      {
+        "name": "role_id",
+        "title": "模块",
+        "required": true
+      },
+      {
+        "name": "module_id",
+        "title": "模块",
+        "required": true
+      },
+      {
+        "name": "actions",
+        "title": "按钮",
+        "length": 100
+      },
+      {
+        "name": "columns",
+        "title": "列",
+        "length": 500
+      },
+      {
+        "name": "name",
+        "alias": "module_name",
+        "join": "quick_module"
+      },
+      {
+        "name": "uri",
+        "alias": "module_uri",
+        "join": "quick_module"
+      },
+      {
+        "name": "title",
+        "alias": "module_title",
+        "join": "quick_module"
+      },
+      {
+        "name": "size",
+        "alias": "module_size",
+        "join": "quick_module"
+      },
+      {
+        "name": "icon",
+        "alias": "module_icon",
+        "join": "quick_module"
+      },
+      {
+        "name": "parent_id",
+        "alias": "module_parent_id",
+        "join": "quick_module"
+      },
+      {
+        "name": "type",
+        "alias": "module_type",
+        "join": "quick_module"
+      },
+      {
+        "name": "order",
+        "alias": "module_order",
+        "join": "quick_module"
+      },
+      {
+        "name": "model",
+        "alias": "module_model",
+        "join": "quick_module"
+      }
+    ],
+    "joins": [
+      {
+        "name": "quick_module",
+        "database": "quick",
+        "table": "quick_module",
+        "key": "id",
+        "joinName": "",
+        "joinKey": "module_id"
+      }
+    ],
+    "orders": [
+      {
+        "keys": [
+          "module_type",
+          "module_order"
+        ],
+        "type": "ASC"
+      }
+    ],
+    "comment": "系统角色权限"
+  },
+  {
+    "name": "quick_module",
+    "table": "quick_module",
+    "cms": true,
+    "workflow": "通用审核",
+    "uniques": [
+      "name"
+    ],
+    "indexes": [
+      "type"
+    ],
+    "query": "quick",
+    "columns": [
+      {
+        "name": "name",
+        "title": "名称",
+        "required": true
+      },
+      {
+        "name": "parent_id",
+        "title": "父节点",
+        "tag": "int",
+        "length": 11
+      },
+      {
+        "name": "type",
+        "title": "类型",
+        "tag": "itemInt",
+        "items": [
+          {
+            "key": "模块组",
+            "value": "0"
+          },
+          {
+            "key": "模块",
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "name": "icon",
+        "title": "图标"
+      },
+      {
+        "name": "model",
+        "title": "模型"
+      },
+      {
+        "name": "title",
+        "title": "标题"
+      },
+      {
+        "name": "uri",
+        "title": "链接"
+      },
+      {
+        "name": "size",
+        "title": "每页数量",
+        "tag": "int",
+        "length": 2
+      },
+      {
+        "name": "order",
+        "title": "排序",
+        "tag": "int",
+        "length": 2
+      }
+    ],
+    "comment": "系统模块"
+  }
+]

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemesh>
+	<!-- 指明满足“/*”的页面，将被“decorator.jsp”所装饰 -->
+	<mapping path="/*" decorator="/views/main.jsp" />
+
+	<!-- 指明满足“url”的页面，将被排除，不被装饰 -->
+	<!--<mapping path="/sys/home.html" exclue="true" />-->
+</sitemesh>
