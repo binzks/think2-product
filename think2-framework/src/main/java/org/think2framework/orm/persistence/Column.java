@@ -1,6 +1,7 @@
 package org.think2framework.orm.persistence;
 
 import org.think2framework.orm.core.ClassUtils;
+import org.think2framework.orm.core.TypeUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -12,13 +13,13 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 /**
  * Created by zhoubin on 16/7/11. 数据库列定义
  */
-@Target({METHOD, FIELD})
+@Target({ METHOD, FIELD })
 @Retention(RUNTIME)
 public @interface Column {
 
 	String name() default ""; // 字段名称
 
-	String type() default ClassUtils.TYPE_STRING; // 字段类型
+	String type() default TypeUtils.FIELD_TEXT; // 字段类型
 
 	boolean nullable() default true; // 字段是否可空
 

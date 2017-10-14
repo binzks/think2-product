@@ -4,7 +4,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.think2framework.ModelFactory;
-import org.think2framework.support.DatasourceSupport;
+import org.think2framework.orm.OrmFactory;
 import org.think2framework.utils.NumberUtils;
 
 import java.util.List;
@@ -42,7 +42,7 @@ public class Configuration implements ApplicationContextAware {
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		if (!initialized) {
 			System.setProperty("jsse.enableSNIExtension", "false");
-			DatasourceSupport.append(type, name, minIdle, maxIdle, initialSize, timeout, db, host, port, username,
+			OrmFactory.appendDatabase(type, name, minIdle, maxIdle, initialSize, timeout, db, host, port, username,
 					password);
 			if (null != models) {
 				for (Map<String, String> model : models) {

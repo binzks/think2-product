@@ -1,32 +1,36 @@
 package org.think2framework.bean;
 
-import org.think2framework.orm.core.ClassUtils;
 import org.think2framework.orm.persistence.Column;
 import org.think2framework.orm.persistence.Table;
+import org.think2framework.view.persistence.Cell;
+import org.think2framework.view.persistence.View;
 
 /**
  * cms系统管理员
  */
 @Table(name = "think2_admin", indexes = { "status" }, uniques = { "code" }, comment = "系统管理员")
+@View
 public class Admin extends BaseCms {
 
 	@Column(nullable = false, comment = "编号")
+	@Cell(title = "编号", required = true, search = true)
 	private String code;
 
 	@Column(nullable = false, comment = "姓名")
+	@Cell(title = "姓名", required = true, search = true)
 	private String name;
 
 	@Column(nullable = false, comment = "密码")
+	@Cell(title = "密码", required = true)
 	private String password;
 
 	@Column(comment = "手机号码")
+	@Cell(title = "手机号码")
 	private String mobile;
 
 	@Column(comment = "email")
+	@Cell(title = "email")
 	private String email;
-
-	@Column(name = "role_id", type = ClassUtils.TYPE_INTEGER, defaultValue = "0", comment = "角色id")
-	private Integer roleId;
 
 	public String getCode() {
 		return code;
@@ -66,13 +70,5 @@ public class Admin extends BaseCms {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public Integer getRoleId() {
-		return roleId;
-	}
-
-	public void setRoleId(Integer roleId) {
-		this.roleId = roleId;
 	}
 }

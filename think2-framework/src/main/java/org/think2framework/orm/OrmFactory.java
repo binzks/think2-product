@@ -2,16 +2,14 @@ package org.think2framework.orm;
 
 import org.think2framework.exception.NonExistException;
 import org.think2framework.exception.NonsupportException;
-import org.think2framework.orm.bean.Entity;
-import org.think2framework.orm.bean.Table;
+import org.think2framework.orm.bean.*;
 import org.think2framework.orm.core.*;
 import org.think2framework.utils.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import redis.clients.jedis.JedisPool;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 数据持久化工厂
@@ -41,6 +39,50 @@ public class OrmFactory {
 		tables.clear();
 		entities.clear();
 		logger.debug("All tables and entities cleared successfully");
+	}
+
+	/**
+	 * 追加一个数据源
+	 *
+	 * @param type
+	 *            数据库类型
+	 * @param name
+	 *            数据源名称
+	 * @param minIdle
+	 *            数据源最小空闲连接
+	 * @param maxIdle
+	 *            数据源最大空闲连接
+	 * @param initialSize
+	 *            数据源初始化连接数
+	 * @param timeout
+	 *            数据源超时时间(以秒数为单位)
+	 * @param db
+	 *            数据库名称
+	 * @param host
+	 *            数据库地址
+	 * @param port
+	 *            数据库端口
+	 * @param username
+	 *            数据库用户名
+	 * @param password
+	 *            数据库密码
+	 */
+	public static synchronized void appendDatabase(String type, String name, Integer minIdle, Integer maxIdle,
+			Integer initialSize, Integer timeout, String db, String host, Integer port, String username,
+			String password) {
+		if (TypeUtils.DATABASE_MYSQL.equalsIgnoreCase(type)) {
+			appendMysql(name, minIdle, maxIdle, initialSize, timeout, host, port, db, username, password);
+		} else if (TypeUtils.DATABASE_REDIS.equalsIgnoreCase(type)) {
+			appendRedis(name, minIdle, maxIdle, timeout, host, port, db, password);
+		} else if (TypeUtils.DATABASE_SQLSERVER.equalsIgnoreCase(type)) {
+			appendSqlserver(name, minIdle, maxIdle, initialSize, timeout, host, port, db, username, password);
+		} else if (TypeUtils.DATABASE_ORACLE.equalsIgnoreCase(type)) {
+			appendOracle(name, minIdle, maxIdle, initialSize, timeout, host, port, db, username, password);
+		} else if (TypeUtils.DATABASE_SQLITE.equalsIgnoreCase(type)) {
+			appendSqlite(name, minIdle, maxIdle, initialSize, timeout, host, port, db, username, password);
+		} else {
+			throw new NonsupportException("database type " + type);
+		}
 	}
 
 	/**

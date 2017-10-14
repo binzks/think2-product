@@ -14,6 +14,4 @@ public @interface View {
 
 	String name() default "";// 名称
 
-	String title(); // 标题
-
 }

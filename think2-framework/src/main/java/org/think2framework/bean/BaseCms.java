@@ -1,20 +1,23 @@
 package org.think2framework.bean;
 
-import org.think2framework.orm.core.ClassUtils;
 import org.think2framework.orm.persistence.Column;
+import org.think2framework.view.persistence.Action;
 
 /**
  * cms表的基础字段
  */
+@Action(name = "add", title = "添加", type = "0", href = "/tpl/add", clazz = "purple ace-icon fa fa-plus-circle bigger-130")
+@Action(name = "edit", title = "修改", href = "/tpl/edit", clazz = "green ace-icon fa fa-pencil bigger-130")
+@Action(name = "detail", title = "详情", href = "/tpl/detail", clazz = "ace-icon fa fa-search-plus bigger-130")
 public class BaseCms {
 
-	@Column(type = ClassUtils.TYPE_INTEGER, nullable = false, length = 11, comment = "主键")
+	@Column(nullable = false, length = 11, comment = "主键")
 	private Integer id;
 
-	@Column(type = ClassUtils.TYPE_INTEGER, nullable = false, length = 1, defaultValue = "99", comment = "状态0-启用 99-停用")
+	@Column(nullable = false, length = 1, defaultValue = "99", comment = "状态0-启用 99-停用")
 	private Integer status;
 
-	@Column(name = "modify_time", type = ClassUtils.TYPE_INTEGER, nullable = false, length = 10, comment = "最后修改时间")
+	@Column(name = "modify_time", nullable = false, length = 10, comment = "最后修改时间")
 	private Integer modifyTime;
 
 	@Column(name = "modify_admin", nullable = false, comment = "最后修改人")

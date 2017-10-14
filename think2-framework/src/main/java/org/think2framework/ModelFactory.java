@@ -13,16 +13,15 @@ import org.think2framework.orm.bean.Table;
 import org.think2framework.orm.bean.TableColumn;
 import org.think2framework.orm.core.ClassUtils;
 import org.think2framework.orm.core.SelectHelp;
-import org.think2framework.support.OrmSupport;
+import org.think2framework.orm.core.TypeUtils;
+import org.think2framework.support.ViewSupport;
 import org.think2framework.utils.FileUtils;
 import org.think2framework.utils.JsonUtils;
 import org.think2framework.utils.PackageUtils;
 import org.think2framework.utils.StringUtils;
 import org.think2framework.view.bean.Action;
 import org.think2framework.view.bean.Cell;
-import org.think2framework.view.bean.Item;
 import org.think2framework.view.bean.View;
-import org.think2framework.view.core.TagUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -43,6 +42,34 @@ public class ModelFactory {
 	private static Map<String, List<Action>> actionsMap = new HashMap<>(); // 模型对应的按钮定义
 
 	/**
+	 * 从配置文件加载数据源
+	 *
+	 * @param filePath
+	 *            配置文件路径和名称，带*为多个文件
+	 * @param clear
+	 *            是否清空原先的数据源配置
+	 */
+	public static synchronized void loadFiles(String filePath, Boolean clear) {
+		File[] files = FileUtils.getFiles(filePath);
+		if (null == files) {
+			return;
+		}
+		if (clear) {
+			OrmFactory.clearDatabases();
+		}
+		// 重新加载数据库
+		for (File file : files) {
+			List<Datasource> dss = JsonUtils.readFile(file, new TypeReference<List<Datasource>>() {
+			});
+			for (Datasource ds : dss) {
+				OrmFactory.appendDatabase(ds.getType(), ds.getName(), ds.getMinIdle(), ds.getMaxIdle(),
+						ds.getInitialSize(), ds.getTimeout(), ds.getDb(), ds.getHost(), ds.getPort(), ds.getUsername(),
+						ds.getPassword());
+			}
+		}
+	}
+
+	/**
 	 * 扫描多个包,将所有定义了模型的类追加到工厂
 	 *
 	 * @param query
@@ -54,9 +81,11 @@ public class ModelFactory {
 	 */
 	public static synchronized void scanPackages(String query, String writer, String redis, Integer valid,
 			String... packageDirNames) {
-		List<String> names = OrmSupport.scanPackages(packageDirNames);
-		for (String name : names) {
-			databases.put(name, new Database(query, StringUtils.isBlank(writer) ? query : writer, redis, valid));
+		for (String name : packageDirNames) {
+			List<Class> list = PackageUtils.scanPackage(name);
+			for (Class<?> clazz : list) {
+				appendClass(query, writer, redis, valid, clazz);
+			}
 		}
 	}
 
@@ -82,35 +111,100 @@ public class ModelFactory {
 
 	public static synchronized void appendClass(String query, String writer, String redis, Integer valid,
 			Class<?> clazz) {
-		String name = OrmSupport.appendClass(clazz);
-		if (!"".equals(name)) {
+		Table table = ClassUtils.createTable(clazz);
+		Entity entity = ClassUtils.createEntity(clazz);
+		if (null != table) {
+			String name = clazz.getName();
+			OrmFactory.appendTable(name, table);
+			OrmFactory.appendEntity(name, entity);
 			databases.put(name, new Database(query, StringUtils.isBlank(writer) ? query : writer, redis, valid));
+			// 如果view定义存在则添加view，如果没有名称则以模型名称为视图名称
+			org.think2framework.view.persistence.View view = clazz
+					.getAnnotation(org.think2framework.view.persistence.View.class);
+			if (null != view) {
+				String viewName = StringUtils.isBlank(view.name()) ? name : view.name();
+				cellsMap.put(viewName, ViewSupport.getCells(clazz));
+				actionsMap.put(viewName, ViewSupport.getActions(clazz));
+			}
 		}
 	}
 
 	/**
-	 * 根据item定义生成备注
+	 * 追加配置文件模型，如果带*表示多个文件
 	 *
-	 * @param items
-	 *            item
-	 * @return 说明
+	 * @param filePath
+	 *            配置文件
+	 * @return 所有追加的模型的名称
 	 */
-	private static String getItemComment(List<Item> items) {
-		if (null != items && items.size() > 0) {
-			StringBuilder comment = new StringBuilder();
-			for (Item item : items) {
-				String m = item.getModel();
-				if (StringUtils.isNotBlank(m)) {
-					comment.append(",model=").append(m).append(",key=").append(item.getKey()).append(",value=")
-							.append(item.getValue());
-				} else {
-					comment.append(",").append(item.getKey()).append("-").append(item.getValue());
-				}
-			}
-			return comment.substring(1);
-		} else {
-			return "";
+	public static synchronized List<String> appendFiles(String filePath) {
+		List<String> names = new ArrayList<>();
+		if (StringUtils.isBlank(filePath)) {
+			return names;
 		}
+		File[] files = FileUtils.getFiles(filePath);
+		if (null == files) {
+			return names;
+		}
+		for (File file : files) {
+			List<Model> models = JsonUtils.readFile(file, new TypeReference<List<Model>>() {
+			});
+			appendModels(models);
+		}
+		return names;
+	}
+
+	/**
+	 * 追加cms通用字段
+	 */
+	private static void appendCmsFields(List<TableColumn> tableColumns, Map<String, EntityColumn> entityColumns) {
+		tableColumns.add(new TableColumn("modify_admin", TypeUtils.FIELD_INT, false, 11, 0, "", "最后修改人编号"));
+		tableColumns.add(new TableColumn("modify_time", TypeUtils.FIELD_INT, false, 15, 0, "", "最后修改时间"));
+		tableColumns.add(new TableColumn("comment", TypeUtils.FIELD_TEXT, true, 500, 0, "", "备注"));
+		entityColumns.put("modify_admin", new EntityColumn("modify_admin", "", ""));
+		entityColumns.put("modify_time", new EntityColumn("modify_time", "", ""));
+		entityColumns.put("comment", new EntityColumn("comment", "", ""));
+	}
+
+	/**
+	 * 追加模型
+	 *
+	 * @param models
+	 *            模型
+	 * @return 所有追加的模型的名称
+	 */
+	public static synchronized List<String> appendModels(List<Model> models) {
+		List<String> names = new ArrayList<>();
+		for (Model m : models) {
+			List<TableColumn> tableColumns = new ArrayList<>();
+			Map<String, EntityColumn> entityColumns = new LinkedHashMap<>();
+			// 追加系统主键
+			if (m.getAutoincrement()) {// 自增长
+				tableColumns.add(new TableColumn(m.getPk(), TypeUtils.FIELD_INT, false, 11, 0, "", "主键"));
+			} else {// GUID
+				tableColumns.add(new TableColumn(m.getPk(), TypeUtils.FIELD_TEXT, false, 32, 0, "", "主键"));
+			}
+			entityColumns.put(m.getPk(), new EntityColumn(m.getPk(), "", ""));
+			for (org.think2framework.bean.Column column : m.getColumns()) {
+				TableColumn tableColumn = ClassUtils.createTableColumn(column.getJoin(), column.getName(),
+						column.getTag(), !column.getRequired(), column.getLength(), column.getScale(),
+						column.getDefaultValue(), StringUtils.isBlank(column.getTitle()) ? "" : column.getTitle());
+				if (null != tableColumn) {
+					tableColumns.add(tableColumn);
+				}
+				entityColumns.put(StringUtils.isBlank(column.getAlias()) ? column.getName() : column.getAlias(),
+						new EntityColumn(column.getName(), column.getJoin(), column.getAlias()));
+			}
+			if (m.getCms()) {
+				appendCmsFields(tableColumns, entityColumns);
+			}
+			OrmFactory.appendTable(m.getName(), new org.think2framework.orm.bean.Table(m.getName(), m.getPk(),
+					m.getAutoincrement(), m.getUniques(), m.getIndexes(), m.getComment(), tableColumns));
+			OrmFactory.appendEntity(m.getName(),
+					new Entity(m.getTable(), m.getPk(), entityColumns, SelectHelp.generateJoins(m.getJoins()),
+							SelectHelp.generateColumns(entityColumns), m.getFilters(), m.getOrders()));
+			names.add(m.getName());
+		}
+		return names;
 	}
 
 	/**

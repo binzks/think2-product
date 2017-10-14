@@ -6,6 +6,7 @@ import org.think2framework.orm.bean.Order;
 import org.think2framework.orm.core.ClassUtils;
 import org.think2framework.orm.core.Database;
 import org.think2framework.orm.core.SelectHelp;
+import org.think2framework.orm.core.TypeUtils;
 import org.think2framework.utils.JsonUtils;
 import org.think2framework.utils.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -569,7 +570,7 @@ public class Query {
 	 *            order by字段名称
 	 */
 	public void desc(String... keys) {
-		this.orders.add(new Order(Arrays.asList(keys), ClassUtils.ORDER_TYPE_DESC));
+		this.orders.add(new Order(Arrays.asList(keys), TypeUtils.ORDER_TYPE_DESC));
 	}
 
 	/**
@@ -579,7 +580,7 @@ public class Query {
 	 *            order by字段名称
 	 */
 	public void asc(String... keys) {
-		this.orders.add(new Order(Arrays.asList(keys), ClassUtils.ORDER_TYPE_ASC));
+		this.orders.add(new Order(Arrays.asList(keys), TypeUtils.ORDER_TYPE_ASC));
 	}
 
 	/**

@@ -14,10 +14,10 @@ public @interface Action {
 
 	String title() default ""; // 标题
 
-	String type(); // 按钮类型
+	String type() default "1"; // 按钮类型
 
 	String href(); // 按钮点击后的href
 
-	String css(); // 按钮CSS样式
+	String clazz(); // 按钮class
 
 }

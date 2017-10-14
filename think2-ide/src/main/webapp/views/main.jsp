@@ -251,8 +251,12 @@
             }
             liObj = document.getElementById("menu_" + url);
         }
-        liObj.setAttribute("class", "active open");
-        liObj.parentNode.parentNode.setAttribute("class", "open");
+        liObj.setAttribute("class", "active");
+        liObj.parentNode.parentNode.setAttribute("class", "active open");
+        var parent = liObj.parentNode.parentNode.parentNode.parentNode;
+        if (parent.tagName == "LI") {
+            parent.setAttribute("class", "active open");
+        }
     }
 </script>
 </body>

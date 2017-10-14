@@ -1,7 +1,6 @@
 package org.think2framework.orm.persistence;
 
-
-import org.think2framework.orm.core.ClassUtils;
+import org.think2framework.orm.core.TypeUtils;
 
 import java.lang.annotation.*;
 
@@ -15,6 +14,6 @@ public @interface Order {
 
 	String[] keys(); // 排序字段
 
-	String type() default ClassUtils.ORDER_TYPE_DESC; // 排序类型
+	String type() default TypeUtils.ORDER_TYPE_DESC; // 排序类型
 
 }

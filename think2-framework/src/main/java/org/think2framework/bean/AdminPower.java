@@ -1,6 +1,5 @@
 package org.think2framework.bean;
 
-import org.think2framework.orm.core.ClassUtils;
 import org.think2framework.orm.persistence.Column;
 import org.think2framework.orm.persistence.JoinTable;
 import org.think2framework.orm.persistence.Table;
@@ -12,10 +11,10 @@ import org.think2framework.orm.persistence.Table;
 @JoinTable(name = "think2_module", table = "think2_module", key = "id", joinKey = "module_id")
 public class AdminPower extends BaseCms {
 
-	@Column(name = "admin_id", type = ClassUtils.TYPE_INTEGER, length = 11, comment = "管理员id")
+	@Column(name = "admin_id", length = 11, comment = "管理员id")
 	private Integer adminId;
 
-	@Column(name = "module_id", type = ClassUtils.TYPE_INTEGER, length = 11, comment = "模块id")
+	@Column(name = "module_id", length = 11, comment = "模块id")
 	private Integer moduleId;
 
 	@Column(length = 200, comment = "没有权限的列")
@@ -28,10 +27,10 @@ public class AdminPower extends BaseCms {
 	private String row;
 
 	@Column(name = "parent_id", join = "think2_module", alias = "module_parent_id")
-	private String moduleParentId;
+	private Integer moduleParentId;
 
 	@Column(name = "type", join = "think2_module", alias = "module_type")
-	private String moduleType;
+	private Integer moduleType;
 
 	@Column(name = "icon", join = "think2_module", alias = "module_icon")
 	private String moduleIcon;
@@ -45,7 +44,7 @@ public class AdminPower extends BaseCms {
 	@Column(name = "title", join = "think2_module", alias = "module_title")
 	private String moduleTitle;
 
-	@Column(name = "size", type = ClassUtils.TYPE_INTEGER, join = "think2_module", alias = "module_size")
+	@Column(name = "size", join = "think2_module", alias = "module_size")
 	private Integer moduleSize;
 
 	public Integer getAdminId() {
@@ -88,19 +87,19 @@ public class AdminPower extends BaseCms {
 		this.row = row;
 	}
 
-	public String getModuleParentId() {
+	public Integer getModuleParentId() {
 		return moduleParentId;
 	}
 
-	public void setModuleParentId(String moduleParentId) {
+	public void setModuleParentId(Integer moduleParentId) {
 		this.moduleParentId = moduleParentId;
 	}
 
-	public String getModuleType() {
+	public Integer getModuleType() {
 		return moduleType;
 	}
 
-	public void setModuleType(String moduleType) {
+	public void setModuleType(Integer moduleType) {
 		this.moduleType = moduleType;
 	}
 

@@ -114,17 +114,18 @@ public class Mysql implements Database {
 		StringBuilder sql = new StringBuilder();
 		sql.append("`").append(column.getName()).append("`");
 		String type = column.getType();
-		if (ClassUtils.TYPE_STRING.equalsIgnoreCase(type)) {
+		if (TypeUtils.FIELD_TEXT.equalsIgnoreCase(type)) {
 			sql.append(" varchar(").append(column.getLength()).append(")");
-		} else if (ClassUtils.TYPE_INTEGER.equalsIgnoreCase(type) || ClassUtils.TYPE_LONG.equalsIgnoreCase(type)) {
+		} else if (TypeUtils.FIELD_INT.equalsIgnoreCase(type) || TypeUtils.FIELD_TIMESTAMP.equalsIgnoreCase(type)
+				|| TypeUtils.FIELD_ITEM_INT.equalsIgnoreCase(type)) {
 			sql.append(" int(").append(column.getLength()).append(")");
-		} else if (ClassUtils.TYPE_BOOLEAN.equalsIgnoreCase(type)) {
+		} else if (TypeUtils.FIELD_BOOL.equalsIgnoreCase(type)) {
 			sql.append(" int(1)");
-		} else if (ClassUtils.TYPE_DOUBLE.equalsIgnoreCase(type) || ClassUtils.TYPE_FLOAT.equalsIgnoreCase(type)) {
+		} else if (TypeUtils.FIELD_FLOAT.equalsIgnoreCase(type)) {
 			sql.append(" decimal(").append(column.getLength()).append(",").append(column.getScale()).append(")");
-		} else if (ClassUtils.TYPE_JSON.equalsIgnoreCase(type) || ClassUtils.TYPE_LONGTEXT.equalsIgnoreCase(type)) {
+		} else if (TypeUtils.FIELD_JSON.equalsIgnoreCase(type)) {
 			sql.append(" longtext");
-		} else if (ClassUtils.TYPE_TEXT.equals(type)) {
+		} else if (TypeUtils.FIELD_TEXTAREA.equals(type)) {
 			sql.append(" text");
 		} else {
 			sql.append(" varchar(").append(column.getLength()).append(")");

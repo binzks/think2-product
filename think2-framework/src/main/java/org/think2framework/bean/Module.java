@@ -1,6 +1,5 @@
 package org.think2framework.bean;
 
-import org.think2framework.orm.core.ClassUtils;
 import org.think2framework.orm.persistence.Column;
 import org.think2framework.orm.persistence.Table;
 import org.think2framework.view.persistence.Item;
@@ -34,10 +33,10 @@ public class Module extends BaseCms {
 	@Column(comment = "模块链接")
 	private String uri;
 
-	@Column(type = ClassUtils.TYPE_INTEGER, length = 2, comment = "列表页面每页行数")
+	@Column(length = 2, comment = "列表页面每页行数")
 	private Integer size;
 
-	@Column(type = ClassUtils.TYPE_INTEGER, length = 2, comment = "排序")
+	@Column(length = 2, comment = "排序")
 	private Integer order;
 
 	public String getName() {

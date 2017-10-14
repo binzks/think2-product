@@ -50,9 +50,6 @@ public class AdminController {
 		if (ConstantFactory.COMMON_DISABLE == admin.getStatus()) {
 			return new ModelAndView("login", "msg", "管理员已停用");
 		}
-		if (0 == admin.getRoleId()) {
-			return new ModelAndView("login", "msg", "管理员尚未分配角色");
-		}
 		Query adminPowerQuery = ModelFactory.createQuery(AdminPower.class.getName());
 		adminPowerQuery.eq("admin_id", admin.getId());
 		List<AdminPower> adminPowers = adminPowerQuery.queryForList(AdminPower.class);

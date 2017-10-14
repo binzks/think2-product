@@ -2,7 +2,6 @@ package org.think2framework.orm.core;
 
 import org.think2framework.exception.NonExistException;
 import org.think2framework.exception.SimpleException;
-import org.think2framework.exception.UndefinedException;
 import org.think2framework.orm.bean.*;
 import org.think2framework.orm.persistence.Column;
 import org.think2framework.orm.persistence.JoinTable;
@@ -20,28 +19,6 @@ import java.util.*;
  * Created by zhoubin on 16/6/2. 类工具,主要处理类字段,读取和写入,以及创建实例
  */
 public class ClassUtils {
-
-	public static final String TYPE_STRING = "string"; // string类型
-
-	public static final String TYPE_INTEGER = "integer"; // integer类型
-
-	public static final String TYPE_LONG = "long"; // long类型
-
-	public static final String TYPE_BOOLEAN = "boolean"; // boolean类型
-
-	public static final String TYPE_DOUBLE = "double"; // double类型
-
-	public static final String TYPE_FLOAT = "float"; // float类型
-
-	public static final String TYPE_TEXT = "text"; // text类型
-
-	public static final String TYPE_LONGTEXT = "longtext"; // longtext类型
-
-	public static final String TYPE_JSON = "json"; // json类型
-
-	public static final String ORDER_TYPE_ASC = "ASC"; // 排序类型 asc
-
-	public static final String ORDER_TYPE_DESC = "DESC"; // 排序类型 DESC
 
 	public static final Integer TRUE_VALUE = 1; // bool类型的true值
 
@@ -207,14 +184,35 @@ public class ClassUtils {
 		}
 	}
 
-	private static org.think2framework.orm.persistence.Table getTableAnnotation(Class<?> clazz) {
-		org.think2framework.orm.persistence.Table table = clazz
-				.getAnnotation(org.think2framework.orm.persistence.Table.class);
-		if (null == table) {
-			throw new UndefinedException(
-					"Class " + clazz.getName() + " " + org.think2framework.orm.persistence.Table.class.getName());
+	/**
+	 * 根据字段属性创建一个表对应的字段，如果关联join不为空或者不等于主表，则表示不是主表字段返回null
+	 * 
+	 * @param join
+	 *            关联名称
+	 * @param name
+	 *            字段名称
+	 * @param type
+	 *            类型
+	 * @param nullable
+	 *            是否可空
+	 * @param length
+	 *            长度
+	 * @param scale
+	 *            小数位数
+	 * @param defaultValue
+	 *            默认值
+	 * @param comment
+	 *            注释
+	 * @return 字段
+	 */
+	public static TableColumn createTableColumn(String join, String name, String type, Boolean nullable, Integer length,
+			Integer scale, Object defaultValue, String comment) {
+		// 如果字段没有关联名称或者为主表别名则表示为表的字段,如果有关联名称表示关联表,不设置到表
+		if (StringUtils.isBlank(join) || join.equals(SelectHelp.TABLE_ALIAS)) {
+			return new TableColumn(name, type, nullable, length, scale, defaultValue, comment);
+		} else {
+			return null;
 		}
-		return table;
 	}
 
 	/**
@@ -225,28 +223,40 @@ public class ClassUtils {
 	 * @return table
 	 */
 	public static Table createTable(Class<?> clazz) {
-		org.think2framework.orm.persistence.Table table = getTableAnnotation(clazz);
-		List<Field> fields = getFields(clazz);
-		List<TableColumn> columns = new ArrayList<>();
-		if (null != fields) {
-			for (Field field : fields) {
-				Column columnAnnotation = field.getAnnotation(Column.class);
-				if (null != columnAnnotation) {
-					// 如果字段没有关联名称或者为主表别名则表示为表的字段,如果有关联名称表示关联表,不设置到表
-					if (StringUtils.isBlank(columnAnnotation.join())
-							|| columnAnnotation.join().equals(SelectHelp.TABLE_ALIAS)) {
-						TableColumn tableColumn = new TableColumn(
+		org.think2framework.orm.persistence.Table table = clazz
+				.getAnnotation(org.think2framework.orm.persistence.Table.class);
+		if (null == table) {
+			return null;
+		} else {
+			List<Field> fields = getFields(clazz);
+			List<TableColumn> columns = new ArrayList<>();
+			if (null != fields) {
+				for (Field field : fields) {
+					Column columnAnnotation = field.getAnnotation(Column.class);
+					if (null != columnAnnotation) {
+						String type = columnAnnotation.type();
+						// 如果字段类型是整型、长整型则设置类型为整型
+						String className = field.getClass().getName();
+						if (Integer.class.getName().equals(className) || Long.class.getName().equals(className)
+								|| Float.class.getName().equals(className)) {
+							type = TypeUtils.FIELD_INT;
+						} else if (Float.class.getName().equals(className)) { // 浮点型
+							type = TypeUtils.FIELD_FLOAT;
+						}
+						TableColumn tableColumn = createTableColumn(columnAnnotation.join(),
 								StringUtils.isBlank(columnAnnotation.name()) ? field.getName()
 										: columnAnnotation.name(),
-								columnAnnotation.type(), columnAnnotation.nullable(), columnAnnotation.length(),
-								columnAnnotation.scale(), columnAnnotation.defaultValue(), columnAnnotation.comment());
-						columns.add(tableColumn);
+								type, columnAnnotation.nullable(), columnAnnotation.length(), columnAnnotation.scale(),
+								columnAnnotation.defaultValue(), columnAnnotation.comment());
+						if (null != tableColumn) {
+							columns.add(tableColumn);
+						}
 					}
 				}
 			}
+			return new Table(table.name(), table.pk(), table.autoIncrement(), table.uniques(), table.indexes(),
+					table.comment(), columns);
 		}
-		return new Table(table.name(), table.pk(), table.autoIncrement(), table.uniques(), table.indexes(),
-				table.comment(), columns);
 	}
 
 	/**
@@ -257,62 +267,71 @@ public class ClassUtils {
 	 * @return 查询实体
 	 */
 	public static Entity createEntity(Class<?> clazz) {
-		org.think2framework.orm.persistence.Table table = getTableAnnotation(clazz);
-		Entity entity = new Entity();
-		entity.setTable(table.name());
-		entity.setPk(table.pk());
-		// 获取类定义的过滤条件
-		org.think2framework.orm.persistence.Filter[] filterAnnotations = clazz
-				.getAnnotationsByType(org.think2framework.orm.persistence.Filter.class);
-		if (null != filterAnnotations) {
-			List<Filter> filters = new ArrayList<>();
-			for (org.think2framework.orm.persistence.Filter filterAnnotation : filterAnnotations) {
-				filters.add(new Filter(filterAnnotation.key(), filterAnnotation.type(),
-						Arrays.asList(filterAnnotation.values())));
-			}
-			entity.setFilters(filters);
-		}
-		// 获取定义的排序
-		org.think2framework.orm.persistence.Order[] orderAnnotations = clazz
-				.getAnnotationsByType(org.think2framework.orm.persistence.Order.class);
-		if (null != orderAnnotations) {
-			List<Order> orders = new ArrayList<>();
-			for (org.think2framework.orm.persistence.Order orderAnnotation : orderAnnotations) {
-				orders.add(new Order(Arrays.asList(orderAnnotation.keys()), orderAnnotation.type()));
-			}
-			entity.setOrders(orders);
-		}
-		// 获取关联表
-		JoinTable[] joinTables = clazz.getDeclaredAnnotationsByType(JoinTable.class);
-		if (null != joinTables) {
-			List<Join> joins = new ArrayList<>();
-			for (JoinTable joinTable : joinTables) {
-				if (joinTable.name().equals(SelectHelp.TABLE_ALIAS)) {
-					throw new SimpleException(SelectHelp.TABLE_ALIAS
-							+ " is retained as the main table alias, can not be used as a join name");
+		org.think2framework.orm.persistence.Table table = clazz
+				.getAnnotation(org.think2framework.orm.persistence.Table.class);
+		if (null == table) {
+			return null;
+		} else {
+			Entity entity = new Entity();
+			entity.setTable(table.name());
+			entity.setPk(table.pk());
+			// 获取类定义的过滤条件
+			org.think2framework.orm.persistence.Filter[] filterAnnotations = clazz
+					.getAnnotationsByType(org.think2framework.orm.persistence.Filter.class);
+			if (null != filterAnnotations) {
+				List<Filter> filters = new ArrayList<>();
+				for (org.think2framework.orm.persistence.Filter filterAnnotation : filterAnnotations) {
+					filters.add(new Filter(filterAnnotation.key(), filterAnnotation.type(),
+							Arrays.asList(filterAnnotation.values())));
 				}
-				joins.add(new Join(joinTable.name(), joinTable.database(), joinTable.table(), joinTable.type(),
-						joinTable.key(), joinTable.joinName(), joinTable.joinKey(), joinTable.filter()));
+				entity.setFilters(filters);
 			}
-			entity.setJoinSql(SelectHelp.generateJoins(joins));
-		} else {
-			entity.setJoinSql("");
-		}
-		List<Field> fields = getFields(clazz);
-		Map<String, EntityColumn> columns = new LinkedHashMap<>();
-		if (null != fields) {
-			for (Field field : fields) {
-				Column columnAnnotation = field.getAnnotation(Column.class);
-				columns.put(
-						StringUtils.isBlank(columnAnnotation.alias()) ? columnAnnotation.name()
-								: columnAnnotation.alias(),
-						new EntityColumn(columnAnnotation.name(), columnAnnotation.join(), columnAnnotation.alias()));
+			// 获取定义的排序
+			org.think2framework.orm.persistence.Order[] orderAnnotations = clazz
+					.getAnnotationsByType(org.think2framework.orm.persistence.Order.class);
+			if (null != orderAnnotations) {
+				List<Order> orders = new ArrayList<>();
+				for (org.think2framework.orm.persistence.Order orderAnnotation : orderAnnotations) {
+					orders.add(new Order(Arrays.asList(orderAnnotation.keys()), orderAnnotation.type()));
+				}
+				entity.setOrders(orders);
 			}
-			entity.setColumns(columns);
-			entity.setColumnSql(SelectHelp.generateColumns(columns));
-		} else {
-			entity.setColumnSql("");
+			// 获取关联表
+			JoinTable[] joinTables = clazz.getDeclaredAnnotationsByType(JoinTable.class);
+			if (null != joinTables) {
+				List<Join> joins = new ArrayList<>();
+				for (JoinTable joinTable : joinTables) {
+					if (joinTable.name().equals(SelectHelp.TABLE_ALIAS)) {
+						throw new SimpleException(SelectHelp.TABLE_ALIAS
+								+ " is retained as the main table alias, can not be used as a join name");
+					}
+					joins.add(new Join(joinTable.name(), joinTable.database(), joinTable.table(), joinTable.type(),
+							joinTable.key(), joinTable.joinName(), joinTable.joinKey(), joinTable.filter()));
+				}
+				entity.setJoinSql(SelectHelp.generateJoins(joins));
+			} else {
+				entity.setJoinSql("");
+			}
+			List<Field> fields = getFields(clazz);
+			Map<String, EntityColumn> columns = new LinkedHashMap<>();
+			if (null != fields) {
+				for (Field field : fields) {
+					Column columnAnnotation = field.getAnnotation(Column.class);
+					if (null == columnAnnotation) {
+						continue;
+					}
+					// 如果名称没有定义则去字段名称
+					String name = StringUtils.isBlank(columnAnnotation.name()) ? field.getName()
+							: columnAnnotation.name();
+					columns.put(StringUtils.isBlank(columnAnnotation.alias()) ? name : columnAnnotation.alias(),
+							new EntityColumn(name, columnAnnotation.join(), columnAnnotation.alias()));
+				}
+				entity.setColumns(columns);
+				entity.setColumnSql(SelectHelp.generateColumns(columns));
+			} else {
+				entity.setColumnSql("");
+			}
+			return entity;
 		}
-		return entity;
 	}
 }

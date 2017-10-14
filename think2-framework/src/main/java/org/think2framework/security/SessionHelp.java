@@ -1,11 +1,8 @@
 package org.think2framework.security;
 
-import org.think2framework.ModelFactory;
 import org.think2framework.bean.AdminPower;
 import org.think2framework.exception.NonsupportException;
 import org.think2framework.exception.SimpleException;
-import org.think2framework.utils.NumberUtils;
-import org.think2framework.utils.StringUtils;
 import org.think2framework.view.HtmlTag;
 import org.think2framework.view.bean.View;
 import org.think2framework.view.core.ATag;
@@ -13,7 +10,6 @@ import org.think2framework.view.core.SimpleHtmlTag;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Map;
 
 public class SessionHelp {
 
@@ -67,27 +63,26 @@ public class SessionHelp {
 	 */
 	private static void initMenu(HttpSession session, List<AdminPower> powers, HtmlTag parent, Integer parentId) {
 		for (AdminPower adminPower : powers) {
-			if (parentId.equals(adminPower.getModuleParentId())) {
-				String type = adminPower.getModuleType();
+			if (parentId == adminPower.getModuleParentId()) {
 				Integer moduleId = adminPower.getModuleId();
-				if ("0".equals(type)) { // 模块组
+				if (0 == adminPower.getModuleType()) { // 模块组
 					HtmlTag liTag = createGroupTag(adminPower.getModuleTitle(), adminPower.getModuleIcon());
 					HtmlTag ulTag = new SimpleHtmlTag("ul", "submenu");
 					liTag.appendChild(ulTag);
 					initMenu(session, powers, ulTag, moduleId);
 					parent.appendChild(liTag);
-				} else if ("1".equals(type)) { // 模块
-					parent.appendChild(createModuleTag(moduleId, adminPower.getModuleUri(),
-							adminPower.getModuleTitle()));
-//					session.setAttribute("module_" + moduleId,
-//							ModelFactory.createView(StringUtils.toString(module.get("module_model")),
-//									StringUtils.toString(module.get("module_title")),
-//									StringUtils.toString(module.get("module_uri")),
-//									NumberUtils.toInt(module.get("module_size"), 10),
-//									StringUtils.toString(module.get("module_columns")),
-//									StringUtils.toString(module.get("module_actions"))));
+				} else if (1 == adminPower.getModuleType()) { // 模块
+					parent.appendChild(
+							createModuleTag(moduleId, adminPower.getModuleUri(), adminPower.getModuleTitle()));
+					// session.setAttribute("module_" + moduleId,
+					// ModelFactory.createView(StringUtils.toString(module.get("module_model")),
+					// StringUtils.toString(module.get("module_title")),
+					// StringUtils.toString(module.get("module_uri")),
+					// NumberUtils.toInt(module.get("module_size"), 10),
+					// StringUtils.toString(module.get("module_columns")),
+					// StringUtils.toString(module.get("module_actions"))));
 				} else {
-					throw new NonsupportException("模块类型" + type);
+					throw new NonsupportException("模块类型" + adminPower.getModuleType());
 				}
 			}
 		}
@@ -125,7 +120,8 @@ public class SessionHelp {
 	 * @return 模块li标签
 	 */
 	private static HtmlTag createModuleTag(Integer id, String uri, String name) {
-		HtmlTag aTag = new ATag(uri + id + ".page", null, name);
+		HtmlTag aTag = new ATag(uri + id + ".page");
+		aTag.setText(name);
 		aTag.appendChild(new SimpleHtmlTag("i", "menu-icon fa fa-caret-right"));
 		HtmlTag liTag = new SimpleHtmlTag("li");
 		liTag.setAttribute("id", "menu_" + uri + id);

@@ -45,10 +45,10 @@
                     <div class="center">
                         <h1>
                             <i class="ace-icon fa fa-leaf green"></i>
-                            <span class="red">WST</span>
-                            <span class="grey" id="id-text2">后台管理系统</span>
+                            <span class="red">Think2</span>
+                            <span class="grey" id="id-text2">IDE系统</span>
                         </h1>
-                        <h4 class="blue" id="id-company-text">&copy; 微商通</h4>
+                        <h4 class="blue" id="id-company-text">&copy; Think2</h4>
                     </div>
 
                     <div class="space-6"></div>

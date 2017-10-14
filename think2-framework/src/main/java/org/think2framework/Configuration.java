@@ -3,7 +3,6 @@ package org.think2framework;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.think2framework.support.DatasourceSupport;
 import org.think2framework.utils.StringUtils;
 
 /**
@@ -26,7 +25,7 @@ public class Configuration implements ApplicationContextAware {
 	 */
 	public void setDatasource(String datasource) {
 		if (StringUtils.isBlank(dsFiles)) {
-			DatasourceSupport.loadFiles(this.getClass().getResource("/").getPath() + datasource, false);
+			ModelFactory.loadFiles(this.getClass().getResource("/").getPath() + datasource, false);
 			dsFiles = datasource;
 		}
 	}
