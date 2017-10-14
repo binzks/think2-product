@@ -1,6 +1,5 @@
 package org.think2framework.orm.persistence;
 
-import org.think2framework.orm.core.ClassUtils;
 import org.think2framework.orm.core.TypeUtils;
 
 import java.lang.annotation.Retention;

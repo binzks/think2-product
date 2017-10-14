@@ -14,7 +14,6 @@ import org.think2framework.orm.bean.TableColumn;
 import org.think2framework.orm.core.ClassUtils;
 import org.think2framework.orm.core.SelectHelp;
 import org.think2framework.orm.core.TypeUtils;
-import org.think2framework.support.ViewSupport;
 import org.think2framework.utils.FileUtils;
 import org.think2framework.utils.JsonUtils;
 import org.think2framework.utils.PackageUtils;
@@ -119,12 +118,11 @@ public class ModelFactory {
 			OrmFactory.appendEntity(name, entity);
 			databases.put(name, new Database(query, StringUtils.isBlank(writer) ? query : writer, redis, valid));
 			// 如果view定义存在则添加view，如果没有名称则以模型名称为视图名称
-			org.think2framework.view.persistence.View view = clazz
-					.getAnnotation(org.think2framework.view.persistence.View.class);
+			org.think2framework.view.persistence.View view = org.think2framework.view.core.ClassUtils.getView(clazz);
 			if (null != view) {
 				String viewName = StringUtils.isBlank(view.name()) ? name : view.name();
-				cellsMap.put(viewName, ViewSupport.getCells(clazz));
-				actionsMap.put(viewName, ViewSupport.getActions(clazz));
+				cellsMap.put(viewName, org.think2framework.view.core.ClassUtils.createCells(clazz));
+				actionsMap.put(viewName, org.think2framework.view.core.ClassUtils.createActions(clazz));
 			}
 		}
 	}

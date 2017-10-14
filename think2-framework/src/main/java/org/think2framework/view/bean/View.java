@@ -5,7 +5,9 @@ import org.think2framework.view.HtmlTag;
 import org.think2framework.view.core.ATag;
 import org.think2framework.view.core.SimpleHtmlTag;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zhoubin on 2017/6/12. 视图定义
@@ -27,10 +29,13 @@ public class View {
 	private List<Action> actions; // 模型的按钮定义
 
 	@JsonIgnore
-	private HtmlTag tableHead; // 视图对应的表格数据的头
+	private String tableHeadHtml = null; // 视图对应的表格数据的头
 
 	@JsonIgnore
-	private HtmlTag searchHead; // 视图搜索头，包含各个功能按钮
+	private HtmlTag search; // 搜索框
+
+	@JsonIgnore
+	private Map<String, HtmlTag> searchItems; // 搜索项
 
 	public View() {
 	}
@@ -121,9 +126,9 @@ public class View {
 	 * 
 	 * @return 表头
 	 */
-	public HtmlTag getTableHead() {
-		if (null == tableHead) {
-			tableHead = new SimpleHtmlTag("thead");
+	public String getTableHeadHtml() {
+		if (null == tableHeadHtml) {
+			HtmlTag tableHead = new SimpleHtmlTag("thead");
 			for (Cell cell : cells) {
 				if (cell.getDisplay()) {
 					tableHead.appendChild(createTh(cell.getTitle(), cell.getWidth()));
@@ -147,8 +152,9 @@ public class View {
 					tableHead.appendChild(createTh("操作", actionCount));
 				}
 			}
+			tableHeadHtml = tableHead.htmlString();
 		}
-		return tableHead;
+		return tableHeadHtml;
 	}
 
 	/**
@@ -156,15 +162,33 @@ public class View {
 	 * 
 	 * @return 搜索头
 	 */
-	public HtmlTag getSearchHead() {
-		if (null == searchHead) {
-			searchHead = new SimpleHtmlTag("div", "widget-header");
+	public HtmlTag getSearch() {
+		if (null == search) {
+			search = new SimpleHtmlTag("div", "widget-box");
+			searchItems = new HashMap<>();
+			HtmlTag searchHead = new SimpleHtmlTag("div", "widget-header");
+			HtmlTag searchBody = new SimpleHtmlTag("div", "widget-body");
 			searchHead.appendChild(new SimpleHtmlTag("h5", "widget-title", "搜索"));
 			Boolean hasSearch = false;
+			HtmlTag searchCol = new SimpleHtmlTag("div", "col-xs-12 align-center");
 			for (Cell cell : cells) {
 				if (cell.getSearch()) {
+					searchCol.appendChild(new SimpleHtmlTag("div", "col-xs-1 align-right", cell.getTitle()));
+					HtmlTag div = new SimpleHtmlTag("div", "col-xs-3");
+					HtmlTag item = new SimpleHtmlTag("input", cell.getName(), "col-xs-12");
+					div.appendChild(item);
+					searchCol.appendChild(div);
+					searchItems.put(cell.getName(), item);
 					hasSearch = true;
 				}
+			}
+			if (searchCol.hasChild()) {
+				// 设置搜索内容
+				HtmlTag divRow = new SimpleHtmlTag("div", "row");
+				divRow.appendChild(searchCol);
+				HtmlTag widgetMain = new SimpleHtmlTag("div", "widget-main");
+				widgetMain.appendChild(divRow);
+				searchBody.appendChild(widgetMain);
 			}
 			// 如果有搜索条件则添加查询按钮和下拉上拉按钮
 			if (hasSearch) {
@@ -192,7 +216,21 @@ public class View {
 					searchHead.appendChild(widgetToolbar);
 				}
 			}
+			search.appendChild(searchHead);
+			search.appendChild(searchBody);
 		}
-		return searchHead;
+		return search;
+	}
+
+	/**
+	 * 获取搜索内容标签
+	 * 
+	 * @return 搜索内容
+	 */
+	public Map<String, HtmlTag> getSearchItems() {
+		if (null == searchItems) {
+			getSearch();
+		}
+		return searchItems;
 	}
 }

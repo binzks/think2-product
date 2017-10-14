@@ -1,5 +1,6 @@
 package org.think2framework.security;
 
+import org.think2framework.ModelFactory;
 import org.think2framework.bean.AdminPower;
 import org.think2framework.exception.NonsupportException;
 import org.think2framework.exception.SimpleException;
@@ -74,13 +75,10 @@ public class SessionHelp {
 				} else if (1 == adminPower.getModuleType()) { // 模块
 					parent.appendChild(
 							createModuleTag(moduleId, adminPower.getModuleUri(), adminPower.getModuleTitle()));
-					// session.setAttribute("module_" + moduleId,
-					// ModelFactory.createView(StringUtils.toString(module.get("module_model")),
-					// StringUtils.toString(module.get("module_title")),
-					// StringUtils.toString(module.get("module_uri")),
-					// NumberUtils.toInt(module.get("module_size"), 10),
-					// StringUtils.toString(module.get("module_columns")),
-					// StringUtils.toString(module.get("module_actions"))));
+					session.setAttribute("module_" + moduleId,
+							ModelFactory.createView(adminPower.getModuleModel(), adminPower.getModuleTitle(),
+									adminPower.getModuleUri(), adminPower.getModuleSize(), adminPower.getColumns(),
+									adminPower.getActions()));
 				} else {
 					throw new NonsupportException("模块类型" + adminPower.getModuleType());
 				}

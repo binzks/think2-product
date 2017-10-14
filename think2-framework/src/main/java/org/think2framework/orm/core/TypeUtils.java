@@ -1,7 +1,7 @@
 package org.think2framework.orm.core;
 
 /**
- * 字段类型定义
+ * 类型定义
  */
 public class TypeUtils {
 

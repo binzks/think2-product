@@ -3,13 +3,11 @@ package org.think2framework.bean;
 import org.think2framework.orm.persistence.Column;
 import org.think2framework.orm.persistence.Table;
 import org.think2framework.view.persistence.Cell;
-import org.think2framework.view.persistence.View;
 
 /**
  * cms系统管理员
  */
 @Table(name = "think2_admin", indexes = { "status" }, uniques = { "code" }, comment = "系统管理员")
-@View
 public class Admin extends BaseCms {
 
 	@Column(nullable = false, comment = "编号")

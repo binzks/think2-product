@@ -1,7 +1,7 @@
 package org.think2framework.bean;
 
+import org.think2framework.orm.core.TypeUtils;
 import org.think2framework.view.bean.Item;
-import org.think2framework.view.core.TagUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +70,7 @@ public class Column {
 	public void setTag(String tag) {
 		this.tag = tag;
 		// 如果是bool类型则增加item，1-true，0-false
-		if (TagUtils.TAG_BOOL.equalsIgnoreCase(tag)) {
+		if (TypeUtils.FIELD_BOOL.equalsIgnoreCase(tag)) {
 			defaultValue = "0";
 			length = 1;
 			items = new ArrayList<>();

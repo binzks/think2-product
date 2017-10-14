@@ -1,6 +1,6 @@
 package org.think2framework.view.persistence;
 
-import org.think2framework.view.core.TagUtils;
+import org.think2framework.orm.core.TypeUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -20,7 +20,7 @@ public @interface Cell {
 
 	String title(); // 标题
 
-	String tag() default TagUtils.TAG_TEXT; // 标签，根据标签操作单元，默认问文本
+	String tag() default TypeUtils.FIELD_TEXT; // 标签，根据标签操作单元，默认问文本
 
 	boolean required() default false; // 是否必填项，默认false
 
