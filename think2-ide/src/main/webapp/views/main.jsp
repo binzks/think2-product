@@ -94,7 +94,7 @@
                         <li class="divider"></li>
 
                         <li>
-                            <a href="/quick/admin/logout.do">
+                            <a href="/think2/admin/logout.do">
                                 <i class="ace-icon fa fa-power-off"></i>
                                 注销
                             </a>

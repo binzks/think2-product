@@ -22,9 +22,9 @@ public class ConstantFactory {
 
 	private static final Logger logger = LogManager.getLogger(ConstantFactory.class);
 
-	public static final String COMMON_VALID = "0"; // 通用审核通过状态值
+	public static final Integer COMMON_VALID = 0; // 通用审核通过状态值
 
-	public static final String COMMON_DISABLE = "99"; // 通用停用状态值
+	public static final Integer COMMON_DISABLE = 99; // 通用停用状态值
 
 	private static String constantFiles; // 常量配置文件
 
@@ -67,8 +67,8 @@ public class ConstantFactory {
 				append(constant);
 			}
 		}
-		append(new Constant("common_valid", "审核通过", null, COMMON_VALID));
-		append(new Constant("common_disable", "停用", null, COMMON_DISABLE));
+		append(new Constant("common_valid", "审核通过", null, COMMON_VALID.toString()));
+		append(new Constant("common_disable", "停用", null, COMMON_DISABLE.toString()));
 		logger.debug("Reload constant config file {}", constantFiles);
 	}
 

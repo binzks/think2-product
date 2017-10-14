@@ -11,7 +11,7 @@ public class BaseCms {
 	@Column(type = ClassUtils.TYPE_INTEGER, nullable = false, length = 11, comment = "主键")
 	private Integer id;
 
-	@Column(type = ClassUtils.TYPE_INTEGER, nullable = false, length = 1, comment = "状态0-启用 1-停用")
+	@Column(type = ClassUtils.TYPE_INTEGER, nullable = false, length = 1, defaultValue = "99", comment = "状态0-启用 99-停用")
 	private Integer status;
 
 	@Column(name = "modify_time", type = ClassUtils.TYPE_INTEGER, nullable = false, length = 10, comment = "最后修改时间")

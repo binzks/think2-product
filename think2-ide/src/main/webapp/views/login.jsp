@@ -64,7 +64,7 @@
 
                                     <div class="space-6"></div>
                                     <div style="color: red">${msg}</div>
-                                    <form action="/quick/admin/login.do" method="post">
+                                    <form action="/think2/admin/login.do" method="post">
                                         <fieldset>
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
-@RequestMapping(value = "/quick/api")
+@RequestMapping(value = "/think2/api")
 public class ApiController {
 
 	@RequestMapping(value = "/ct.api")

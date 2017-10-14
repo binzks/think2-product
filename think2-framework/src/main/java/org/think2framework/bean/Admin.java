@@ -25,7 +25,7 @@ public class Admin extends BaseCms {
 	@Column(comment = "email")
 	private String email;
 
-	@Column(name = "role_id", type = ClassUtils.TYPE_INTEGER, comment = "角色id")
+	@Column(name = "role_id", type = ClassUtils.TYPE_INTEGER, defaultValue = "0", comment = "角色id")
 	private Integer roleId;
 
 	public String getCode() {

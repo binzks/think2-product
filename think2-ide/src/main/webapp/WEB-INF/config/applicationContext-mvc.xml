@@ -44,8 +44,8 @@
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <!--排除拦截-->
-            <mvc:exclude-mapping path="/quick/admin/welcome.do"/>
-            <mvc:exclude-mapping path="/quick/admin/login.do"/>
+            <mvc:exclude-mapping path="/think2/admin/welcome.do"/>
+            <mvc:exclude-mapping path="/think2/admin/login.do"/>
             <mvc:exclude-mapping path="/**/*.api"/>
             <mvc:exclude-mapping path="/**/*.css"/>
             <mvc:exclude-mapping path="/**/*.js"/>

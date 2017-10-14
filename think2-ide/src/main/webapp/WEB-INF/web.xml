@@ -4,7 +4,7 @@
          version="3.0">
     <display-name>think2-ide</display-name>
     <welcome-file-list>
-        <welcome-file>quick/admin/welcome.do</welcome-file>
+        <welcome-file>think2/admin/welcome.do</welcome-file>
     </welcome-file-list>
     <!-- 监听spring上下文容器 -->
     <listener>

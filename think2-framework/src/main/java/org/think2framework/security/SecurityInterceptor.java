@@ -17,8 +17,13 @@ public class SecurityInterceptor implements HandlerInterceptor {
 		if (SessionHelp.isLogin(request.getSession())) {
 			return true;
 		} else {
-			response.sendRedirect("/quick/admin/welcome.do");
-			return false;
+			response.sendRedirect("/think2/admin/welcome.do");
+//			if ("/".equals(request.getRequestURI()) || "/think2/admin/welcome.do".equals(request.getRequestURI())) {
+//				return true;
+//			} else {
+//				return false;
+//			}
+            return false;
 		}
 	}
 

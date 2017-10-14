@@ -24,7 +24,7 @@ public @interface JoinTable {
 
 	String joinKey(); // 关联的关联的表的字段名称
 
-	String filter(); // 额外的过滤条件
+	String filter() default ""; // 额外的过滤条件
 
 	String comment() default ""; // 注释
 }
