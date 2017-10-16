@@ -6,7 +6,7 @@ import org.think2framework.exception.NonsupportException;
 import org.think2framework.exception.SimpleException;
 import org.think2framework.utils.StringUtils;
 import org.think2framework.view.HtmlTag;
-import org.think2framework.view.bean.View;
+import org.think2framework.view.View;
 import org.think2framework.view.core.ATag;
 import org.think2framework.view.core.SimpleHtmlTag;
 

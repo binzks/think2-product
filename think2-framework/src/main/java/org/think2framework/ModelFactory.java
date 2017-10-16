@@ -21,7 +21,7 @@ import org.think2framework.utils.StringUtils;
 import org.think2framework.view.bean.Action;
 import org.think2framework.view.bean.BaseView;
 import org.think2framework.view.bean.Cell;
-import org.think2framework.view.bean.View;
+import org.think2framework.view.View;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
