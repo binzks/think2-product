@@ -46,6 +46,7 @@ public class AbstractHtmlTag implements HtmlTag {
 	public void appendChild(HtmlTag child) {
 		if (null != child) {
 			children.add(child);
+			childSize++;
 		}
 	}
 

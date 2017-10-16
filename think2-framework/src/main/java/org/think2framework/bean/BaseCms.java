@@ -9,8 +9,8 @@ import org.think2framework.view.persistence.View;
  */
 @View
 @Action(name = "add", title = "添加", type = "0", href = "/tpl/add", clazz = "purple ace-icon fa fa-plus-circle bigger-130")
-@Action(name = "edit", title = "修改", href = "/tpl/edit", clazz = "green ace-icon fa fa-pencil bigger-130")
 @Action(name = "detail", title = "详情", href = "/tpl/detail", clazz = "ace-icon fa fa-search-plus bigger-130")
+@Action(name = "edit", title = "修改", href = "/tpl/edit", clazz = "green ace-icon fa fa-pencil bigger-130")
 public class BaseCms {
 
 	@Column(nullable = false, length = 11, comment = "主键")

@@ -4,6 +4,7 @@ import org.think2framework.ModelFactory;
 import org.think2framework.bean.AdminPower;
 import org.think2framework.exception.NonsupportException;
 import org.think2framework.exception.SimpleException;
+import org.think2framework.utils.StringUtils;
 import org.think2framework.view.HtmlTag;
 import org.think2framework.view.bean.View;
 import org.think2framework.view.core.ATag;
@@ -77,8 +78,8 @@ public class SessionHelp {
 							createModuleTag(moduleId, adminPower.getModuleUri(), adminPower.getModuleTitle()));
 					session.setAttribute("module_" + moduleId,
 							ModelFactory.createView(adminPower.getModuleModel(), adminPower.getModuleTitle(),
-									adminPower.getModuleUri(), adminPower.getModuleSize(), adminPower.getColumns(),
-									adminPower.getActions()));
+									StringUtils.toString(moduleId), adminPower.getModuleUri(),
+									adminPower.getModuleSize(), adminPower.getColumns(), adminPower.getActions()));
 				} else {
 					throw new NonsupportException("模块类型" + adminPower.getModuleType());
 				}
@@ -118,12 +119,9 @@ public class SessionHelp {
 	 * @return 模块li标签
 	 */
 	private static HtmlTag createModuleTag(Integer id, String uri, String name) {
-		HtmlTag aTag = new ATag(uri + id + ".page");
-		aTag.setText(name);
-		aTag.appendChild(new SimpleHtmlTag("i", "menu-icon fa fa-caret-right"));
 		HtmlTag liTag = new SimpleHtmlTag("li");
 		liTag.setAttribute("id", "menu_" + uri + id);
-		liTag.appendChild(aTag);
+		liTag.appendChild(new ATag(uri + id + ".page", "", name, "menu-icon fa fa-caret-right"));
 		liTag.appendChild(new SimpleHtmlTag("b", "arrow"));
 		return liTag;
 	}

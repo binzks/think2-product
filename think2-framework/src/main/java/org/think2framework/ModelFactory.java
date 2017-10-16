@@ -19,6 +19,7 @@ import org.think2framework.utils.JsonUtils;
 import org.think2framework.utils.PackageUtils;
 import org.think2framework.utils.StringUtils;
 import org.think2framework.view.bean.Action;
+import org.think2framework.view.bean.BaseView;
 import org.think2framework.view.bean.Cell;
 import org.think2framework.view.bean.View;
 import org.apache.logging.log4j.LogManager;
@@ -36,9 +37,7 @@ public class ModelFactory {
 
 	private static Map<String, Database> databases = new HashMap<>(); // 模型对应的数据库配置
 
-	private static Map<String, List<Cell>> cellsMap = new HashMap<>(); // 模型对应的视图列
-
-	private static Map<String, List<Action>> actionsMap = new HashMap<>(); // 模型对应的按钮定义
+	private static Map<String, BaseView> baseViews = new HashMap<>(); // 模型对应的视图信息
 
 	/**
 	 * 从配置文件加载数据源
@@ -108,6 +107,20 @@ public class ModelFactory {
 		appendClass(query, writer, redis, valid, c);
 	}
 
+	/**
+	 * 根据类定义追加一个模型
+	 * 
+	 * @param query
+	 *            查询数据源
+	 * @param writer
+	 *            写入数据源（没有则用查询数据源）
+	 * @param redis
+	 *            redis数据源
+	 * @param valid
+	 *            redis缓存时间
+	 * @param clazz
+	 *            类
+	 */
 	public static synchronized void appendClass(String query, String writer, String redis, Integer valid,
 			Class<?> clazz) {
 		Table table = ClassUtils.createTable(clazz);
@@ -121,8 +134,9 @@ public class ModelFactory {
 			org.think2framework.view.persistence.View view = org.think2framework.view.core.ClassUtils.getView(clazz);
 			if (null != view) {
 				String viewName = StringUtils.isBlank(view.name()) ? name : view.name();
-				cellsMap.put(viewName, org.think2framework.view.core.ClassUtils.createCells(clazz));
-				actionsMap.put(viewName, org.think2framework.view.core.ClassUtils.createActions(clazz));
+				baseViews.put(viewName,
+						new BaseView(entity.getPk(), org.think2framework.view.core.ClassUtils.createCells(clazz),
+								org.think2framework.view.core.ClassUtils.createActions(clazz)));
 			}
 		}
 	}
@@ -206,40 +220,6 @@ public class ModelFactory {
 	}
 
 	/**
-	 * 追加一个模型的单元格
-	 * 
-	 * @param name
-	 *            模型名称
-	 * @param cells
-	 *            模型对应视图单元格
-	 */
-	private static void setCell(String name, List<Cell> cells) {
-		if (null == cellsMap.get(name)) {
-			cellsMap.put(name, cells);
-			logger.debug("Append cells {} {}", name);
-		} else {
-			logger.warn("Cells {} is already exist", name);
-		}
-	}
-
-	/**
-	 * 追加一个模型定义的按钮
-	 * 
-	 * @param name
-	 *            模型名称
-	 * @param actions
-	 *            按钮
-	 */
-	private static void setAction(String name, List<Action> actions) {
-		if (null == actionsMap.get(name)) {
-			actionsMap.put(name, actions);
-			logger.debug("Append actions {} {}", name);
-		} else {
-			logger.warn("Actions {} is already exist", name);
-		}
-	}
-
-	/**
 	 * 根据名称获取数据库配置
 	 *
 	 * @param name
@@ -302,22 +282,15 @@ public class ModelFactory {
 	 *            没有权限的按钮
 	 * @return 视图
 	 */
-	public static View createView(String name, String title, String uri, Integer size, String columns, String actions) {
-		List<Cell> cells = cellsMap.get(name);
-		if (null == cells) {
-			throw new NonExistException("Model " + name + " cells");
+	public static View createView(String name, String title, String moduleId, String uri, Integer size, String columns,
+			String actions) {
+		BaseView baseView = baseViews.get(name);
+		if (null == baseView) {
+			throw new NonExistException("Model " + name + " base view");
 		}
-		List<Action> actionList = actionsMap.get(name);
-		if (null == actionList) {
-			throw new NonExistException("Model " + name + " actions");
-		}
-		View newView = new View();
-		newView.setName(name);
-		newView.setTitle(title);
-		newView.setUri(uri);
-		newView.setSize(size);
 		List<Cell> newCells = new ArrayList<>();
 		List<Action> newActions = new ArrayList<>();
+		List<Cell> cells = baseView.getCells();
 		if (null != cells && cells.size() > 0) {
 			if (StringUtils.isBlank(columns)) {
 				newCells.addAll(cells);
@@ -329,8 +302,8 @@ public class ModelFactory {
 					}
 				}
 			}
-			newView.setCells(newCells);
 		}
+		List<Action> actionList = baseView.getActions();
 		if (null != actionList && actionList.size() > 0) {
 			if (StringUtils.isBlank(actions)) {
 				newActions.addAll(actionList);
@@ -342,9 +315,8 @@ public class ModelFactory {
 					}
 				}
 			}
-			newView.setActions(newActions);
 		}
-		return newView;
+		return new View(name, title, moduleId, uri, size, baseView.getPk(), newCells, newActions);
 	}
 
 }
