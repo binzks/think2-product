@@ -17,6 +17,8 @@ public class AbstractHtmlTag implements HtmlTag {
 
 	protected String text; // 文本内容
 
+	protected String value; // 文本值
+
 	private Integer childSize = 0; // 子标签数量
 
 	protected Map<String, String> attributes = new HashMap<>();// 属性
@@ -78,7 +80,8 @@ public class AbstractHtmlTag implements HtmlTag {
 
 	@Override
 	public void setValue(String value) {
-		text = value;
+		attributes.put("value", value);
+		this.value = value;
 	}
 
 	@Override
@@ -88,11 +91,16 @@ public class AbstractHtmlTag implements HtmlTag {
 
 	@Override
 	public String getValue() {
-		return text;
+		return value;
 	}
 
 	@Override
 	public String getText() {
-		return text;
+		// 如果文本内容为空并且值不是空则返回值
+		if (StringUtils.isBlank(text) && StringUtils.isNotBlank(value)) {
+			return value;
+		} else {
+			return text;
+		}
 	}
 }

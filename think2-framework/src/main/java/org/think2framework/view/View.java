@@ -32,7 +32,7 @@ public class View {
 
 	private String searchActionHtml = ""; // 模块整体的按钮
 
-	private HtmlTag searchHtmlTag; // 搜索项主体标签
+	private HtmlTag searchTag; // 搜索页面
 
 	private Map<String, HtmlTag> searchHtmlTags; // 搜索项各个具体的html标签
 
@@ -42,9 +42,11 @@ public class View {
 
 	private Map<String, String> defaultValues; // 设置了默认值的字段
 
-	private String addHtml = ""; // 添加页面html
+	private HtmlTag addTag; // 添加页面
 
 	private Map<String, HtmlTag> addHtmlTags; // 添加页面标签
+
+	private HtmlTag editTag; // 编辑页面
 
 	private Map<String, HtmlTag> editHtmlTags; // 编辑页面标签
 
@@ -56,7 +58,9 @@ public class View {
 		this.uri = uri;
 		this.pk = pk;
 		this.size = size;
-		searchHtmlTag = new SimpleHtmlTag("div", "col-xs-12");
+		searchTag = new SimpleHtmlTag("div", "col-xs-12");
+		addTag = new SimpleHtmlTag("div");
+		editTag = new SimpleHtmlTag("div");
 		searchHtmlTags = new LinkedHashMap<>();
 		listActions = new ArrayList<>();
 		listHtmlTags = new LinkedHashMap<>();
@@ -83,21 +87,16 @@ public class View {
 		return size;
 	}
 
-	/**
-	 * 获取视图对应的表头
-	 *
-	 * @return 表头
-	 */
+	public String getPk() {
+		return pk;
+	}
+
 	public String getTableHeadHtml() {
 		return tableHeadHtml;
 	}
 
 	public String getSearchActionHtml() {
 		return searchActionHtml;
-	}
-
-	public String getSearchHtml() {
-		return searchHtmlTag.htmlString();
 	}
 
 	public Map<String, HtmlTag> getSearchHtmlTags() {
@@ -112,12 +111,20 @@ public class View {
 		return addHtmlTags;
 	}
 
-	public String getAddHtml() {
-		return addHtml;
-	}
-
 	public Map<String, HtmlTag> getEditHtmlTags() {
 		return editHtmlTags;
+	}
+
+	public String getSearchHtml() {
+		return searchTag.htmlString();
+	}
+
+	public String getAddHtml() {
+		return addTag.childrenString();
+	}
+
+	public String getEditHtml() {
+		return editTag.childrenString();
 	}
 
 	private void initCells(List<Cell> cells, Integer actionCount) {
@@ -125,45 +132,45 @@ public class View {
 			return;
 		}
 		HtmlTag tableHead = new SimpleHtmlTag("thead");
-		HtmlTag add = new SimpleHtmlTag("div");
 		for (Cell cell : cells) {
 			if (cell.getDisplay()) {
 				tableHead.appendChild(createTh(cell.getTitle(), cell.getWidth()));
 			}
-			if (cell.getSearch()) {
-				searchHtmlTag.appendChild(
-						new SimpleHtmlTag("label", "col-xs-1 control-label no-padding-right", cell.getTitle()));
-				searchHtmlTag.appendChild(createCellHtmlTag(cell, ""));
-			}
-			if (cell.getDisplay()) {
-				listHtmlTags.put(cell.getName(), createCellHtmlTag(cell, ""));
-			}
 			if (StringUtils.isNotBlank(cell.getDefaultValue())) {
 				defaultValues.put(cell.getName(), cell.getDefaultValue());
+			}
+			HtmlTag tag = createCellHtmlTag(cell);
+			if (cell.getSearch()) {
+				searchHtmlTags.put(cell.getName(), tag);
+				searchTag.appendChild(new SimpleHtmlTag("div", "col-xs-1 align-right", cell.getTitle()));
+				HtmlTag div = new SimpleHtmlTag("div", "col-xs-3");
+				div.appendChild(tag);
+				searchTag.appendChild(div);
+			}
+			if (cell.getDisplay()) {
+				listHtmlTags.put(cell.getName(), tag);
 			}
 			// 如果是主键则不进行添加或者修改
 			if (pk.equalsIgnoreCase(cell.getName())) {
 				continue;
 			}
+			HtmlTag group = new SimpleHtmlTag("div", "form-group");
+			group.appendChild(new SimpleHtmlTag("label", "col-sm-3 control-label no-padding-right", cell.getTitle()));
+			HtmlTag div = new SimpleHtmlTag("div", "col-sm-6");
+			div.appendChild(tag);
+			group.appendChild(div);
 			if (cell.getAdd()) {
-				HtmlTag group = new SimpleHtmlTag("div", "form-group");
-				group.appendChild(
-						new SimpleHtmlTag("label", "col-sm-3 control-label no-padding-right", cell.getTitle()));
-				HtmlTag div = new SimpleHtmlTag("div", "col-sm-6");
-				HtmlTag htmlTag = createCellHtmlTag(cell, cell.getDefaultValue());
-				addHtmlTags.put(cell.getName(), htmlTag);
-				div.appendChild(htmlTag);
-				group.appendChild(div);
-				add.appendChild(group);
+				addHtmlTags.put(cell.getName(), tag);
+				addTag.appendChild(group);
 			}
-			if (cell.getEdit() && !pk.equalsIgnoreCase(cell.getName())) {
-				HtmlTag htmlTag = createCellHtmlTag(cell, "");
+			if (cell.getEdit()) {
+				editHtmlTags.put(cell.getName(), tag);
+				editTag.appendChild(group);
 			}
 		}
 		if (actionCount > 0) {
 			tableHead.appendChild(createTh("操作", actionCount));
 		}
-		addHtml = add.childrenString();
 		tableHeadHtml = tableHead.htmlString();
 	}
 
@@ -306,11 +313,9 @@ public class View {
 	 * 
 	 * @param cell
 	 *            cell定义
-	 * @param value
-	 *            编辑框的值
 	 * @return 编辑框
 	 */
-	private HtmlTag createCellHtmlTag(Cell cell, String value) {
+	private HtmlTag createCellHtmlTag(Cell cell) {
 		HtmlTag htmlTag;
 		if (TypeUtils.FIELD_BOOL.equalsIgnoreCase(cell.getTag())) {
 			SelectTag selectTag = new SelectTag();
@@ -329,7 +334,6 @@ public class View {
 			htmlTag.setAttribute("type", "text");
 			htmlTag.setAttribute("name", cell.getName());
 		}
-		htmlTag.setValue(value);
 		return htmlTag;
 	}
 }

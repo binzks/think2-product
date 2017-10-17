@@ -15,7 +15,8 @@
         <div class="widget-header">
             <h5 class="widget-title">搜索</h5>
             <div class="widget-toolbar">
-                <a href="${url}" title="查询" class="ace-icon fa fa-search orange bigger-130"></a>
+                <a href='javascript:page("${uri }");' title="查询"
+                   class="ace-icon fa fa-search orange bigger-130"></a>
                 <a href="#" data-action="collapse"><i class="ace-icon fa fa-chevron-down bigger-130"></i></a>
             </div>
             ${actions}
