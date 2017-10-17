@@ -15,11 +15,11 @@ public class AbstractHtmlTag implements HtmlTag {
 
 	private String tag; // 设置标签
 
-	private String text; // 文本内容
+	protected String text; // 文本内容
 
 	private Integer childSize = 0; // 子标签数量
 
-	private Map<String, String> attributes = new HashMap<>();// 属性
+	protected Map<String, String> attributes = new HashMap<>();// 属性
 
 	private List<HtmlTag> children = new ArrayList<>(); // 子标签
 

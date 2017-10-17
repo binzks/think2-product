@@ -1,5 +1,6 @@
 package org.think2framework.view;
 
+import org.think2framework.orm.core.ClassUtils;
 import org.think2framework.orm.core.TypeUtils;
 import org.think2framework.utils.StringUtils;
 import org.think2framework.view.bean.Action;
@@ -135,7 +136,7 @@ public class View {
 				searchHtmlTag.appendChild(createCellHtmlTag(cell, ""));
 			}
 			if (cell.getDisplay()) {
-				listHtmlTags.put(cell.getName(), new SimpleHtmlTag("td", "center"));
+				listHtmlTags.put(cell.getName(), createCellHtmlTag(cell, ""));
 			}
 			if (StringUtils.isNotBlank(cell.getDefaultValue())) {
 				defaultValues.put(cell.getName(), cell.getDefaultValue());
@@ -149,7 +150,7 @@ public class View {
 				group.appendChild(
 						new SimpleHtmlTag("label", "col-sm-3 control-label no-padding-right", cell.getTitle()));
 				HtmlTag div = new SimpleHtmlTag("div", "col-sm-6");
-				HtmlTag htmlTag = createCellHtmlTag(cell, "");
+				HtmlTag htmlTag = createCellHtmlTag(cell, cell.getDefaultValue());
 				addHtmlTags.put(cell.getName(), htmlTag);
 				div.appendChild(htmlTag);
 				group.appendChild(div);
@@ -232,7 +233,7 @@ public class View {
 			StringBuffer tdString = new StringBuffer();
 			for (Map.Entry<String, HtmlTag> entry : listHtmlTags.entrySet()) {
 				entry.getValue().setValue(StringUtils.toString(map.get(entry.getKey())));
-				tdString.append(entry.getValue().htmlString());
+				tdString.append("<td class=\"center\">").append(entry.getValue().getText()).append("</td>");
 			}
 			if (listActions.size() > 0) {
 				HtmlTag td = new SimpleHtmlTag("td", "center visible-md visible-lg hidden-sm hidden-xs action-buttons");
@@ -314,14 +315,21 @@ public class View {
 		if (TypeUtils.FIELD_BOOL.equalsIgnoreCase(cell.getTag())) {
 			SelectTag selectTag = new SelectTag();
 			selectTag.setAttribute("name", cell.getName());
+			selectTag.setOption(ClassUtils.FALSE_VALUE.toString(), "否");
+			selectTag.setOption(ClassUtils.TRUE_VALUE.toString(), "是");
+			htmlTag = selectTag;
+		} else if (TypeUtils.FIELD_ITEM_INT.equalsIgnoreCase(cell.getTag())
+				|| TypeUtils.FIELD_ITEM.equalsIgnoreCase(cell.getTag())) {
+			SelectTag selectTag = new SelectTag();
+			selectTag.setAttribute("name", cell.getName());
 			selectTag.setOptions(cell.getItems());
 			htmlTag = selectTag;
 		} else {
 			htmlTag = new SimpleHtmlTag("input", "col-xs-12 col-sm-12");
 			htmlTag.setAttribute("type", "text");
 			htmlTag.setAttribute("name", cell.getName());
-			htmlTag.setValue(value);
 		}
+		htmlTag.setValue(value);
 		return htmlTag;
 	}
 }

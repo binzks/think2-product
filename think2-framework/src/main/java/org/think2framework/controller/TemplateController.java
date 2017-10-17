@@ -12,12 +12,7 @@ import org.think2framework.security.SessionHelp;
 import org.think2framework.utils.StringUtils;
 import org.think2framework.view.HtmlTag;
 import org.think2framework.view.View;
-import org.think2framework.view.bean.Cell;
-import org.think2framework.view.core.SelectTag;
-
-import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,6 +59,15 @@ public class TemplateController extends BaseController {
 		model.addAttribute("title", view.getTitle());
 		return "template/add";
 	}
+
+    @RequestMapping(value = "/edit{mid}")
+    public String edit(@PathVariable String mid, Model model, HttpServletRequest request) {
+        View view = SessionHelp.getView(mid, request.getSession());
+        model.addAttribute("body", view.getAddHtml());
+        model.addAttribute("mid", mid);
+        model.addAttribute("title", view.getTitle());
+        return "template/edit";
+    }
 
 	@RequestMapping(value = { "save{mid}{id}", "/save{mid}-{id}" }, method = RequestMethod.POST)
 	public String save(@PathVariable String mid, @PathVariable String id, Model model, HttpServletRequest request) {
