@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.think2framework.utils.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -56,7 +57,8 @@ public class AdminController {
 		if (null == adminPowers || adminPowers.size() == 0) {
 			return new ModelAndView("login", "msg", "管理员没有任何权限");
 		}
-		SessionHelp.initLogin(request.getSession(), code, admin.getName(), adminPowers);
+		SessionHelp.initLogin(request.getSession(), StringUtils.toString(admin.getId()), code, admin.getName(),
+				adminPowers);
 		logger.info("系统管理员{}登录系统成功！", code);
 		return new ModelAndView("redirect:/think2/admin/index.page");
 	}

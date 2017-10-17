@@ -1,10 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>${title}</title>
+    <title>添加${title}</title>
 </head>
 <body>
-<form class="form-horizontal" role="form">
+<form class="form-horizontal" role="form" action="/tpl/save${mid}.page" method="post">
     ${body}
     <div class="clearfix form-actions center">
         <div class="col-md-12">

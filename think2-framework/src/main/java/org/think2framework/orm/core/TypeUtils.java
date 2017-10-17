@@ -14,12 +14,12 @@ public class TypeUtils {
 	public static final String DATABASE_ORACLE = "oracle"; // 数据库类型-oracle
 
 	public static final String DATABASE_SQLSERVER = "sqlserver"; // 数据库类型-sqlserver
-    
-    public static final String ORDER_TYPE_ASC = "ASC"; // 排序类型 asc
 
-    public static final String ORDER_TYPE_DESC = "DESC"; // 排序类型 DESC
+	public static final String ORDER_TYPE_ASC = "ASC"; // 排序类型 asc
 
-    public static final String FIELD_INT = "int"; // 字段类型-整型
+	public static final String ORDER_TYPE_DESC = "DESC"; // 排序类型 DESC
+
+	public static final String FIELD_INT = "int"; // 字段类型-整型
 
 	public static final String FIELD_TEXT = "text"; // 字段类型-文本
 

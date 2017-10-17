@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>${title}</title>
+    <title>${title}列表</title>
 </head>
 <body>
 <form action="${uri}" method="post" id="list_form" name="list_form">

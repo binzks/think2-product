@@ -1,7 +1,11 @@
 package org.think2framework.bean;
 
+import org.think2framework.orm.core.TypeUtils;
 import org.think2framework.orm.persistence.Column;
+import org.think2framework.security.SessionHelp;
 import org.think2framework.view.persistence.Action;
+import org.think2framework.view.persistence.Cell;
+import org.think2framework.view.persistence.Item;
 import org.think2framework.view.persistence.View;
 
 /**
@@ -14,18 +18,25 @@ import org.think2framework.view.persistence.View;
 public class BaseCms {
 
 	@Column(nullable = false, length = 11, comment = "主键")
+	@Cell(title = "主键", required = true)
 	private Integer id;
 
-	@Column(nullable = false, length = 1, defaultValue = "99", comment = "状态0-启用 99-停用")
+	@Column(nullable = false, length = 1, comment = "状态0-启用 99-停用")
+	@Cell(title = "状态", required = true, search = true, add = false, tag = TypeUtils.FIELD_ITEM_INT, defaultValue = "99")
+	@Item(key = "0", value = "启用")
+	@Item(key = "99", value = "停用")
 	private Integer status;
 
 	@Column(name = "modify_time", nullable = false, length = 10, comment = "最后修改时间")
+	@Cell(name = "modify_time", title = "最后修改时间", add = false, edit = false, tag = TypeUtils.FIELD_TIMESTAMP, defaultValue = SessionHelp.DEFAULT_NOW)
 	private Integer modifyTime;
 
 	@Column(name = "modify_admin", nullable = false, comment = "最后修改人")
+	@Cell(name = "modify_admin", title = "最后修改人", add = false, edit = false, defaultValue = SessionHelp.DEFAULT_LOGIN_CODE)
 	private String modifyAdmin;
 
 	@Column(comment = "备注", length = 500)
+	@Cell(title = "备注", tag = TypeUtils.FIELD_TEXTAREA)
 	private String remark;
 
 	public Integer getId() {

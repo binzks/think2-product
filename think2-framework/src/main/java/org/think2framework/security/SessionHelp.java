@@ -35,6 +35,8 @@ public class SessionHelp {
 	 * 
 	 * @param session
 	 *            管理员session
+	 * @param id
+	 *            管理员id
 	 * @param code
 	 *            管理员编号
 	 * @param name
@@ -42,10 +44,11 @@ public class SessionHelp {
 	 * @param powers
 	 *            管理员权限
 	 */
-	public static void initLogin(HttpSession session, String code, String name, List<AdminPower> powers) {
+	public static void initLogin(HttpSession session, String id, String code, String name, List<AdminPower> powers) {
 		HtmlTag ul = new SimpleHtmlTag("ul", "nav nav-list");
 		initMenu(session, powers, ul, 0);
 		session.setAttribute("menus", ul.htmlString());
+		session.setAttribute("id", id);
 		session.setAttribute("code", code);
 		session.setAttribute("name", name);
 	}
@@ -141,5 +144,36 @@ public class SessionHelp {
 			throw new SimpleException("管理员尚未获取模块" + id + "授权！");
 		}
 		return view;
+	}
+
+	public static final String DEFAULT_NOW = "now"; // 默认值-当前时间戳
+
+	public static final String DEFAULT_LOGIN_ID = "loginId"; // 默认值-登录用户id
+
+	public static final String DEFAULT_LOGIN_CODE = "loginCode"; // 默认值-登录用户编号
+
+	public static final String DEFAULT_LOGIN_NAME = "loginName"; // 默认值-登录用户姓名
+
+	/**
+	 * 获取默认值，如果key是自定义的类型则获取相应值，否则返回key
+	 * 
+	 * @param key
+	 *            默认值key
+	 * @param session
+	 *            session用户获取登录信息
+	 * @return 默认值
+	 */
+	public static String getDefaultValue(String key, HttpSession session) {
+		if (DEFAULT_NOW.equalsIgnoreCase(key)) {
+			return StringUtils.toString(System.currentTimeMillis() / 1000);
+		} else if (DEFAULT_LOGIN_ID.equalsIgnoreCase(key)) {
+			return StringUtils.toString(session.getAttribute("id"));
+		} else if (DEFAULT_LOGIN_CODE.equalsIgnoreCase(key)) {
+			return StringUtils.toString(session.getAttribute("code"));
+		} else if (DEFAULT_LOGIN_NAME.equalsIgnoreCase(key)) {
+			return StringUtils.toString(session.getAttribute("name"));
+		} else {
+			return key;
+		}
 	}
 }
