@@ -2,6 +2,7 @@ package org.think2framework.security;
 
 import org.think2framework.ModelFactory;
 import org.think2framework.bean.AdminPower;
+import org.think2framework.bean.Module;
 import org.think2framework.exception.NonsupportException;
 import org.think2framework.exception.SimpleException;
 import org.think2framework.utils.StringUtils;
@@ -70,13 +71,13 @@ public class SessionHelp {
 		for (AdminPower adminPower : powers) {
 			if (parentId == adminPower.getModuleParentId()) {
 				Integer moduleId = adminPower.getModuleId();
-				if (0 == adminPower.getModuleType()) { // 模块组
+				if (Module.TYPE_GROUP == adminPower.getModuleType()) { // 模块组
 					HtmlTag liTag = createGroupTag(adminPower.getModuleTitle(), adminPower.getModuleIcon());
 					HtmlTag ulTag = new SimpleHtmlTag("ul", "submenu");
 					liTag.appendChild(ulTag);
 					initMenu(session, powers, ulTag, moduleId);
 					parent.appendChild(liTag);
-				} else if (1 == adminPower.getModuleType()) { // 模块
+				} else if (Module.TYPE_MODULE == adminPower.getModuleType()) { // 模块
 					parent.appendChild(
 							createModuleTag(moduleId, adminPower.getModuleUri(), adminPower.getModuleTitle()));
 					session.setAttribute("module_" + moduleId,

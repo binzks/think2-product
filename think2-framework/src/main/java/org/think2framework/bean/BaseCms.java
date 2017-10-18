@@ -21,17 +21,17 @@ public class BaseCms {
 	@Cell(title = "主键", required = true)
 	private Integer id;
 
-	@Column(nullable = false, length = 1, comment = "状态0-启用 99-停用")
+	@Column(nullable = false, length = 1, defaultValue = "0", comment = "状态0-启用 99-停用")
 	@Cell(title = "状态", required = true, search = true, tag = TypeUtils.FIELD_ITEM_INT, defaultValue = "99")
 	@Item(key = "0", value = "启用")
 	@Item(key = "99", value = "停用")
 	private Integer status;
 
-	@Column(name = "modify_time", nullable = false, length = 10, comment = "最后修改时间")
+	@Column(name = "modify_time", length = 10, comment = "最后修改时间")
 	@Cell(name = "modify_time", title = "最后修改时间", add = false, edit = false, tag = TypeUtils.FIELD_TIMESTAMP, defaultValue = SessionHelp.DEFAULT_NOW)
 	private Integer modifyTime;
 
-	@Column(name = "modify_admin", nullable = false, comment = "最后修改人")
+	@Column(name = "modify_admin", comment = "最后修改人")
 	@Cell(name = "modify_admin", title = "最后修改人", add = false, edit = false, defaultValue = SessionHelp.DEFAULT_LOGIN_CODE)
 	private String modifyAdmin;
 

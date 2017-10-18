@@ -240,7 +240,9 @@ public class View {
 			StringBuffer tdString = new StringBuffer();
 			for (Map.Entry<String, HtmlTag> entry : listHtmlTags.entrySet()) {
 				entry.getValue().setValue(StringUtils.toString(map.get(entry.getKey())));
-				tdString.append("<td class=\"center\">").append(entry.getValue().getText()).append("</td>");
+				String value = entry.getValue().getText();
+				value = StringUtils.isBlank(value) ? "" : value;
+				tdString.append("<td class=\"center\">").append(value).append("</td>");
 			}
 			if (listActions.size() > 0) {
 				HtmlTag td = new SimpleHtmlTag("td", "center visible-md visible-lg hidden-sm hidden-xs action-buttons");

@@ -1,5 +1,6 @@
 package org.think2framework.orm.core;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.think2framework.exception.NonExistException;
 import org.think2framework.exception.SimpleException;
 import org.think2framework.orm.bean.*;
@@ -46,8 +47,8 @@ public class ClassUtils {
 	}
 
 	/**
-	 * 获取一个类的字段，如果存在父类则循环获取父类的字段
-	 * 
+	 * 获取一个类的字段，如果存在父类则循环获取父类的字段，如果子类和父类存在相同名称的字段则以子类为准，父类的不获取
+	 *
 	 * @param clazz
 	 *            类
 	 * @return 字段数组
@@ -55,12 +56,34 @@ public class ClassUtils {
 	public static List<Field> getFields(Class<?> clazz) {
 		List<Field> fields = new ArrayList<>();
 		Collections.addAll(fields, clazz.getDeclaredFields());
-		Class<?> c = clazz.getSuperclass();
-		while (Object.class != c) {
-			Collections.addAll(fields, c.getDeclaredFields());
-			c = c.getSuperclass();
+		return getFields(fields, clazz);
+	}
+
+	/**
+	 * 获取一个类的字段，如果存在父类则循环获取父类的字段，如果子类和父类存在相同名称的字段则以子类为准，父类的不获取
+	 * 
+	 * @param fields
+	 *            已经添加的字段
+	 * @param clazz
+	 *            类
+	 * @return 字段数组
+	 */
+	public static List<Field> getFields(List<Field> fields, Class<?> clazz) {
+		Class<?> superClass = clazz.getSuperclass();
+		if (Object.class == superClass) {
+			return fields;
+		} else {
+			Field[] superFields = superClass.getDeclaredFields();
+			// 如果子类不存在字段则追加
+			for (Field field : superFields) {
+				try {
+					clazz.getDeclaredField(field.getName());
+				} catch (NoSuchFieldException e) {
+					fields.add(field);
+				}
+			}
+			return getFields(fields, superClass);
 		}
-		return fields;
 	}
 
 	/**
@@ -73,15 +96,23 @@ public class ClassUtils {
 	 * @return 字段
 	 */
 	private static Field getField(Class<?> clazz, String name) {
+		Field field = null;
 		try {
-			return clazz.getDeclaredField(name);
+			field = clazz.getDeclaredField(name);
 		} catch (NoSuchFieldException e) {
-			if (Object.class == clazz) {
+			List<Field> fields = getFields(clazz);
+			for (Field f : fields) {
+				String key = getFieldKey(f);
+				if (key.equals(name)) {
+					field = f;
+					break;
+				}
+			}
+			if (null == field) {
 				throw new NonExistException(clazz.getName() + " field " + name);
-			} else {
-				return getField(clazz.getSuperclass(), name);
 			}
 		}
+		return field;
 	}
 
 	/**
@@ -236,7 +267,7 @@ public class ClassUtils {
 					if (null != columnAnnotation) {
 						String type = columnAnnotation.type();
 						// 如果字段类型是整型、长整型则设置类型为整型
-						String className = field.getClass().getName();
+						String className = field.getGenericType().getTypeName();
 						if (Integer.class.getName().equals(className) || Long.class.getName().equals(className)
 								|| Float.class.getName().equals(className)) {
 							type = TypeUtils.FIELD_INT;

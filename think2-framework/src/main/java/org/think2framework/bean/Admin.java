@@ -30,6 +30,15 @@ public class Admin extends BaseCms {
 	@Cell(title = "email")
 	private String email;
 
+	public Admin() {
+	}
+
+	public Admin(String code, String name, String password) {
+		this.code = code;
+		this.name = name;
+		this.password = password;
+	}
+
 	public String getCode() {
 		return code;
 	}

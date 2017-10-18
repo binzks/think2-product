@@ -12,7 +12,7 @@ import java.util.List;
  * Created by zhoubin on 16/7/11. 模型
  */
 @Table(name = "think2_model")
-public class Model {
+public class Model extends BaseCms{
 
 	private String name; // 模型名称
 

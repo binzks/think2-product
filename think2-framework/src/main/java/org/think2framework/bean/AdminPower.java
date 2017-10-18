@@ -47,6 +47,14 @@ public class AdminPower extends BaseCms {
 	@Column(name = "size", join = "think2_module", alias = "module_size")
 	private Integer moduleSize;
 
+	public AdminPower() {
+	}
+
+	public AdminPower(Integer adminId, Integer moduleId) {
+		this.adminId = adminId;
+		this.moduleId = moduleId;
+	}
+
 	public Integer getAdminId() {
 		return adminId;
 	}

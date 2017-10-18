@@ -1,6 +1,7 @@
 package org.think2framework.bean;
 
 import org.think2framework.orm.core.TypeUtils;
+import org.think2framework.orm.persistence.Table;
 import org.think2framework.view.bean.Item;
 
 import java.util.ArrayList;
@@ -9,7 +10,8 @@ import java.util.List;
 /**
  * Created by zhoubin on 2017/6/12. 模型的列定义
  */
-public class Column {
+@Table(name = "think2_model_column")
+public class Column extends BaseCms{
 
 	private String name; // 列的名称，单模块唯一
 

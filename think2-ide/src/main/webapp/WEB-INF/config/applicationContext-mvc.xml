@@ -27,7 +27,7 @@
             <list>
                 <map>
                     <entry key="query" value="think2ide"/>
-                    <entry key="packages" value="org.think2framework.bean"/>
+                    <entry key="packages" value="org.think2framework.bean,org.think2framework.view.bean"/>
                 </map>
             </list>
         </property>

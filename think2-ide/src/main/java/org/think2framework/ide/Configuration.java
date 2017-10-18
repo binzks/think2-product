@@ -4,9 +4,13 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.think2framework.ModelFactory;
+import org.think2framework.bean.*;
 import org.think2framework.orm.OrmFactory;
+import org.think2framework.orm.Writer;
 import org.think2framework.utils.NumberUtils;
+import org.think2framework.utils.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -46,11 +50,50 @@ public class Configuration implements ApplicationContextAware {
 					password);
 			if (null != models) {
 				for (Map<String, String> model : models) {
+					String packages = model.get("packages");
 					ModelFactory.scanPackages(model.get("query"), model.get("writer"), model.get("redis"),
-							NumberUtils.toInt(model.get("valid")), model.get("packages"));
+							NumberUtils.toInt(model.get("valid")), StringUtils.split(packages, ","));
 				}
 			}
+			initSystem();
 			initialized = true;
+		}
+	}
+
+	/**
+	 * 初始化系统信息，创建表和基础数据
+	 */
+	private void initSystem() {
+		Writer moduleWriter = ModelFactory.createWriter(Module.class.getName());
+		List<Module> modules = new ArrayList<>();
+		if (moduleWriter.createTable()) {
+			modules.add(new Module("system", 0, Module.TYPE_GROUP, "fa-cog", "", "系统管理", "", 10, 1));
+			modules.add(new Module("system_module", 1, Module.TYPE_MODULE, "", Module.class.getName(), "模块管理",
+					"/tpl/list", 10, 1));
+			modules.add(new Module("system_admin", 1, Module.TYPE_GROUP, "", "", "管理员管理", "", 10, 1));
+			modules.add(new Module("system_admin_info", 3, Module.TYPE_MODULE, "", Admin.class.getName(), "管理员信息",
+					"/tpl/list", 10, 1));
+			modules.add(new Module("system_admin_power", 3, Module.TYPE_MODULE, "", AdminPower.class.getName(), "管理员权限",
+					"/tpl/list", 10, 2));
+			modules.add(new Module("system_model", 1, Module.TYPE_MODULE, "", Model.class.getName(), "模型管理",
+					"/tpl/list", 10, 1));
+			moduleWriter.batchInsert(modules);
+		}
+		Writer adminWriter = ModelFactory.createWriter(Admin.class.getName());
+		if (adminWriter.createTable()) {
+			Admin admin = new Admin();
+			admin.setCode("root");
+			admin.setName("超级管理员");
+			admin.setPassword("4ad418256efdfae2d275a9d6a8631df8");
+			adminWriter.insert(admin);
+		}
+		Writer adminPowerWriter = ModelFactory.createWriter(AdminPower.class.getName());
+		if (adminPowerWriter.createTable()) {
+			List<AdminPower> adminPowers = new ArrayList<>();
+			for (int i = 1; i <= modules.size(); i++) {
+				adminPowers.add(new AdminPower(1, i));
+			}
+			adminPowerWriter.batchInsert(adminPowers);
 		}
 	}
 
