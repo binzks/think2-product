@@ -43,6 +43,8 @@ public class TypeUtils {
 
 	public static final String FIELD_MULTIPLE = "multiple"; // 字段类型-多选
 
+	public static final String FIELD_DATA_ITEM_INT = "dataItemInt"; // 字段类型-动态整型单选
+
 	public static final String FIELD_DATA_ITEM = "dataItem"; // 字段类型-动态单选
 
 	public static final String FIELD_DATA_MULTIPLE = "dataMultiple"; // 字段类型-动态多选

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import org.think2framework.bean.*;
 import org.think2framework.exception.NonExistException;
 import org.think2framework.exception.SimpleException;
+import org.think2framework.mvc.view.View;
 import org.think2framework.orm.OrmFactory;
 import org.think2framework.orm.Query;
 import org.think2framework.orm.Writer;
@@ -18,10 +19,9 @@ import org.think2framework.utils.FileUtils;
 import org.think2framework.utils.JsonUtils;
 import org.think2framework.utils.PackageUtils;
 import org.think2framework.utils.StringUtils;
-import org.think2framework.view.bean.Action;
-import org.think2framework.view.bean.BaseView;
-import org.think2framework.view.bean.Cell;
-import org.think2framework.view.View;
+import org.think2framework.mvc.view.bean.Action;
+import org.think2framework.mvc.view.bean.BaseView;
+import org.think2framework.mvc.view.bean.Cell;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -131,12 +131,12 @@ public class ModelFactory {
 			OrmFactory.appendEntity(name, entity);
 			databases.put(name, new Database(query, StringUtils.isBlank(writer) ? query : writer, redis, valid));
 			// 如果view定义存在则添加view，如果没有名称则以模型名称为视图名称
-			org.think2framework.view.persistence.View view = org.think2framework.view.core.ClassUtils.getView(clazz);
+			org.think2framework.mvc.view.persistence.View view = org.think2framework.mvc.view.core.ClassUtils.getView(clazz);
 			if (null != view) {
 				String viewName = StringUtils.isBlank(view.name()) ? name : view.name();
 				baseViews.put(viewName,
-						new BaseView(entity.getPk(), org.think2framework.view.core.ClassUtils.createCells(clazz),
-								org.think2framework.view.core.ClassUtils.createActions(clazz)));
+						new BaseView(entity.getPk(), org.think2framework.mvc.view.core.ClassUtils.createCells(clazz),
+								org.think2framework.mvc.view.core.ClassUtils.createActions(clazz)));
 			}
 		}
 	}
@@ -283,7 +283,7 @@ public class ModelFactory {
 	 * @return 视图
 	 */
 	public static View createView(String name, String title, String moduleId, String uri, Integer size, String columns,
-			String actions) {
+								  String actions) {
 		BaseView baseView = baseViews.get(name);
 		if (null == baseView) {
 			throw new NonExistException("Model " + name + " base view");

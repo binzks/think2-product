@@ -3,6 +3,7 @@ package org.think2framework;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.think2framework.mvc.WorkflowFactory;
 import org.think2framework.utils.StringUtils;
 
 /**

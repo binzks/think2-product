@@ -1,10 +1,11 @@
 package org.think2framework.bean;
 
+import org.think2framework.mvc.bean.BaseCms;
 import org.think2framework.orm.core.TypeUtils;
 import org.think2framework.orm.persistence.Column;
 import org.think2framework.orm.persistence.Table;
-import org.think2framework.view.persistence.Cell;
-import org.think2framework.view.persistence.Item;
+import org.think2framework.mvc.view.persistence.Cell;
+import org.think2framework.mvc.view.persistence.Item;
 
 /**
  * cms系统模块

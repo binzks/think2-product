@@ -5,6 +5,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.think2framework.ModelFactory;
 import org.think2framework.bean.*;
+import org.think2framework.ide.bean.Datasource;
+import org.think2framework.ide.bean.Project;
+import org.think2framework.mvc.bean.Admin;
+import org.think2framework.mvc.bean.AdminPower;
 import org.think2framework.orm.OrmFactory;
 import org.think2framework.orm.Writer;
 import org.think2framework.utils.NumberUtils;
@@ -56,6 +60,7 @@ public class Configuration implements ApplicationContextAware {
 				}
 			}
 			initSystem();
+			initIDE();
 			initialized = true;
 		}
 	}
@@ -75,8 +80,14 @@ public class Configuration implements ApplicationContextAware {
 					"/tpl/list", 10, 1));
 			modules.add(new Module("system_admin_power", 3, Module.TYPE_MODULE, "", AdminPower.class.getName(), "管理员权限",
 					"/tpl/list", 10, 2));
-			modules.add(new Module("system_model", 1, Module.TYPE_MODULE, "", Model.class.getName(), "模型管理",
+			// modules.add(new Module("system_model", 1, Module.TYPE_MODULE, "",
+			// Model.class.getName(), "模型管理",
+			// "/tpl/list", 10, 1));
+			modules.add(new Module("ide", 0, Module.TYPE_GROUP, "fa-windows", "", "IDE", "", 10, 2));
+			modules.add(new Module("ide_project", 6, Module.TYPE_MODULE, "", Project.class.getName(), "项目管理",
 					"/tpl/list", 10, 1));
+			modules.add(new Module("ide_project_datasource", 6, Module.TYPE_MODULE, "", Datasource.class.getName(),
+					"数据源管理", "/tpl/list", 10, 2));
 			moduleWriter.batchInsert(modules);
 		}
 		Writer adminWriter = ModelFactory.createWriter(Admin.class.getName());
@@ -95,6 +106,11 @@ public class Configuration implements ApplicationContextAware {
 			}
 			adminPowerWriter.batchInsert(adminPowers);
 		}
+	}
+
+	private void initIDE() {
+		ModelFactory.createWriter(Project.class.getName()).createTable();
+		ModelFactory.createWriter(org.think2framework.ide.bean.Datasource.class.getName()).createTable();
 	}
 
 	public void setName(String name) {

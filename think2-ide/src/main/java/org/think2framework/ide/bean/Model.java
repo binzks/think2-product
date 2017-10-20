@@ -1,16 +1,20 @@
-package org.think2framework.bean;
+package org.think2framework.ide.bean;
 
+import java.util.List;
+
+import org.think2framework.mvc.bean.BaseCms;
+import org.think2framework.bean.Column;
 import org.think2framework.orm.bean.Filter;
 import org.think2framework.orm.bean.Join;
 import org.think2framework.orm.bean.Order;
+import org.think2framework.orm.persistence.Table;
 import org.think2framework.mvc.view.bean.Action;
-
-import java.util.List;
 
 /**
  * Created by zhoubin on 16/7/11. 模型
  */
-public class Model {
+@Table(name = "think2_model")
+public class Model extends BaseCms{
 
 	private String name; // 模型名称
 

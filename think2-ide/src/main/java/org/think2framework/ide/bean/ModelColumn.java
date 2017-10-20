@@ -1,15 +1,16 @@
-package org.think2framework.bean;
-
-import org.think2framework.orm.core.TypeUtils;
-import org.think2framework.mvc.view.bean.Item;
+package org.think2framework.ide.bean;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.think2framework.mvc.bean.BaseCms;
+import org.think2framework.orm.core.TypeUtils;
+import org.think2framework.mvc.view.bean.Item;
+
 /**
  * Created by zhoubin on 2017/6/12. 模型的列定义
  */
-public class Column{
+public class ModelColumn extends BaseCms{
 
 	private String name; // 列的名称，单模块唯一
 

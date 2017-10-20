@@ -1,31 +1,19 @@
-package org.think2framework.bean;
+package org.think2framework.mvc.view.bean;
 
-import org.think2framework.orm.core.TypeUtils;
-import org.think2framework.mvc.view.bean.Item;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by zhoubin on 2017/6/12. 模型的列定义
+ * Created by zhoubin on 2017/6/12. 视图单元定义
  */
-public class Column{
+public class Cell {
 
-	private String name; // 列的名称，单模块唯一
+	private String name; // 名称，单模块唯一
 
-	private String title; // 列的标题
+	private String title; // 标题
 
-	private String tag = "text"; // 列的标签
+	private String tag; // 标签，根据标签操作单元
 
 	private Boolean required = false; // 是否必填项，默认false
-
-	private String alias = ""; // 字段别名
-
-	private String join = ""; // 字段所属关联名称,如果为空表示主表
-
-	private Integer length = 50; // 字段长度
-
-	private Integer scale = 0; // 字段精度(小数位数)
 
 	private String defaultValue; // 默认值，now当前时间，user.id登录用户id，user.name登录用户名，其他则填值
 
@@ -45,7 +33,32 @@ public class Column{
 
 	private Boolean rowFilter = false; // 是否行级过滤，默认false，只有当类型为item或者dataItem的时候才有效
 
-	private List<Item> items;// 单元格的item定义，主要用于状态选择、人员选择等选择类
+	private String comment; // 注释
+
+	private List<Item> items; // 单元格的item定义，主要用于状态选择、人员选择等选择类
+
+	public Cell() {
+	}
+
+	public Cell(String name, String title, String tag, Boolean required, String defaultValue, Boolean center,
+			Integer width, Boolean search, Boolean display, Boolean detail, Boolean add, Boolean edit,
+			Boolean rowFilter, String comment, List<Item> items) {
+		this.name = name;
+		this.title = title;
+		this.tag = tag;
+		this.required = required;
+		this.defaultValue = defaultValue;
+		this.center = center;
+		this.width = width;
+		this.search = search;
+		this.display = display;
+		this.detail = detail;
+		this.add = add;
+		this.edit = edit;
+		this.rowFilter = rowFilter;
+		this.comment = comment;
+		this.items = items;
+	}
 
 	public String getName() {
 		return name;
@@ -69,14 +82,6 @@ public class Column{
 
 	public void setTag(String tag) {
 		this.tag = tag;
-		// 如果是bool类型则增加item，1-true，0-false
-		if (TypeUtils.FIELD_BOOL.equalsIgnoreCase(tag)) {
-			defaultValue = "0";
-			length = 1;
-			items = new ArrayList<>();
-			items.add(new Item("", "是", "1"));
-			items.add(new Item("", "否", "0"));
-		}
 	}
 
 	public Boolean getRequired() {
@@ -85,38 +90,6 @@ public class Column{
 
 	public void setRequired(Boolean required) {
 		this.required = required;
-	}
-
-	public String getAlias() {
-		return alias;
-	}
-
-	public void setAlias(String alias) {
-		this.alias = alias;
-	}
-
-	public String getJoin() {
-		return join;
-	}
-
-	public void setJoin(String join) {
-		this.join = join;
-	}
-
-	public Integer getLength() {
-		return length;
-	}
-
-	public void setLength(Integer length) {
-		this.length = length;
-	}
-
-	public Integer getScale() {
-		return scale;
-	}
-
-	public void setScale(Integer scale) {
-		this.scale = scale;
 	}
 
 	public String getDefaultValue() {
@@ -191,6 +164,14 @@ public class Column{
 		this.rowFilter = rowFilter;
 	}
 
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
 	public List<Item> getItems() {
 		return items;
 	}
@@ -198,5 +179,4 @@ public class Column{
 	public void setItems(List<Item> items) {
 		this.items = items;
 	}
-
 }

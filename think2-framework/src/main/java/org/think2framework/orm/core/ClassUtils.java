@@ -1,6 +1,5 @@
 package org.think2framework.orm.core;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.think2framework.exception.NonExistException;
 import org.think2framework.exception.SimpleException;
 import org.think2framework.orm.bean.*;
