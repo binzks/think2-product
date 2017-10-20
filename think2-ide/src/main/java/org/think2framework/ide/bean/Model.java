@@ -3,7 +3,7 @@ package org.think2framework.ide.bean;
 import java.util.List;
 
 import org.think2framework.mvc.bean.BaseCms;
-import org.think2framework.bean.Column;
+import org.think2framework.context.bean.Column;
 import org.think2framework.orm.bean.Filter;
 import org.think2framework.orm.bean.Join;
 import org.think2framework.orm.bean.Order;

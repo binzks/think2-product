@@ -1,7 +1,7 @@
-package org.think2framework;
+package org.think2framework.context;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import org.think2framework.bean.*;
+import org.think2framework.context.bean.*;
 import org.think2framework.exception.NonExistException;
 import org.think2framework.exception.SimpleException;
 import org.think2framework.mvc.view.View;
@@ -196,7 +196,7 @@ public class ModelFactory {
 				tableColumns.add(new TableColumn(m.getPk(), TypeUtils.FIELD_TEXT, false, 32, 0, "", "主键"));
 			}
 			entityColumns.put(m.getPk(), new EntityColumn(m.getPk(), "", ""));
-			for (org.think2framework.bean.Column column : m.getColumns()) {
+			for (org.think2framework.context.bean.Column column : m.getColumns()) {
 				TableColumn tableColumn = ClassUtils.createTableColumn(column.getJoin(), column.getName(),
 						column.getTag(), !column.getRequired(), column.getLength(), column.getScale(),
 						column.getDefaultValue(), StringUtils.isBlank(column.getTitle()) ? "" : column.getTitle());

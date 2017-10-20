@@ -1,7 +1,7 @@
 package org.think2framework.exception;
 
 /**
- * Created by zhoubin on 16/7/24. 不支持的异常
+ * 不支持的异常
  */
 public class NonsupportException extends RuntimeException {
 

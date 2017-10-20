@@ -1,15 +1,24 @@
 package org.think2framework.orm.bean;
 
 /**
- * Created by zhoubin on 16/7/12. 实体列bean
+ * 实体列
  */
 public class EntityColumn {
 
-	private String name; // 字段名称
+	/**
+	 * 字段名称
+	 */
+	private String name;
 
-	private String join; // 字段关联名称,如果为null或者空表示主表
+	/**
+	 * 字段关联名称,如果为null或者空表示主表
+	 */
+	private String join;
 
-	private String alias; // 字段别名
+	/**
+	 * 字段别名
+	 */
+	private String alias;
 
 	public EntityColumn() {
 

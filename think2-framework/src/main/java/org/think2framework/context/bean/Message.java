@@ -1,4 +1,4 @@
-package org.think2framework.bean;
+package org.think2framework.context.bean;
 
 /**
  * Created by zhoubin on 16/7/24. 消息

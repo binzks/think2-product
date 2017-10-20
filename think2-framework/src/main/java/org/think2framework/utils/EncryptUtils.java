@@ -8,10 +8,15 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 
+/**
+ * 加密工具，提供加密、解密方法
+ */
 public class EncryptUtils {
 
-	public static final String KEY_ALGORITHM = "AES";
-	public static final String ENCODING = "UTF-8";
+	/**
+	 * 加密、解密算法
+	 */
+	private static final String KEY_ALGORITHM = "AES";
 
 	/**
 	 * 把inputString MD5加密
@@ -67,7 +72,7 @@ public class EncryptUtils {
 		try {
 			SecretKeySpec key = new SecretKeySpec(sKey.getBytes(), KEY_ALGORITHM);
 			Cipher cipher = Cipher.getInstance(KEY_ALGORITHM);// 创建密码器
-			byte[] byteTxt = txt.getBytes(ENCODING);
+			byte[] byteTxt = txt.getBytes(utilsConst.DEFAULT_ENCODING);
 			cipher.init(Cipher.ENCRYPT_MODE, key);// 初始化
 			// AES 加密
 			byte[] result = cipher.doFinal(byteTxt);
@@ -98,7 +103,7 @@ public class EncryptUtils {
 			byte[] encrypted = Base64.decodeBase64(txt);
 			// 解密
 			byte[] original = cipher.doFinal(encrypted);
-			return new String(original, ENCODING);
+			return new String(original, utilsConst.DEFAULT_ENCODING);
 		} catch (Exception e) {
 			throw new SimpleException(e);
 		}

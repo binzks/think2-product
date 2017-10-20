@@ -1,7 +1,7 @@
 package org.think2framework.exception;
 
 /**
- * Created by zhoubin on 16/6/1. 未定义异常
+ * 未定义异常
  */
 public class UndefinedException extends RuntimeException {
 

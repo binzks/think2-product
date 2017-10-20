@@ -1,7 +1,7 @@
 package org.think2framework.exception;
 
 /**
- * Created by zhoubin on 16/6/1. 已存在异常
+ * 已存在异常
  */
 public class ExistException extends RuntimeException {
 

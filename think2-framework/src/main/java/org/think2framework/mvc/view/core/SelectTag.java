@@ -1,6 +1,6 @@
 package org.think2framework.mvc.view.core;
 
-import org.think2framework.ModelFactory;
+import org.think2framework.context.ModelFactory;
 import org.think2framework.orm.Query;
 import org.think2framework.utils.StringUtils;
 import org.think2framework.mvc.view.HtmlTag;

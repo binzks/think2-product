@@ -1,4 +1,4 @@
-package org.think2framework.bean;
+package org.think2framework.context.bean;
 
 /**
  * 配置一个模型的基本数据库配置，在ModelFactory中如果创建query和writer的时候不传入数据库，则根据这个配置获取数据库名称

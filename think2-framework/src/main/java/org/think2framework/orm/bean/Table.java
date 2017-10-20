@@ -3,23 +3,44 @@ package org.think2framework.orm.bean;
 import java.util.List;
 
 /**
- * Created by zhoubin on 16/7/12. 表bean
+ * 数据库表
  */
 public class Table {
 
-	private String name;// 表名
+	/**
+	 * 表名
+	 */
+	private String name;
 
-	private String pk; // 主键名称
+	/**
+	 * 主键名称
+	 */
+	private String pk;
 
-	private Boolean autoIncrement; // 是否是整型自增长,如果不是则为UUID类型
+	/**
+	 * 是否是整型自增长,如果不是则为UUID类型
+	 */
+	private Boolean autoIncrement;
 
-	private String[] uniques; // 唯一性约束,多个字段用,隔开
+	/**
+	 * 唯一性约束,多个字段用,隔开
+	 */
+	private String[] uniques;
 
-	private String[] indexes;// 索引,多个字段用,隔开
+	/**
+	 * 索引,多个字段用,隔开
+	 */
+	private String[] indexes;
 
-	private String comment; // 注释
+	/**
+	 * 注释
+	 */
+	private String comment;
 
-	private List<TableColumn> columns; // 表的列
+	/**
+	 * 表的列
+	 */
+	private List<TableColumn> columns;
 
 	public Table() {
 	}

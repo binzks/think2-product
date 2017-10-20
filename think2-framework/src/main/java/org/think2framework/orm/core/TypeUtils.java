@@ -5,6 +5,9 @@ package org.think2framework.orm.core;
  */
 public class TypeUtils {
 
+    /***
+     * 数据库类型-mysql
+     */
 	public static final String DATABASE_MYSQL = "mysql"; // 数据库类型-mysql
 
 	public static final String DATABASE_REDIS = "redis"; // 数据库类型-redis

@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by zhoubin on 15/12/9. xml工具
+ * xml工具
  */
 public class XmlUtils {
 

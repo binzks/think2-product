@@ -8,7 +8,7 @@
 
     <context:annotation-config/>
 
-    <!--<bean class="org.think2framework.Configuration">-->
+    <!--<bean class="org.think2framework.context.Configuration">-->
     <!--<property name="datasource" value="quick-datasource.json"/>-->
     <!--<property name="constant" value="constants/\\*.json"/>-->
     <!--&lt;!&ndash;工作流需要在模型之前加载&ndash;&gt;-->
@@ -27,7 +27,7 @@
             <list>
                 <map>
                     <entry key="query" value="think2ide"/>
-                    <entry key="packages" value="org.think2framework.bean,org.think2framework.ide.bean"/>
+                    <entry key="packages" value="org.think2framework.context.bean,org.think2framework.ide.bean"/>
                 </map>
             </list>
         </property>

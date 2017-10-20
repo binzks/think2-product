@@ -1,4 +1,4 @@
-package org.think2framework;
+package org.think2framework.context;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

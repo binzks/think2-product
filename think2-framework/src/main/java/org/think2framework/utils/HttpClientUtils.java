@@ -19,8 +19,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * http请求工具类
+ */
 public class HttpClientUtils {
 
+	/**
+	 * 默认字符串编码格式
+	 */
 	private static final String DEFAULT_ENCODING = "UTF-8";
 
 	/**
@@ -107,6 +113,17 @@ public class HttpClientUtils {
 		return result;
 	}
 
+	/**
+	 * 根据请求返回相应获取返回字符串
+	 * 
+	 * @param response
+	 *            请求响应
+	 * @param encoding
+	 *            编码格式
+	 * @return http请求返回值
+	 * @throws Exception
+	 *             解析异常
+	 */
 	private static String getResponseString(CloseableHttpResponse response, String encoding) throws Exception {
 		if (response.getStatusLine().getStatusCode() != 200) {
 			throw new Exception("http response status line " + response.getStatusLine());
@@ -336,7 +353,7 @@ public class HttpClientUtils {
 	private static String getSubXmlString(String xml, String key) {
 		int begin = StringUtils.indexOf(xml, "<" + key + ">");
 		begin += key.length() + 2;
-		int end = StringUtils.lastIndexOf(xml,  key + ">");
+		int end = StringUtils.lastIndexOf(xml, key + ">");
 		if (begin >= 0 && end >= 0) {
 			String data = StringUtils.substring(xml, begin, end);
 			return StringUtils.substring(data, 0, StringUtils.lastIndexOf(data, "</"));

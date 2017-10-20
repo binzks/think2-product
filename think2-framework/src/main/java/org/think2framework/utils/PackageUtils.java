@@ -14,10 +14,17 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 /**
- * Created by zhoubin on 16/6/1. 扫描包工具
+ * 扫描包工具
  */
 public class PackageUtils {
 
+	/**
+	 * 扫描一个包名下所有的类
+	 * 
+	 * @param packageDirName
+	 *            包名
+	 * @return 类的数组
+	 */
 	public static List<Class> scanPackage(String packageDirName) {
 		List<Class> list = new ArrayList<>();
 		Enumeration<URL> dirs;

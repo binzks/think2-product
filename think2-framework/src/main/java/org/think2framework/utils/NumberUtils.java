@@ -1,5 +1,8 @@
 package org.think2framework.utils;
 
+/**
+ * 数字工具类，整型、浮点、long、double
+ */
 public class NumberUtils {
 
 	/**
@@ -20,10 +23,10 @@ public class NumberUtils {
 	 *
 	 * @param str
 	 *            the string to convert, may be null
-	 * @return the int represented by the string, or <code>zero</code> if
-	 *         conversion fails
-	 * @deprecated Use {@link #toInt(String)} This method will be removed in
-	 *             Commons Lang 3.0
+	 * @return the int represented by the string, or <code>zero</code> if conversion
+	 *         fails
+	 * @deprecated Use {@link #toInt(String)} This method will be removed in Commons
+	 *             Lang 3.0
 	 */
 	public static int stringToInt(String str) {
 		return toInt(str);
@@ -47,8 +50,8 @@ public class NumberUtils {
 	 *
 	 * @param str
 	 *            the string to convert, may be null
-	 * @return the int represented by the string, or <code>zero</code> if
-	 *         conversion fails
+	 * @return the int represented by the string, or <code>zero</code> if conversion
+	 *         fails
 	 * @since 2.1
 	 */
 	public static int toInt(String str) {
@@ -101,10 +104,9 @@ public class NumberUtils {
 	 *            the string to convert, may be null
 	 * @param defaultValue
 	 *            the default value
-	 * @return the int represented by the string, or the default if conversion
-	 *         fails
-	 * @deprecated Use {@link #toInt(String, int)} This method will be removed
-	 *             in Commons Lang 3.0
+	 * @return the int represented by the string, or the default if conversion fails
+	 * @deprecated Use {@link #toInt(String, int)} This method will be removed in
+	 *             Commons Lang 3.0
 	 */
 	public static int stringToInt(String str, int defaultValue) {
 		return toInt(str, defaultValue);
@@ -130,8 +132,7 @@ public class NumberUtils {
 	 *            the string to convert, may be null
 	 * @param defaultValue
 	 *            the default value
-	 * @return the int represented by the string, or the default if conversion
-	 *         fails
+	 * @return the int represented by the string, or the default if conversion fails
 	 * @since 2.1
 	 */
 	public static int toInt(String str, int defaultValue) {
@@ -167,8 +168,8 @@ public class NumberUtils {
 	 *
 	 * @param str
 	 *            the string to convert, may be null
-	 * @return the long represented by the string, or <code>0</code> if
-	 *         conversion fails
+	 * @return the long represented by the string, or <code>0</code> if conversion
+	 *         fails
 	 * @since 2.1
 	 */
 	public static long toLong(String str) {
@@ -243,8 +244,8 @@ public class NumberUtils {
 
 	/**
 	 * <p>
-	 * Convert a <code>String</code> to a <code>float</code>, returning a
-	 * default value if the conversion fails.
+	 * Convert a <code>String</code> to a <code>float</code>, returning a default
+	 * value if the conversion fails.
 	 * </p>
 	 *
 	 * <p>
@@ -262,8 +263,8 @@ public class NumberUtils {
 	 *            the string to convert, may be <code>null</code>
 	 * @param defaultValue
 	 *            the default value
-	 * @return the float represented by the string, or defaultValue if
-	 *         conversion fails
+	 * @return the float represented by the string, or defaultValue if conversion
+	 *         fails
 	 * @since 2.1
 	 */
 	public static float toFloat(String str, float defaultValue) {
@@ -310,8 +311,8 @@ public class NumberUtils {
 
 	/**
 	 * <p>
-	 * Convert a <code>String</code> to a <code>double</code>, returning a
-	 * default value if the conversion fails.
+	 * Convert a <code>String</code> to a <code>double</code>, returning a default
+	 * value if the conversion fails.
 	 * </p>
 	 *
 	 * <p>
@@ -329,8 +330,8 @@ public class NumberUtils {
 	 *            the string to convert, may be <code>null</code>
 	 * @param defaultValue
 	 *            the default value
-	 * @return the double represented by the string, or defaultValue if
-	 *         conversion fails
+	 * @return the double represented by the string, or defaultValue if conversion
+	 *         fails
 	 * @since 2.1
 	 */
 	public static double toDouble(String str, double defaultValue) {
@@ -434,8 +435,8 @@ public class NumberUtils {
 
 	/**
 	 * <p>
-	 * Convert a <code>String</code> to an <code>short</code>, returning a
-	 * default value if the conversion fails.
+	 * Convert a <code>String</code> to an <code>short</code>, returning a default
+	 * value if the conversion fails.
 	 * </p>
 	 *
 	 * <p>
@@ -897,9 +898,8 @@ public class NumberUtils {
 	 * </p>
 	 *
 	 * <p>
-	 * Valid numbers include hexadecimal marked with the <code>0x</code>
-	 * qualifier, scientific notation and numbers marked with a type qualifier
-	 * (e.g. 123L).
+	 * Valid numbers include hexadecimal marked with the <code>0x</code> qualifier,
+	 * scientific notation and numbers marked with a type qualifier (e.g. 123L).
 	 * </p>
 	 *
 	 * <p>

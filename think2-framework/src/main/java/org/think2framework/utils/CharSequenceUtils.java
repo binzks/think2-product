@@ -1,7 +1,7 @@
 package org.think2framework.utils;
 
 /**
- * Created by zhoubin on 2016/10/7. org.apache.commons.lang3 CharSequenceUtils
+ * org.apache.commons.lang3 CharSequenceUtils
  */
 public class CharSequenceUtils {
 
@@ -12,8 +12,8 @@ public class CharSequenceUtils {
 	 * </p>
 	 *
 	 * <p>
-	 * This constructor is public to permit tools that require a JavaBean
-	 * instance to operate.
+	 * This constructor is public to permit tools that require a JavaBean instance
+	 * to operate.
 	 * </p>
 	 */
 	public CharSequenceUtils() {
@@ -29,9 +29,9 @@ public class CharSequenceUtils {
 	 *
 	 * <p>
 	 * This provides the {@code CharSequence} equivalent to
-	 * {@link String#substring(int)}. The length (in {@code char}) of the
-	 * returned sequence is {@code length() - start}, so if {@code start == end}
-	 * then an empty sequence is returned.
+	 * {@link String#substring(int)}. The length (in {@code char}) of the returned
+	 * sequence is {@code length() - start}, so if {@code start == end} then an
+	 * empty sequence is returned.
 	 * </p>
 	 *
 	 * @param cs
@@ -40,8 +40,8 @@ public class CharSequenceUtils {
 	 *            the start index, inclusive, valid
 	 * @return a new subsequence, may be null
 	 * @throws IndexOutOfBoundsException
-	 *             if {@code start} is negative or if {@code start} is greater
-	 *             than {@code length()}
+	 *             if {@code start} is negative or if {@code start} is greater than
+	 *             {@code length()}
 	 */
 	public static CharSequence subSequence(CharSequence cs, int start) {
 		return cs == null ? null : cs.subSequence(start, cs.length());
@@ -50,8 +50,8 @@ public class CharSequenceUtils {
 	// -----------------------------------------------------------------------
 	/**
 	 * <p>
-	 * Finds the first index in the {@code CharSequence} that matches the
-	 * specified character.
+	 * Finds the first index in the {@code CharSequence} that matches the specified
+	 * character.
 	 * </p>
 	 *
 	 * @param cs
@@ -106,8 +106,8 @@ public class CharSequenceUtils {
 
 	/**
 	 * <p>
-	 * Finds the last index in the {@code CharSequence} that matches the
-	 * specified character.
+	 * Finds the last index in the {@code CharSequence} that matches the specified
+	 * character.
 	 * </p>
 	 *
 	 * @param cs
@@ -115,8 +115,7 @@ public class CharSequenceUtils {
 	 * @param searchChar
 	 *            the char to be searched for
 	 * @param start
-	 *            the start index, negative returns -1, beyond length starts at
-	 *            end
+	 *            the start index, negative returns -1, beyond length starts at end
 	 * @return the index where the search char was found, -1 if not found
 	 */
 	static int lastIndexOf(CharSequence cs, int searchChar, int start) {
@@ -140,8 +139,8 @@ public class CharSequenceUtils {
 	}
 
 	/**
-	 * Used by the lastIndexOf(CharSequence methods) as a green implementation
-	 * of lastIndexOf
+	 * Used by the lastIndexOf(CharSequence methods) as a green implementation of
+	 * lastIndexOf
 	 *
 	 * @param cs
 	 *            the {@code CharSequence} to be processed

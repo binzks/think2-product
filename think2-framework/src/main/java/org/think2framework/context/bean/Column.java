@@ -1,4 +1,4 @@
-package org.think2framework.bean;
+package org.think2framework.context.bean;
 
 import org.think2framework.orm.core.TypeUtils;
 import org.think2framework.mvc.view.bean.Item;
@@ -9,11 +9,17 @@ import java.util.List;
 /**
  * Created by zhoubin on 2017/6/12. 模型的列定义
  */
-public class Column{
+public class Column {
 
-	private String name; // 列的名称，单模块唯一
+	/**
+	 * 列名
+	 */
+	private String name;
 
-	private String title; // 列的标题
+	/**
+	 * 标题
+	 */
+	private String title;// 列的标题
 
 	private String tag = "text"; // 列的标签
 
@@ -47,6 +53,11 @@ public class Column{
 
 	private List<Item> items;// 单元格的item定义，主要用于状态选择、人员选择等选择类
 
+	/**
+	 * 获取模型列名称
+	 * 
+	 * @return 列名
+	 */
 	public String getName() {
 		return name;
 	}

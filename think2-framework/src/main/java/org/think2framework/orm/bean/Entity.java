@@ -4,23 +4,44 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by zhoubin on 16/7/12. 实体bean
+ * 查询实体
  */
 public class Entity {
 
-	private String table; // 主表名称
+	/**
+	 * 主表名称
+	 */
+	private String table;
 
-	private String pk; // 主键名称
+	/**
+	 * 主键名称
+	 */
+	private String pk;
 
-	private Map<String, EntityColumn> columns; // 列
+	/**
+	 * 查询列数组
+	 */
+	private Map<String, EntityColumn> columns;
 
-	private String joinSql; // 关联sql
+	/**
+	 * 关联sql
+	 */
+	private String joinSql;
 
-	private String columnSql; // 默认查询列sql
+	/**
+	 * 默认查询列sql
+	 */
+	private String columnSql;
 
-	private List<Filter> filters; // 默认过滤条件
+	/**
+	 * 默认过滤条件数组
+	 */
+	private List<Filter> filters;
 
-	private List<Order> orders; // 默认排序
+	/**
+	 * 默认排序
+	 */
+	private List<Order> orders;
 
 	public Entity() {
 	}

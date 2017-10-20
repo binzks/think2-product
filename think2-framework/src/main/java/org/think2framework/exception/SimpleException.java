@@ -1,7 +1,7 @@
 package org.think2framework.exception;
 
 /**
- * Created by zhoubin on 16/6/1. 简单公用异常
+ * 简单公用异常
  */
 public class SimpleException extends RuntimeException {
 

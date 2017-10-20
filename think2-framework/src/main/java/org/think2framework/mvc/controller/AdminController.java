@@ -1,7 +1,7 @@
 package org.think2framework.mvc.controller;
 
-import org.think2framework.ConstantFactory;
-import org.think2framework.ModelFactory;
+import org.think2framework.context.ConstantFactory;
+import org.think2framework.context.ModelFactory;
 import org.think2framework.mvc.bean.Admin;
 import org.think2framework.mvc.bean.AdminPower;
 import org.think2framework.orm.Query;

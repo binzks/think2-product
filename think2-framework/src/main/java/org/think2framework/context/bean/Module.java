@@ -1,4 +1,4 @@
-package org.think2framework.bean;
+package org.think2framework.context.bean;
 
 import org.think2framework.mvc.bean.BaseCms;
 import org.think2framework.orm.core.TypeUtils;

@@ -1,23 +1,44 @@
 package org.think2framework.orm.bean;
 
 /**
- * Created by zhoubin on 16/7/12. 表的列bean
+ * 数据库表的列
  */
 public class TableColumn {
 
-	private String name; // 字段名称
+	/**
+	 * 字段名称
+	 */
+	private String name;
 
-	private String type; // 字段类型
+	/**
+	 * 字段类型
+	 */
+	private String type;
 
-	private Boolean nullable; // 字段是否可空
+	/**
+	 * 字段是否可空
+	 */
+	private Boolean nullable;
 
-	private Integer length; // 字段长度
+	/**
+	 * 字段长度
+	 */
+	private Integer length;
 
-	private Integer scale; // 字段精度(小数位数)
+	/**
+	 * 字段精度(小数位数)
+	 */
+	private Integer scale;
 
-	private Object defaultValue; // 字段默认值
+	/**
+	 * 字段默认值
+	 */
+	private Object defaultValue;
 
-	private String comment; // 字段注释
+	/**
+	 * 字段注释
+	 */
+	private String comment;
 
 	public TableColumn() {
 

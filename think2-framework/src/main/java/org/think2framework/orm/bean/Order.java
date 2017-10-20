@@ -3,12 +3,18 @@ package org.think2framework.orm.bean;
 import java.util.List;
 
 /**
- * Created by zhoubin on 16/9/27. 排序
+ * 查询实体的排序
  */
 public class Order {
 
+	/**
+	 * 排序字段数组
+	 */
 	private List<String> keys;
 
+	/**
+	 * 排序规则asc、desc
+	 */
 	private String type;
 
 	public Order() {

@@ -1,25 +1,49 @@
 package org.think2framework.orm.bean;
 
 /**
- * Created by zhoubin on 16/7/12. 关联bean
+ * 查询实体的关联条件
  */
 public class Join {
 
-	private String name; // 关联的名称，用于标识关联，获取关联表的表名和别名
+	/**
+	 * 关联的名称，用于标识关联，获取关联表的表名和别名
+	 */
+	private String name;
 
-	private String database; // 关联表所在数据库名称
+	/**
+	 * 关联表所在数据库名称
+	 */
+	private String database;
 
-	private String table; // 关联的表名称
+	/**
+	 * 关联的表名称
+	 */
+	private String table;
 
-	private String type = "left join"; // 关联类型 left join, right join, inner join
+	/**
+	 * 关联类型 left join, right join, inner join
+	 */
+	private String type = "left join";
 
-	private String key; // 关联表的字段名称
+	/**
+	 * 关联表的字段名称
+	 */
+	private String key;
 
-	private String joinName; // 关联的主表的关联名称，如果null或者空表示关联主表，如果不为null表示关联实体的关联表
+	/**
+	 * 关联的主表的关联名称，如果null或者空表示关联主表，如果不为null表示关联实体的关联表
+	 */
+	private String joinName;
 
-	private String joinKey; // 关联的主表的字段名称
+	/**
+	 * 关联的主表的字段名称
+	 */
+	private String joinKey;
 
-	private String filter; // 额外的过滤条件，手动加上在join后
+	/**
+	 * 额外的过滤条件，手动加上在join后
+	 */
+	private String filter;
 
 	public Join() {
 	}

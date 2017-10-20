@@ -1,6 +1,5 @@
 package org.think2framework.utils;
 
-
 import org.think2framework.exception.SimpleException;
 
 import java.text.SimpleDateFormat;
@@ -8,11 +7,14 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Created by zhoubin on 16/7/8. 时间工具
+ * 时间、时间戳工具
  */
 public class DatetimeUtils {
 
-	private static final String DEFAULT_FORMAT = "yyyy-MM-dd HH:mm:ss"; // 默认的时间格式
+	/**
+	 * 默认的时间格式
+	 */
+	private static final String DEFAULT_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
 	/**
 	 * 获取当前时间戳的long值

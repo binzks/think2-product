@@ -1,7 +1,7 @@
-package org.think2framework;
+package org.think2framework.context;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import org.think2framework.bean.Message;
+import org.think2framework.context.bean.Message;
 import org.think2framework.exception.ExistException;
 import org.think2framework.utils.FileUtils;
 import org.think2framework.utils.JsonUtils;

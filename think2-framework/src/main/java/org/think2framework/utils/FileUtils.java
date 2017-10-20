@@ -5,11 +5,20 @@ import java.io.FilenameFilter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * 文件工具类
+ */
 public class FileUtils {
 
+	/**
+	 * 根据正则表达式过滤文件
+	 */
 	private static class FileFilter implements FilenameFilter {
 
-		private Pattern pattern; // 正则表达式过滤
+		/**
+		 * 正则表达式过滤
+		 */
+		private Pattern pattern;
 
 		private FileFilter(String filename) {
 			pattern = Pattern.compile(filename);
