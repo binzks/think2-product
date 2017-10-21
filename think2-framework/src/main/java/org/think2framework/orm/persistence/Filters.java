@@ -6,10 +6,16 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Created by zhoubin on 16/9/12. 多过滤定义
+ * 多查询过滤定义
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Filters {
+
+	/**
+	 * 查询过滤
+	 * 
+	 * @return 查询过滤
+	 */
 	Filter[] value();
 }

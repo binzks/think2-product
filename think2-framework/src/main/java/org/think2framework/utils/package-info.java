@@ -4,7 +4,7 @@
  */
 package org.think2framework.utils;
 
-class utilsConst {
+class UtilsConst {
 	/**
 	 * 默认字符串编码格式
 	 */

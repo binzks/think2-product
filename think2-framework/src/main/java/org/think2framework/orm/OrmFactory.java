@@ -18,11 +18,20 @@ public class OrmFactory {
 
 	private static final Logger logger = LogManager.getLogger(OrmFactory.class);
 
-	private static Map<String, Database> databases = new HashMap<>(); // 数据库map
+	/**
+	 * 存储数据库的map
+	 */
+	private static Map<String, Database> databases = new HashMap<>();
 
-	private static Map<String, Table> tables = new HashMap<>(); // 数据库表
+	/**
+	 * 存储数据库表的map
+	 */
+	private static Map<String, Table> tables = new HashMap<>();
 
-	private static Map<String, Entity> entities = new HashMap<>(); // 查询实体
+	/**
+	 * 存储查询实体的map
+	 */
+	private static Map<String, Entity> entities = new HashMap<>();
 
 	/**
 	 * 清理数据库配置

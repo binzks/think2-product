@@ -10,28 +10,73 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Created by zhoubin on 16/7/11. 数据库列定义
+ * 数据库列定义
  */
 @Target({ METHOD, FIELD })
 @Retention(RUNTIME)
 public @interface Column {
 
-	String name() default ""; // 字段名称
+	/**
+	 * 字段名称，默认空的时候取java定义字段的名称
+	 * 
+	 * @return 字段名称
+	 */
+	String name() default "";
 
-	String type() default TypeUtils.FIELD_TEXT; // 字段类型
+	/**
+	 * 字段类型，默认是文本，如果字段定义是整型或者长整型则自动修改为整型，如果是浮点则修改为浮点
+	 * 
+	 * @return 字段类型
+	 */
+	String type() default TypeUtils.FIELD_TEXT;
 
-	boolean nullable() default true; // 字段是否可空
+	/**
+	 * 字段是否可空，默认可空
+	 * 
+	 * @return 字段是否可空
+	 */
+	boolean nullable() default true;
 
-	String alias() default ""; // 字段别名
+	/**
+	 * 字段别名，主要用于关联表的时候给字段设置
+	 * 
+	 * @return 字段别名
+	 */
+	String alias() default "";
 
-	String join() default ""; // 字段所属关联名称,如果为空表示主表
+	/**
+	 * 字段所属关联名称,如果为空表示主表字段
+	 * 
+	 * @return 字段所属关联名称
+	 */
+	String join() default "";
 
-	int length() default 50; // 字段长度
+	/**
+	 * 字段长度，默认50
+	 * 
+	 * @return 字段长度
+	 */
+	int length() default 50;
 
-	int scale() default 0; // 字段精度(小数位数)
+	/**
+	 * 字段精度(小数位数)，默认0
+	 * 
+	 * @return 字段精度(小数位数)
+	 */
+	int scale() default 0;
 
-	String defaultValue() default ""; // 字段默认值
+	/**
+	 * 字段默认值，默认空不设置默认值
+	 * 
+	 * @return 字段默认值
+	 */
+	String defaultValue() default "";
 
-	String comment() default ""; // 字段注释
+	/**
+	 * 字段注释
+	 * 
+	 * @return 字段注释
+	 */
+	String comment() default "";
 
 }

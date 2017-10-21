@@ -6,10 +6,16 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Created by zhoubin on 16/9/12. 多过滤定义
+ * 多查询排序定义
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Orders {
+
+	/**
+	 * 排序
+	 * 
+	 * @return 排序
+	 */
 	Order[] value();
 }

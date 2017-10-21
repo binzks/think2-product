@@ -3,28 +3,67 @@ package org.think2framework.orm.persistence;
 import java.lang.annotation.*;
 
 /**
- * Created by zhoubin on 16/3/15. 关联注解
+ * 查询关联注解
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Repeatable(value = JoinTables.class)
 public @interface JoinTable {
 
-	String name(); // 关联名称,模型唯一
+	/**
+	 * 关联名称,模型唯一
+	 * 
+	 * @return 关联名称
+	 */
+	String name();
 
-	String database() default ""; // 关联表的数据库
+	/**
+	 * 关联表的数据库，默认空表示主表对应的数据库，如果是多数据库关联则填数据库名称
+	 * 
+	 * @return 关联表的数据库
+	 */
+	String database() default "";
 
-	String table(); // 关联表名
+	/**
+	 * 关联表名
+	 * 
+	 * @return 关联表名
+	 */
+	String table();
 
-	String type() default "left join"; // 关联类型
+	/**
+	 * 关联类型left join,right join,inner join
+	 * 
+	 * @return 关联类型
+	 */
+	String type() default "left join";
 
-	String key(); // 关联表的字段
+	/**
+	 * 关联表的字段
+	 * 
+	 * @return 关联表的字段
+	 */
+	String key();
 
-	String joinName() default ""; // 关联的关联名称
+	/**
+	 * 关联的关联名称，关联查询的时候是否关联其他关联，如果空表示关联主表
+	 * 
+	 * @return 关联的关联名称
+	 */
+	String joinName() default "";
 
-	String joinKey(); // 关联的关联的表的字段名称
+	/**
+	 * 关联的关联的表的字段名称
+	 * 
+	 * @return 关联的关联的表的字段名称
+	 */
+	String joinKey();
 
-	String filter() default ""; // 额外的过滤条件
+	/**
+	 * 额外的过滤条件，添加到关联生成后
+	 * 
+	 * @return 额外的过滤条件
+	 */
+	String filter() default "";
 
-	String comment() default ""; // 注释
 }

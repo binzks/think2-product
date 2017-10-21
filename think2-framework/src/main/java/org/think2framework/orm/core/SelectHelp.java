@@ -12,11 +12,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by zhoubin on 16/7/12. 生成通用查询语句,关联,字段,过滤条件
+ * 生成通用查询语句,关联,字段,过滤条件
  */
 public class SelectHelp {
-
-	public static final String TABLE_ALIAS = "t"; // 查询主表别名
 
 	/**
 	 * 生成join sql语句
@@ -38,7 +36,7 @@ public class SelectHelp {
 			joinSql.append(join.getTable()).append(" AS ").append(join.getName()).append(" ON ").append(join.getName())
 					.append(".").append(join.getKey()).append("=");
 			if (StringUtils.isBlank(join.getJoinName())) {
-				joinSql.append(TABLE_ALIAS);
+				joinSql.append(OrmCoreConst.TABLE_ALIAS);
 			} else {
 				joinSql.append(join.getJoinName());
 			}
@@ -63,8 +61,8 @@ public class SelectHelp {
 		}
 		StringBuilder sql = new StringBuilder();
 		for (EntityColumn column : columns.values()) {
-			sql.append(",").append(StringUtils.isBlank(column.getJoin()) ? TABLE_ALIAS : column.getJoin()).append(".")
-					.append(column.getName());
+			sql.append(",").append(StringUtils.isBlank(column.getJoin()) ? OrmCoreConst.TABLE_ALIAS : column.getJoin())
+					.append(".").append(column.getName());
 			if (StringUtils.isNotBlank(column.getAlias())) {
 				sql.append(" AS ").append(column.getAlias());
 			}
@@ -102,7 +100,7 @@ public class SelectHelp {
 			throw new NonExistException("Failed to generate column key sql, column " + name);
 		}
 		StringBuilder sql = new StringBuilder();
-		sql.append(StringUtils.isBlank(column.getJoin()) ? TABLE_ALIAS : column.getJoin()).append(".")
+		sql.append(StringUtils.isBlank(column.getJoin()) ? OrmCoreConst.TABLE_ALIAS : column.getJoin()).append(".")
 				.append(column.getName());
 		if (StringUtils.isNotBlank(column.getAlias()) && alias) {
 			sql.append(" AS ").append(column.getAlias());

@@ -16,13 +16,19 @@ import java.sql.SQLException;
 import java.util.*;
 
 /**
- * Created by zhoubin on 16/6/2. 类工具,主要处理类字段,读取和写入,以及创建实例
+ * 类工具,主要处理类字段,读取和写入,以及创建实例
  */
 public class ClassUtils {
 
-	public static final Integer TRUE_VALUE = 1; // bool类型的true值
+	/**
+	 * bool类型的true值
+	 */
+	public static final Integer TRUE_VALUE = 1;
 
-	public static final Integer FALSE_VALUE = 0; // bool类型的false值
+	/**
+	 * bool类型的false值
+	 */
+	public static final Integer FALSE_VALUE = 0;
 
 	/**
 	 * 获取字段的名称,如果定义了别名以别名为准,如果定义了名称以名称为准,如果都没有以字段本身名称为准
@@ -238,7 +244,7 @@ public class ClassUtils {
 	public static TableColumn createTableColumn(String join, String name, String type, Boolean nullable, Integer length,
 			Integer scale, Object defaultValue, String comment) {
 		// 如果字段没有关联名称或者为主表别名则表示为表的字段,如果有关联名称表示关联表,不设置到表
-		if (StringUtils.isBlank(join) || join.equals(SelectHelp.TABLE_ALIAS)) {
+		if (StringUtils.isBlank(join) || join.equals(OrmCoreConst.TABLE_ALIAS)) {
 			return new TableColumn(name, type, nullable, length, scale, defaultValue, comment);
 		} else {
 			return null;
@@ -331,8 +337,8 @@ public class ClassUtils {
 			if (null != joinTables) {
 				List<Join> joins = new ArrayList<>();
 				for (JoinTable joinTable : joinTables) {
-					if (joinTable.name().equals(SelectHelp.TABLE_ALIAS)) {
-						throw new SimpleException(SelectHelp.TABLE_ALIAS
+					if (joinTable.name().equals(OrmCoreConst.TABLE_ALIAS)) {
+						throw new SimpleException(OrmCoreConst.TABLE_ALIAS
 								+ " is retained as the main table alias, can not be used as a join name");
 					}
 					joins.add(new Join(joinTable.name(), joinTable.database(), joinTable.table(), joinTable.type(),

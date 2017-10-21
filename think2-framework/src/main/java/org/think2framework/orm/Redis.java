@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Created by zhoubin on 2017/6/8. redis处理工具
+ * redis处理工具
  */
 public class Redis {
 
@@ -20,7 +20,10 @@ public class Redis {
 
 	private JedisPool jedisPool;
 
-	private String host; // redis 地址
+	/**
+	 * redis 地址
+	 */
+	private String host;
 
 	public Redis(JedisPool jedisPool) {
 		this.jedisPool = jedisPool;

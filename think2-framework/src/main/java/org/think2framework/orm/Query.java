@@ -20,33 +20,66 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by zhoubin on 16/2/29. 查询生成器
+ * 查询生成器
  */
 public class Query {
 
 	private static final Logger logger = LogManager.getLogger(Query.class);
 
-	private List<Filter> filters; // 过滤条件
+	/**
+	 * 过滤条件
+	 */
+	private List<Filter> filters;
 
-	private int page; // 分页第几页
+	/**
+	 * 分页第几页
+	 */
+	private int page;
 
-	private int size; // 每页大小
+	/**
+	 * 每页大小
+	 */
+	private int size;
 
-	private List<String> groups; // 分组字段
+	/**
+	 * 分组字段
+	 */
+	private List<String> groups;
 
-	private List<Order> orders; // 排序
+	/**
+	 * 排序
+	 */
+	private List<Order> orders;
 
-	private Entity entity; // 查询实体
+	/**
+	 * 查询实体
+	 */
+	private Entity entity;
 
-	private JdbcTemplate jdbcTemplate; // spring JdbcTemplate
+	/**
+	 * spring JdbcTemplate
+	 */
+	private JdbcTemplate jdbcTemplate;
 
-	private String columnSql; // 查询的字段sql
+	/**
+	 * 查询的字段sql
+	 */
+	private String columnSql;
 
-	private Redis redis; // redis处理工具
+	/**
+	 * redis处理工具
+	 */
+	private Redis redis;
 
-	private Integer valid = 0; // redis缓存的有效时间，单位秒，0位无期限
+	/**
+	 * redis缓存的有效时间，单位秒，默认0为无期限
+	 */
+	private Integer valid = 0;
 
-	private Database database; // 处理数据库
+	/**
+	 * 处理数据库
+	 */
+	private Database database;
 
 	public Query(Entity entity, Database database, Redis redis, Integer valid) {
 		this.entity = entity;

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by zhoubin on 2017/6/6. sqlite
+ * sqlite数据库接口实现
  */
 public class Sqlite implements Database {
 

@@ -25,11 +25,6 @@ import java.util.Map;
 public class HttpClientUtils {
 
 	/**
-	 * 默认字符串编码格式
-	 */
-	private static final String DEFAULT_ENCODING = "UTF-8";
-
-	/**
 	 * http get请求，UTF-8编码格式，返回字符串
 	 *
 	 * @param url
@@ -37,7 +32,7 @@ public class HttpClientUtils {
 	 * @return 返回值字符串
 	 */
 	public static String get(String url) {
-		return get(url, null, DEFAULT_ENCODING);
+		return get(url, null, UtilsConst.DEFAULT_ENCODING);
 	}
 
 	/**
@@ -50,7 +45,7 @@ public class HttpClientUtils {
 	 * @return 返回值字符串
 	 */
 	public static String get(String url, Map<String, Object> params) {
-		return get(url, params, DEFAULT_ENCODING);
+		return get(url, params, UtilsConst.DEFAULT_ENCODING);
 	}
 
 	/**
@@ -168,7 +163,7 @@ public class HttpClientUtils {
 	 * @return 返回byte数组
 	 */
 	public static byte[] getByteArray(String url) {
-		return getByteArray(url, null, DEFAULT_ENCODING);
+		return getByteArray(url, null, UtilsConst.DEFAULT_ENCODING);
 	}
 
 	/**
@@ -209,7 +204,7 @@ public class HttpClientUtils {
 	 * @return 返回值字符串
 	 */
 	public static String post(String url) {
-		return post(url, null, DEFAULT_ENCODING);
+		return post(url, null, UtilsConst.DEFAULT_ENCODING);
 	}
 
 	/***
@@ -222,7 +217,7 @@ public class HttpClientUtils {
 	 * @return 返回值字符串
 	 */
 	public static String post(String url, Map<String, Object> params) {
-		return post(url, params, DEFAULT_ENCODING);
+		return post(url, params, UtilsConst.DEFAULT_ENCODING);
 	}
 
 	/**
@@ -269,7 +264,7 @@ public class HttpClientUtils {
 	 * @return 返回字符串
 	 */
 	public static String post(String url, String params, String contentType, Map<String, String> header) {
-		return post(url, params, DEFAULT_ENCODING, contentType, header);
+		return post(url, params, UtilsConst.DEFAULT_ENCODING, contentType, header);
 	}
 
 	/**
@@ -323,7 +318,7 @@ public class HttpClientUtils {
 	 * @return 返回字符串
 	 */
 	public static String postJson(String url, String params) {
-		return postJson(url, params, DEFAULT_ENCODING);
+		return postJson(url, params, UtilsConst.DEFAULT_ENCODING);
 	}
 
 	/**
@@ -412,7 +407,7 @@ public class HttpClientUtils {
 	 */
 	public static String soap(String url, String namespace, String method, String soapAction,
 			Map<String, Object> params) {
-		return soap(url, namespace, method, soapAction, params, null, DEFAULT_ENCODING);
+		return soap(url, namespace, method, soapAction, params, null, UtilsConst.DEFAULT_ENCODING);
 	}
 
 	/**
@@ -434,7 +429,7 @@ public class HttpClientUtils {
 	 */
 	public static String soap(String url, String namespace, String method, String soapAction,
 			Map<String, Object> params, String key) {
-		return soap(url, namespace, method, soapAction, params, key, DEFAULT_ENCODING);
+		return soap(url, namespace, method, soapAction, params, key, UtilsConst.DEFAULT_ENCODING);
 	}
 
 	/**
@@ -484,7 +479,7 @@ public class HttpClientUtils {
 	 */
 	public static Map<String, Object> soapForMap(String url, String namespace, String method,
 			Map<String, Object> params) {
-		return soapForMap(url, namespace, method, params, null, DEFAULT_ENCODING);
+		return soapForMap(url, namespace, method, params, null, UtilsConst.DEFAULT_ENCODING);
 	}
 
 	/**
@@ -504,7 +499,7 @@ public class HttpClientUtils {
 	 */
 	public static Map<String, Object> soapForMap(String url, String namespace, String method,
 			Map<String, Object> params, String key) {
-		return soapForMap(url, namespace, method, params, key, DEFAULT_ENCODING);
+		return soapForMap(url, namespace, method, params, key, UtilsConst.DEFAULT_ENCODING);
 	}
 
 	/**
@@ -546,7 +541,7 @@ public class HttpClientUtils {
 	 */
 	public static Map<String, Object> soapForMap(String url, String namespace, String method, String soapAction,
 			Map<String, Object> params) {
-		return soapForMap(url, namespace, method, soapAction, params, null, DEFAULT_ENCODING);
+		return soapForMap(url, namespace, method, soapAction, params, null, UtilsConst.DEFAULT_ENCODING);
 	}
 
 	/**
@@ -568,7 +563,7 @@ public class HttpClientUtils {
 	 */
 	public static Map<String, Object> soapForMap(String url, String namespace, String method, String soapAction,
 			Map<String, Object> params, String key) {
-		return soapForMap(url, namespace, method, soapAction, params, key, DEFAULT_ENCODING);
+		return soapForMap(url, namespace, method, soapAction, params, key, UtilsConst.DEFAULT_ENCODING);
 	}
 
 	/**

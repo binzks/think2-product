@@ -5,15 +5,25 @@ import org.think2framework.orm.core.TypeUtils;
 import java.lang.annotation.*;
 
 /**
- * Created by zhoubin on 16/9/12. 过滤定义
+ * 查询排序定义
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Repeatable(value = Orders.class)
 public @interface Order {
 
-	String[] keys(); // 排序字段
+	/**
+	 * 排序字段，可以多个
+	 * 
+	 * @return 排序字段
+	 */
+	String[] keys();
 
-	String type() default TypeUtils.ORDER_TYPE_DESC; // 排序类型
+	/**
+	 * 排序类型asc、desc
+	 * 
+	 * @return 排序类型
+	 */
+	String type() default TypeUtils.ORDER_TYPE_DESC;
 
 }

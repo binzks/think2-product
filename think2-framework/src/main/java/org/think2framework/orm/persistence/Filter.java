@@ -3,16 +3,31 @@ package org.think2framework.orm.persistence;
 import java.lang.annotation.*;
 
 /**
- * Created by zhoubin on 16/9/12. 过滤定义
+ * 查询过滤条件定义
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Repeatable(value = Filters.class)
 public @interface Filter {
 
-	String key(); // 过滤关键字
+	/**
+	 * 过滤关键字
+	 * 
+	 * @return 过滤关键字
+	 */
+	String key();
 
-	String type() default "="; // 过滤类型
+	/**
+	 * 过滤类型，默认=
+	 * 
+	 * @return 过滤类型
+	 */
+	String type() default "=";
 
-	String[] values(); // 过滤值
+	/**
+	 * 过滤值数组，between为两个，其他为一个值
+	 * 
+	 * @return 过滤值
+	 */
+	String[] values();
 }

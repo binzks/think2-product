@@ -19,21 +19,36 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Created by zhoubin on 16/2/29. 写入生成器
+ * 写入生成器
  */
 public class Writer {
 
 	private static final Logger logger = LogManager.getLogger(Writer.class); // log4j日志对象
 
-	private Table table; // 表
+	/**
+	 * 表定义
+	 */
+	private Table table;
 
-	private JdbcTemplate jdbcTemplate; // spring JdbcTemplate
+	/**
+	 * spring JdbcTemplate
+	 */
+	private JdbcTemplate jdbcTemplate;
 
-	private String createSql; // 表创建sql语句
+	/**
+	 * 表创建sql语句
+	 */
+	private String createSql;
 
-	private String keySignBegin; // 数据库字段的符号,使用keySign把数据库关键字包起来,防止字段为关键字,关键字前符号
+	/**
+	 * 数据库字段的符号,使用keySign把数据库关键字包起来,防止字段为关键字,关键字前符号
+	 */
+	private String keySignBegin;
 
-	private String keySignEnd; // 数据库字段的符号,使用keySign把数据库关键字包起来,防止字段为关键字,关键字后符号
+	/**
+	 * 数据库字段的符号,使用keySign把数据库关键字包起来,防止字段为关键字,关键字后符号
+	 */
+	private String keySignEnd;
 
 	public Writer(Table table, String keySignBegin, String keySignEnd, String createSql, JdbcTemplate jdbcTemplate) {
 		this.table = table;
@@ -287,7 +302,7 @@ public class Writer {
 			this.jdbcTemplate.update(con -> {
 				PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 				for (int i = 0; i < args.length; i++) {
-				    ps.setObject(i+1, ClassUtils.getDatabaseValue(args[i]));
+					ps.setObject(i + 1, ClassUtils.getDatabaseValue(args[i]));
 				}
 				return ps;
 			}, keyHolder);
@@ -362,10 +377,10 @@ public class Writer {
 			String key = column.getName();
 			if (!key.equals(pk)) {
 				Object value = ClassUtils.getFieldValue(instance, key);
-				//不新增null值
-				if (null == value){
-				    continue;
-                }
+				// 不新增null值
+				if (null == value) {
+					continue;
+				}
 				fieldSql.append(",").append(this.keySignBegin).append(key).append(this.keySignEnd);
 				valueSql.append(",?");
 				values.add(value);

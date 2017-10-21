@@ -72,7 +72,7 @@ public class EncryptUtils {
 		try {
 			SecretKeySpec key = new SecretKeySpec(sKey.getBytes(), KEY_ALGORITHM);
 			Cipher cipher = Cipher.getInstance(KEY_ALGORITHM);// 创建密码器
-			byte[] byteTxt = txt.getBytes(utilsConst.DEFAULT_ENCODING);
+			byte[] byteTxt = txt.getBytes(UtilsConst.DEFAULT_ENCODING);
 			cipher.init(Cipher.ENCRYPT_MODE, key);// 初始化
 			// AES 加密
 			byte[] result = cipher.doFinal(byteTxt);
@@ -103,7 +103,7 @@ public class EncryptUtils {
 			byte[] encrypted = Base64.decodeBase64(txt);
 			// 解密
 			byte[] original = cipher.doFinal(encrypted);
-			return new String(original, utilsConst.DEFAULT_ENCODING);
+			return new String(original, UtilsConst.DEFAULT_ENCODING);
 		} catch (Exception e) {
 			throw new SimpleException(e);
 		}

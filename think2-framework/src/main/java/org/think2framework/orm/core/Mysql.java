@@ -10,10 +10,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by zhoubin on 2017/6/6. mysql
+ * mysql数据库接口实现
  */
 public class Mysql implements Database {
 
+	/**
+	 * spring JdbcTemplate
+	 */
 	private JdbcTemplate jdbcTemplate;
 
 	public Mysql(Integer minIdle, Integer maxIdle, Integer initialSize, Integer timeout, String address,
@@ -148,7 +151,7 @@ public class Mysql implements Database {
 			Map<String, EntityColumn> columns, List<String> group, List<Order> orders, Integer page, Integer size) {
 		Object[] result = new Object[2];
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT ").append(fields).append(" FROM `").append(table).append("` ").append(SelectHelp.TABLE_ALIAS)
+		sql.append("SELECT ").append(fields).append(" FROM `").append(table).append("` ").append(OrmCoreConst.TABLE_ALIAS)
 				.append(" ").append(joinSql).append(" WHERE 1=1 ");
 		Object[] sqlValues = SelectHelp.generateFilters(filters, columns);
 		sql.append(sqlValues[0]);
