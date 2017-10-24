@@ -4,19 +4,17 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.think2framework.context.ModelFactory;
-import org.think2framework.context.bean.*;
 import org.think2framework.ide.bean.Datasource;
 import org.think2framework.ide.bean.Project;
 import org.think2framework.mvc.bean.Admin;
 import org.think2framework.mvc.bean.AdminPower;
+import org.think2framework.mvc.bean.Module;
 import org.think2framework.orm.OrmFactory;
 import org.think2framework.orm.Writer;
-import org.think2framework.utils.NumberUtils;
 import org.think2framework.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class Configuration implements ApplicationContextAware {
 
@@ -42,7 +40,7 @@ public class Configuration implements ApplicationContextAware {
 
 	private String password; // 数据库密码
 
-	private List<Map<String, String>> models; // 自动扫描的包
+	private String packages; // 自动扫描的包
 
 	private static Boolean initialized = false; // 是否已经初始化过setApplicationContext会加载多次，所以判断
 
@@ -52,12 +50,8 @@ public class Configuration implements ApplicationContextAware {
 			System.setProperty("jsse.enableSNIExtension", "false");
 			OrmFactory.appendDatabase(type, name, minIdle, maxIdle, initialSize, timeout, db, host, port, username,
 					password);
-			if (null != models) {
-				for (Map<String, String> model : models) {
-					String packages = model.get("packages");
-					ModelFactory.scanPackages(model.get("query"), model.get("writer"), model.get("redis"),
-							NumberUtils.toInt(model.get("valid")), StringUtils.split(packages, ","));
-				}
+			if (StringUtils.isNotBlank(packages)) {
+				ModelFactory.scanPackages(name, name, null, 0, StringUtils.split(packages, ","));
 			}
 			initSystem();
 			initIDE();
@@ -110,7 +104,7 @@ public class Configuration implements ApplicationContextAware {
 
 	private void initIDE() {
 		ModelFactory.createWriter(Project.class.getName()).createTable();
-		ModelFactory.createWriter(org.think2framework.ide.bean.Datasource.class.getName()).createTable();
+		ModelFactory.createWriter(Datasource.class.getName()).createTable();
 	}
 
 	public void setName(String name) {
@@ -157,7 +151,8 @@ public class Configuration implements ApplicationContextAware {
 		this.password = password;
 	}
 
-	public void setModels(List<Map<String, String>> models) {
-		this.models = models;
+	public void setPackages(String packages) {
+		this.packages = packages;
 	}
+
 }

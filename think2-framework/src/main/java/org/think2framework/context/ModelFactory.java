@@ -15,10 +15,7 @@ import org.think2framework.orm.bean.TableColumn;
 import org.think2framework.orm.core.ClassUtils;
 import org.think2framework.orm.core.SelectHelp;
 import org.think2framework.orm.core.TypeUtils;
-import org.think2framework.utils.FileUtils;
-import org.think2framework.utils.JsonUtils;
-import org.think2framework.utils.PackageUtils;
-import org.think2framework.utils.StringUtils;
+import org.think2framework.utils.*;
 import org.think2framework.mvc.view.bean.Action;
 import org.think2framework.mvc.view.bean.BaseView;
 import org.think2framework.mvc.view.bean.Cell;
@@ -57,12 +54,14 @@ public class ModelFactory {
 		}
 		// 重新加载数据库
 		for (File file : files) {
-			List<Datasource> dss = JsonUtils.readFile(file, new TypeReference<List<Datasource>>() {
-			});
-			for (Datasource ds : dss) {
-				OrmFactory.appendDatabase(ds.getType(), ds.getName(), ds.getMinIdle(), ds.getMaxIdle(),
-						ds.getInitialSize(), ds.getTimeout(), ds.getDb(), ds.getHost(), ds.getPort(), ds.getUsername(),
-						ds.getPassword());
+			List<Map<String, Object>> dss = JsonUtils.readFileToMapList(file);
+			for (Map<String, Object> ds : dss) {
+				OrmFactory.appendDatabase(StringUtils.toString(ds.get("type")), StringUtils.toString(ds.get("name")),
+						NumberUtils.toInt(ds.get("minIdle"), 1), NumberUtils.toInt(ds.get("maxIdle"), 2),
+						NumberUtils.toInt(ds.get("initialSize"), 2), NumberUtils.toInt(ds.get("timeout"), 300),
+						StringUtils.toString(ds.get("db")), StringUtils.toString(ds.get("host")),
+						NumberUtils.toInt(ds.get("port")), StringUtils.toString(ds.get("username")),
+						StringUtils.toString(ds.get("password")));
 			}
 		}
 	}
@@ -131,7 +130,8 @@ public class ModelFactory {
 			OrmFactory.appendEntity(name, entity);
 			databases.put(name, new Database(query, StringUtils.isBlank(writer) ? query : writer, redis, valid));
 			// 如果view定义存在则添加view，如果没有名称则以模型名称为视图名称
-			org.think2framework.mvc.view.persistence.View view = org.think2framework.mvc.view.core.ClassUtils.getView(clazz);
+			org.think2framework.mvc.view.persistence.View view = org.think2framework.mvc.view.core.ClassUtils
+					.getView(clazz);
 			if (null != view) {
 				String viewName = StringUtils.isBlank(view.name()) ? name : view.name();
 				baseViews.put(viewName,
@@ -283,7 +283,7 @@ public class ModelFactory {
 	 * @return 视图
 	 */
 	public static View createView(String name, String title, String moduleId, String uri, Integer size, String columns,
-								  String actions) {
+			String actions) {
 		BaseView baseView = baseViews.get(name);
 		if (null == baseView) {
 			throw new NonExistException("Model " + name + " base view");

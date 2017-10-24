@@ -319,23 +319,33 @@ public class View {
 	 */
 	private HtmlTag createCellHtmlTag(Cell cell) {
 		HtmlTag htmlTag;
-		if (TypeUtils.FIELD_BOOL.equalsIgnoreCase(cell.getTag())) {
+		String tag = cell.getTag();
+		if (TypeUtils.FIELD_BOOL.equalsIgnoreCase(tag)) {
 			SelectTag selectTag = new SelectTag();
-			selectTag.setAttribute("name", cell.getName());
 			selectTag.setOption(ClassUtils.FALSE_VALUE.toString(), "否");
 			selectTag.setOption(ClassUtils.TRUE_VALUE.toString(), "是");
 			htmlTag = selectTag;
-		} else if (TypeUtils.FIELD_ITEM_INT.equalsIgnoreCase(cell.getTag())
-				|| TypeUtils.FIELD_ITEM.equalsIgnoreCase(cell.getTag())) {
+		} else if (TypeUtils.FIELD_ITEM_INT.equalsIgnoreCase(tag) || TypeUtils.FIELD_ITEM.equalsIgnoreCase(tag)
+				|| TypeUtils.FIELD_DATA_ITEM_INT.equalsIgnoreCase(tag)
+				|| TypeUtils.FIELD_DATA_ITEM.equalsIgnoreCase(tag)) {
 			SelectTag selectTag = new SelectTag();
-			selectTag.setAttribute("name", cell.getName());
 			selectTag.setOptions(cell.getItems());
 			htmlTag = selectTag;
+		} else if (TypeUtils.FIELD_INT.equalsIgnoreCase(tag) || TypeUtils.FIELD_FLOAT.equalsIgnoreCase(tag)) {
+			htmlTag = new SimpleHtmlTag("input", "col-xs-12 col-sm-12");
+			htmlTag.setAttribute("type", "number");
+		} else if (TypeUtils.FIELD_MOBILE.equalsIgnoreCase(tag)) {
+			htmlTag = new SimpleHtmlTag("input", "col-xs-12 col-sm-12");
+			htmlTag.setAttribute("type", "tel");
+//			htmlTag.setAttribute("maxlength", "11");
+		} else if (TypeUtils.FIELD_TELEPHONE.equalsIgnoreCase(tag)) {
+			htmlTag = new SimpleHtmlTag("input", "col-xs-12 col-sm-12 form-control input-mask-phone");
+			htmlTag.setAttribute("type", "text");
 		} else {
 			htmlTag = new SimpleHtmlTag("input", "col-xs-12 col-sm-12");
 			htmlTag.setAttribute("type", "text");
-			htmlTag.setAttribute("name", cell.getName());
 		}
+		htmlTag.setAttribute("name", cell.getName());
 		return htmlTag;
 	}
 }

@@ -23,14 +23,7 @@
         <property name="db" value="think2ide"/>
         <property name="username" value="root"/>
         <property name="password" value="root"/>
-        <property name="models">
-            <list>
-                <map>
-                    <entry key="query" value="think2ide"/>
-                    <entry key="packages" value="org.think2framework.context.bean,org.think2framework.ide.bean"/>
-                </map>
-            </list>
-        </property>
+        <property name="packages" value="org.think2framework.mvc.bean,org.think2framework.ide.bean"/>
     </bean>
 
     <!-- Controller Service -->

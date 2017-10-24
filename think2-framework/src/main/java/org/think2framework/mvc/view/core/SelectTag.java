@@ -19,6 +19,10 @@ public class SelectTag extends AbstractHtmlTag implements HtmlTag {
 
 	private Map<String, String> options; // 选项
 
+	private boolean data = false; // 是否有数据源选项
+
+	private List<Item> items; // 选项定义
+
 	public SelectTag() {
 		super("select");
 		options = new LinkedHashMap<>();
@@ -40,6 +44,15 @@ public class SelectTag extends AbstractHtmlTag implements HtmlTag {
 	}
 
 	public void setOptions(List<Item> items) {
+		this.items = items;
+		refreshOptions();
+	}
+
+	private void refreshOptions() {
+		if (null == items) {
+			return;
+		}
+		options.clear();
 		for (Item item : items) {
 			if (StringUtils.isBlank(item.getModel())) {
 				options.put(item.getKey(), item.getValue());
@@ -50,18 +63,23 @@ public class SelectTag extends AbstractHtmlTag implements HtmlTag {
 					options.put(StringUtils.toString(map.get(item.getKey())),
 							StringUtils.toString(map.get(item.getValue())));
 				}
+				data = true;
 			}
 		}
 	}
 
 	@Override
 	public String htmlString() {
+		if (data) {
+			refreshOptions();
+		}
 		StringBuffer html = new StringBuffer();
 		html.append("<select");
 		for (Map.Entry<String, String> entry : attributes.entrySet()) {
 			html.append(" ").append(entry.getKey()).append("=\"").append(entry.getValue()).append("\"");
 		}
-		html.append(">");
+		html.append("><option value=\"\"></option>");
+
 		for (Map.Entry<String, String> entry : options.entrySet()) {
 			html.append("<option value=\"").append(entry.getKey()).append("\"");
 			if (entry.getKey().equals(value)) {

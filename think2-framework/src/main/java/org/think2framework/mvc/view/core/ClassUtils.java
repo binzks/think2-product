@@ -1,5 +1,6 @@
 package org.think2framework.mvc.view.core;
 
+import org.think2framework.orm.core.TypeUtils;
 import org.think2framework.utils.StringUtils;
 import org.think2framework.mvc.view.bean.Action;
 import org.think2framework.mvc.view.bean.Cell;
@@ -34,11 +35,23 @@ public class ClassUtils {
 				List<org.think2framework.mvc.view.bean.Item> itemList = new ArrayList<>();
 				if (null != items && items.length > 0) {
 					for (Item item : items) {
-						itemList.add(new org.think2framework.mvc.view.bean.Item(item.model(), item.key(), item.value()));
+						itemList.add(
+								new org.think2framework.mvc.view.bean.Item(item.model(), item.key(), item.value()));
 					}
 				}
 				String name = StringUtils.isBlank(cell.name()) ? field.getName() : cell.name();
-				cells.add(new Cell(name, cell.title(), cell.tag(), cell.required(), cell.defaultValue(), cell.add(),
+				String tag = cell.tag();
+				// 如果是默认的标签，则判断下字段类型是不是整型、浮点，自动设置，其他类型不设置
+				if (TypeUtils.FIELD_TEXT.equalsIgnoreCase(tag)) {
+					String className = field.getGenericType().getTypeName();
+					if (Integer.class.getName().equals(className) || Long.class.getName().equals(className)
+							|| Float.class.getName().equals(className)) {
+						tag = TypeUtils.FIELD_INT;
+					} else if (Float.class.getName().equals(className)) { // 浮点型
+						tag = TypeUtils.FIELD_FLOAT;
+					}
+				}
+				cells.add(new Cell(name, cell.title(), tag, cell.required(), cell.defaultValue(), cell.add(),
 						cell.width(), cell.search(), cell.display(), cell.detail(), cell.add(), cell.edit(),
 						cell.rowFilter(), cell.comment(), itemList));
 			}

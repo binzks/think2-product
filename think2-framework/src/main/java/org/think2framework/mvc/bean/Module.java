@@ -1,6 +1,5 @@
-package org.think2framework.context.bean;
+package org.think2framework.mvc.bean;
 
-import org.think2framework.mvc.bean.BaseCms;
 import org.think2framework.orm.core.TypeUtils;
 import org.think2framework.orm.persistence.Column;
 import org.think2framework.orm.persistence.Table;

@@ -232,6 +232,30 @@ public class JsonUtils {
 	}
 
 	/**
+	 * 读取文件并解析成map数组
+	 * 
+	 * @param file
+	 *            文件路径和名称
+	 * @return map数组
+	 */
+	public static List<Map<String, Object>> readFileToMapList(String file) {
+		return readFile(file, new TypeReference<List<Map<String, Object>>>() {
+		});
+	}
+
+	/**
+	 * 读取文件并解析成map数组
+	 * 
+	 * @param file
+	 *            文件
+	 * @return map数组
+	 */
+	public static List<Map<String, Object>> readFileToMapList(File file) {
+		return readFile(file, new TypeReference<List<Map<String, Object>>>() {
+		});
+	}
+
+	/**
 	 * 将对象转换成json字符串并写入文件
 	 *
 	 * @param file

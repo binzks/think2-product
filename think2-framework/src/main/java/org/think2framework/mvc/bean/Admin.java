@@ -1,5 +1,6 @@
 package org.think2framework.mvc.bean;
 
+import org.think2framework.orm.core.TypeUtils;
 import org.think2framework.orm.persistence.Column;
 import org.think2framework.orm.persistence.Table;
 import org.think2framework.mvc.view.persistence.Cell;
@@ -23,7 +24,7 @@ public class Admin extends BaseCms {
 	private String password;
 
 	@Column(comment = "手机号码")
-	@Cell(title = "手机号码")
+	@Cell(title = "手机号码", tag = TypeUtils.FIELD_MOBILE)
 	private String mobile;
 
 	@Column(comment = "email")
