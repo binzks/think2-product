@@ -19,13 +19,13 @@ public class MvcSupport {
 		Writer moduleWriter = ModelFactory.createWriter(Module.class.getName());
 		List<Module> modules = new ArrayList<>();
 		if (moduleWriter.createTable()) {
-			modules.add(new Module("system", 0, Module.TYPE_GROUP, "fa-cog", "", "系统管理", "", 10, 1));
-			modules.add(new Module("system_module", 1, Module.TYPE_MODULE, "", Module.class.getName(), "模块管理",
+			modules.add(new Module("power", 0, Module.TYPE_GROUP, "fa-user", "", "权限管理", "", 10, 1));
+			modules.add(new Module("power_module", 1, Module.TYPE_MODULE, "", Module.class.getName(), "模块管理",
 					"/tpl/list", 10, 1));
-			modules.add(new Module("system_admin", 1, Module.TYPE_GROUP, "", "", "管理员管理", "", 10, 1));
-			modules.add(new Module("system_admin_info", 3, Module.TYPE_MODULE, "", Admin.class.getName(), "管理员信息",
+			modules.add(new Module("power_admin", 1, Module.TYPE_GROUP, "", "", "管理员管理", "", 10, 1));
+			modules.add(new Module("power_admin_info", 3, Module.TYPE_MODULE, "", Admin.class.getName(), "管理员信息",
 					"/tpl/list", 10, 1));
-			modules.add(new Module("system_admin_power", 3, Module.TYPE_MODULE, "", AdminPower.class.getName(), "管理员权限",
+			modules.add(new Module("power_admin_power", 3, Module.TYPE_MODULE, "", AdminPower.class.getName(), "管理员权限",
 					"/tpl/list", 10, 2));
 			moduleWriter.batchInsert(modules);
 		}
@@ -38,7 +38,7 @@ public class MvcSupport {
 			admin.setPassword("4ad418256efdfae2d275a9d6a8631df8");
 			adminWriter.insert(admin);
 		}
-		// 添加root账号需要的基本全新
+		// 添加root账号需要的基本权限
 		Writer adminPowerWriter = ModelFactory.createWriter(AdminPower.class.getName());
 		if (adminPowerWriter.createTable()) {
 			List<AdminPower> adminPowers = new ArrayList<>();

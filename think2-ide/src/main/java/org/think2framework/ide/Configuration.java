@@ -4,14 +4,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.think2framework.context.ModelFactory;
-import org.think2framework.ide.bean.Datasource;
-import org.think2framework.ide.bean.Project;
-import org.think2framework.ide.bean.Version;
-import org.think2framework.mvc.MvcSupport;
-import org.think2framework.mvc.bean.Module;
 import org.think2framework.orm.OrmFactory;
-import org.think2framework.orm.Writer;
-import org.think2framework.utils.NumberUtils;
 import org.think2framework.utils.StringUtils;
 
 public class Configuration implements ApplicationContextAware {
@@ -51,25 +44,8 @@ public class Configuration implements ApplicationContextAware {
 			if (StringUtils.isNotBlank(packages)) {
 				ModelFactory.scanPackages(name, name, null, 0, StringUtils.split(packages, ","));
 			}
-			//MvcSupport.install();
-			//initIDE();
 			initialized = true;
 		}
-	}
-
-	private void initIDE() {
-		// 添加ide模块
-		Writer moduleWriter = ModelFactory.createWriter(Module.class.getName());
-		int projectId = NumberUtils.toInt(moduleWriter
-				.insert(new Module("ide_project", 0, Module.TYPE_GROUP, "fa-desktop", "", "项目管理", "", 10, 2)));
-		moduleWriter.insert(new Module("ide_project_info", projectId, Module.TYPE_MODULE, "", Project.class.getName(),
-				"项目信息", "/tpl/list", 10, 1));
-		moduleWriter.insert(new Module("ide_project_datasource", projectId, Module.TYPE_MODULE, "",
-				Datasource.class.getName(), "数据源管理", "/tpl/list", 10, 2));
-		// 创建ide所需的表
-		ModelFactory.createWriter(Project.class.getName()).createTable();
-		ModelFactory.createWriter(Version.class.getName()).createTable();
-		ModelFactory.createWriter(Datasource.class.getName()).createTable();
 	}
 
 	public void setName(String name) {

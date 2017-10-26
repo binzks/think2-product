@@ -1,7 +1,9 @@
 package org.think2framework.mvc.bean;
 
+import org.think2framework.orm.core.TypeUtils;
 import org.think2framework.orm.persistence.Column;
 import org.think2framework.orm.persistence.JoinTable;
+import org.think2framework.orm.persistence.Order;
 import org.think2framework.orm.persistence.Table;
 
 /**
@@ -9,6 +11,7 @@ import org.think2framework.orm.persistence.Table;
  */
 @Table(name = "think2_admin_power", indexes = { "admin_id" }, comment = "系统管理员权限")
 @JoinTable(name = "think2_module", table = "think2_module", key = "id", joinKey = "module_id")
+@Order(keys = { "module_type", "module_order" }, type = TypeUtils.ORDER_TYPE_ASC)
 public class AdminPower extends BaseCms {
 
 	@Column(name = "admin_id", length = 11, comment = "管理员id")
@@ -46,6 +49,9 @@ public class AdminPower extends BaseCms {
 
 	@Column(name = "size", join = "think2_module", alias = "module_size")
 	private Integer moduleSize;
+
+	@Column(name = "order", join = "think2_module", alias = "module_order")
+	private Integer moduleOrder;
 
 	public AdminPower() {
 	}
@@ -149,5 +155,13 @@ public class AdminPower extends BaseCms {
 
 	public void setModuleSize(Integer moduleSize) {
 		this.moduleSize = moduleSize;
+	}
+
+	public Integer getModuleOrder() {
+		return moduleOrder;
+	}
+
+	public void setModuleOrder(Integer moduleOrder) {
+		this.moduleOrder = moduleOrder;
 	}
 }

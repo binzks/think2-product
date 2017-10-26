@@ -10,29 +10,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
 
     <!-- bootstrap & fontawesome -->
-    <link rel="stylesheet" href="/assets/css/bootstrap.css"/>
-    <link rel="stylesheet" href="/assets/css/font-awesome.css"/>
+    <link rel="stylesheet" href="/libs/assets/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/libs/assets/css/font-awesome.css"/>
 
     <!-- text fonts -->
-    <link rel="stylesheet" href="/assets/css/ace-fonts.css"/>
+    <link rel="stylesheet" href="/libs/assets/css/ace-fonts.css"/>
 
     <!-- ace styles -->
-    <link rel="stylesheet" href="/assets/css/ace.css"/>
+    <link rel="stylesheet" href="/libs/assets/css/ace.css"/>
 
     <!--[if lte IE 9]>
-    <link rel="stylesheet" href="/assets/css/ace-part2.css"/>
+    <link rel="stylesheet" href="/libs/assets/css/ace-part2.css"/>
     <![endif]-->
-    <link rel="stylesheet" href="/assets/css/ace-rtl.css"/>
+    <link rel="stylesheet" href="/libs/assets/css/ace-rtl.css"/>
 
     <!--[if lte IE 9]>
-    <link rel="stylesheet" href="/assets/css/ace-ie.css"/>
+    <link rel="stylesheet" href="/libs/assets/css/ace-ie.css"/>
     <![endif]-->
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
     <!--[if lt IE 9]>
-    <script src="/assets/js/html5shiv.js"></script>
-    <script src="/assets/js/respond.js"></script>
+    <script src="/libs/assets/js/html5shiv.js"></script>
+    <script src="/libs/assets/js/respond.js"></script>
     <![endif]-->
 </head>
 
@@ -64,18 +64,18 @@
 
 <!--[if !IE]> -->
 <script type="text/javascript">
-    window.jQuery || document.write("<script src='/assets/js/jquery.js'>" + "<" + "/script>");
+    window.jQuery || document.write("<script src='/libs/assets/js/jquery.js'>" + "<" + "/script>");
 </script>
 
 <!-- <![endif]-->
 
 <!--[if IE]>
 <script type="text/javascript">
-    window.jQuery || document.write("<script src='/assets/js/jquery1x.js'>" + "<" + "/script>");
+    window.jQuery || document.write("<script src='/libs/assets/js/jquery1x.js'>" + "<" + "/script>");
 </script>
 <![endif]-->
 <script type="text/javascript">
-    if ('ontouchstart' in document.documentElement) document.write("<script src='/assets/js/jquery.mobile.custom.js'>" + "<" + "/script>");
+    if ('ontouchstart' in document.documentElement) document.write("<script src='/libs/assets/js/jquery.mobile.custom.js'>" + "<" + "/script>");
 </script>
 
 </body>

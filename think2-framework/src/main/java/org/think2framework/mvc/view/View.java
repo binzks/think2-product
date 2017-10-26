@@ -1,5 +1,6 @@
 package org.think2framework.mvc.view;
 
+import org.think2framework.mvc.view.core.DatetimeTag;
 import org.think2framework.orm.core.ClassUtils;
 import org.think2framework.orm.core.TypeUtils;
 import org.think2framework.utils.StringUtils;
@@ -331,19 +332,25 @@ public class View {
 			SelectTag selectTag = new SelectTag();
 			selectTag.setOptions(cell.getItems());
 			htmlTag = selectTag;
-		} else if (TypeUtils.FIELD_INT.equalsIgnoreCase(tag) || TypeUtils.FIELD_FLOAT.equalsIgnoreCase(tag)) {
-			htmlTag = new SimpleHtmlTag("input", "col-xs-12 col-sm-12");
-			htmlTag.setAttribute("type", "number");
-		} else if (TypeUtils.FIELD_MOBILE.equalsIgnoreCase(tag)) {
-			htmlTag = new SimpleHtmlTag("input", "col-xs-12 col-sm-12");
-			htmlTag.setAttribute("type", "tel");
-//			htmlTag.setAttribute("maxlength", "11");
-		} else if (TypeUtils.FIELD_TELEPHONE.equalsIgnoreCase(tag)) {
-			htmlTag = new SimpleHtmlTag("input", "col-xs-12 col-sm-12 form-control input-mask-phone");
-			htmlTag.setAttribute("type", "text");
+		} else if (TypeUtils.FIELD_TIMESTAMP.equalsIgnoreCase(tag)) {
+htmlTag = new DatetimeTag();
 		} else {
 			htmlTag = new SimpleHtmlTag("input", "col-xs-12 col-sm-12");
-			htmlTag.setAttribute("type", "text");
+			if (cell.getRequired()) {
+				htmlTag.setAttribute("required", "required");
+			}
+			if (TypeUtils.FIELD_INT.equalsIgnoreCase(tag) || TypeUtils.FIELD_FLOAT.equalsIgnoreCase(tag)) {
+				htmlTag.setAttribute("type", "number");
+			} else if (TypeUtils.FIELD_PASSWORD.equalsIgnoreCase(tag)) {
+				htmlTag.setAttribute("type", "password");
+			} else if (TypeUtils.FIELD_MOBILE.equalsIgnoreCase(tag)) {
+				htmlTag.setAttribute("type", "tel");
+				// htmlTag.setAttribute("maxlength", "11");
+			} else if (TypeUtils.FIELD_TELEPHONE.equalsIgnoreCase(tag)) {
+				htmlTag.setAttribute("type", "text");
+			} else {
+				htmlTag.setAttribute("type", "text");
+			}
 		}
 		htmlTag.setAttribute("name", cell.getName());
 		return htmlTag;

@@ -4,7 +4,7 @@ import org.think2framework.mvc.view.HtmlTag;
 
 public class DatetimeTag extends AbstractHtmlTag implements HtmlTag{
 
-    public DatetimeTag(String tag) {
-        super(tag);
+    public DatetimeTag() {
+        super("");
     }
 }

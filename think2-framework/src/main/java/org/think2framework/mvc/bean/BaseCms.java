@@ -18,7 +18,7 @@ import org.think2framework.mvc.view.persistence.View;
 public class BaseCms {
 
 	@Column(nullable = false, length = 11, comment = "主键")
-	@Cell(title = "主键", required = true)
+	@Cell(title = "主键", required = true, display = false, add = false, edit = false)
 	private Integer id;
 
 	@Column(nullable = false, length = 1, defaultValue = "0", comment = "状态0-启用 99-停用")
@@ -36,7 +36,7 @@ public class BaseCms {
 	private String modifyAdmin;
 
 	@Column(comment = "备注", length = 500)
-	@Cell(title = "备注", tag = TypeUtils.FIELD_TEXTAREA)
+	@Cell(title = "备注", tag = TypeUtils.FIELD_TEXTAREA, display = false)
 	private String remark;
 
 	public Integer getId() {

@@ -5,9 +5,9 @@ package org.think2framework.orm.core;
  */
 public class TypeUtils {
 
-    /***
-     * 数据库类型-mysql
-     */
+	/***
+	 * 数据库类型-mysql
+	 */
 	public static final String DATABASE_MYSQL = "mysql"; // 数据库类型-mysql
 
 	public static final String DATABASE_REDIS = "redis"; // 数据库类型-redis
@@ -39,6 +39,8 @@ public class TypeUtils {
 	public static final String FIELD_BOOL = "bool"; // 字段类型-bool
 
 	public static final String FIELD_TEXTAREA = "textarea"; // 字段类型-长文本
+
+	public static final String FIELD_PASSWORD = "password"; // 字段类型-密码
 
 	public static final String FIELD_ITEM_INT = "itemInt"; // 字段类型-整型单选
 

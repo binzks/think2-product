@@ -8,65 +8,65 @@
     <meta name="description" content=""/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
     <!-- bootstrap & fontawesome -->
-    <link rel="stylesheet" href="/assets/css/bootstrap.css"/>
-    <link rel="stylesheet" href="/assets/css/font-awesome.css"/>
+    <link rel="stylesheet" href="/libs/assets/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/libs/assets/css/font-awesome.css"/>
     <!-- page specific plugin styles -->
     <!-- text fonts -->
-    <link rel="stylesheet" href="/assets/css/ace-fonts.css"/>
+    <link rel="stylesheet" href="/libs/assets/css/ace-fonts.css"/>
     <!-- ace styles -->
-    <link rel="stylesheet" href="/assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style"/>
+    <link rel="stylesheet" href="/libs/assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style"/>
     <!--[if lte IE 9]>
-    <link rel="stylesheet" href="/assets/css/ace-part2.css" class="ace-main-stylesheet"/>
+    <link rel="stylesheet" href="/libs/assets/css/ace-part2.css" class="ace-main-stylesheet"/>
     <![endif]-->
     <!--[if lte IE 9]>
-    <link rel="stylesheet" href="/assets/css/ace-ie.css"/>
+    <link rel="stylesheet" href="/libs/assets/css/ace-ie.css"/>
     <![endif]-->
     <!-- inline styles related to this page -->
     <!-- ace settings handler -->
-    <script src="/assets/js/ace-extra.js"></script>
+    <script src="/libs/assets/js/ace-extra.js"></script>
     <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
     <!--[if lte IE 8]>
-    <script src="/assets/js/html5shiv.js"></script>
-    <script src="/assets/js/respond.js"></script>
+    <script src="/libs/assets/js/html5shiv.js"></script>
+    <script src="/libs/assets/js/respond.js"></script>
     <![endif]-->
 
     <!-- bootstrap & fontawesome -->
-    <link rel="stylesheet" href="/assets/css/bootstrap.css" />
-    <link rel="stylesheet" href="/assets/css/font-awesome.css" />
+    <link rel="stylesheet" href="/libs/assets/css/bootstrap.css" />
+    <link rel="stylesheet" href="/libs/assets/css/font-awesome.css" />
 
     <!-- page specific plugin styles -->
-    <link rel="stylesheet" href="/assets/css/jquery-ui.custom.css" />
-    <link rel="stylesheet" href="/assets/css/chosen.css" />
-    <link rel="stylesheet" href="/assets/css/datepicker.css" />
-    <link rel="stylesheet" href="/assets/css/bootstrap-timepicker.css" />
-    <link rel="stylesheet" href="/assets/css/daterangepicker.css" />
-    <link rel="stylesheet" href="/assets/css/bootstrap-datetimepicker.css" />
-    <link rel="stylesheet" href="/assets/css/colorpicker.css" />
+    <link rel="stylesheet" href="/libs/assets/css/jquery-ui.custom.css" />
+    <link rel="stylesheet" href="/libs/assets/css/chosen.css" />
+    <link rel="stylesheet" href="/libs/assets/css/datepicker.css" />
+    <link rel="stylesheet" href="/libs/assets/css/bootstrap-timepicker.css" />
+    <link rel="stylesheet" href="/libs/assets/css/daterangepicker.css" />
+    <link rel="stylesheet" href="/libs/assets/css/bootstrap-datetimepicker.css" />
+    <link rel="stylesheet" href="/libs/assets/css/colorpicker.css" />
 
     <!-- text fonts -->
-    <link rel="stylesheet" href="/assets/css/ace-fonts.css" />
+    <link rel="stylesheet" href="/libs/assets/css/ace-fonts.css" />
 
     <!-- ace styles -->
-    <link rel="stylesheet" href="/assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
+    <link rel="stylesheet" href="/libs/assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
 
     <!--[if lte IE 9]>
-    <link rel="stylesheet" href="/assets/css/ace-part2.css" class="ace-main-stylesheet" />
+    <link rel="stylesheet" href="/libs/assets/css/ace-part2.css" class="ace-main-stylesheet" />
     <![endif]-->
 
     <!--[if lte IE 9]>
-    <link rel="stylesheet" href="/assets/css/ace-ie.css" />
+    <link rel="stylesheet" href="/libs/assets/css/ace-ie.css" />
     <![endif]-->
 
     <!-- inline styles related to this page -->
 
     <!-- ace settings handler -->
-    <script src="/assets/js/ace-extra.js"></script>
+    <script src="/libs/assets/js/ace-extra.js"></script>
 
     <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
 
     <!--[if lte IE 8]>
-    <script src="/assets/js/html5shiv.js"></script>
-    <script src="/assets/js/respond.js"></script>
+    <script src="/libs/assets/js/html5shiv.js"></script>
+    <script src="/libs/assets/js/respond.js"></script>
     <![endif]-->
 </head>
 
@@ -115,7 +115,7 @@
                 <!-- #section:basics/navbar.user_menu -->
                 <li class="light-blue">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                        <img class="nav-user-photo" src="/assets/avatars/user.jpg" alt="Jason's Photo"/>
+                        <img class="nav-user-photo" src="/libs/assets/avatars/user.jpg" alt="Jason's Photo"/>
                         <span class="user-info">
 									<small>${sessionScope.code} </small> ${sessionScope.name}
 								</span>
@@ -206,60 +206,60 @@
 
 <!--[if !IE]> -->
 <script type="text/javascript">
-    window.jQuery || document.write("<script src='/assets/js/jquery.js'>" + "<" + "/script>");
+    window.jQuery || document.write("<script src='/libs/assets/js/jquery.js'>" + "<" + "/script>");
 </script>
 
 <!-- <![endif]-->
 
 <!--[if IE]>
 <script type="text/javascript">
-    window.jQuery || document.write("<script src='/assets/js/jquery1x.js'>" + "<" + "/script>");
+    window.jQuery || document.write("<script src='/libs/assets/js/jquery1x.js'>" + "<" + "/script>");
 </script>
 <![endif]-->
 <script type="text/javascript">
-    if ('ontouchstart' in document.documentElement) document.write("<script src='/assets/js/jquery.mobile.custom.js'>" + "<" + "/script>");
+    if ('ontouchstart' in document.documentElement) document.write("<script src='/libs/assets/js/jquery.mobile.custom.js'>" + "<" + "/script>");
 </script>
-<script src="/assets/js/bootstrap.js"></script>
+<script src="/libs/assets/js/bootstrap.js"></script>
 
 <!-- page specific plugin scripts -->
 
 <!-- ace scripts -->
-<script src="/assets/js/ace/elements.scroller.js"></script>
-<script src="/assets/js/ace/elements.colorpicker.js"></script>
-<script src="/assets/js/ace/elements.fileinput.js"></script>
-<script src="/assets/js/ace/elements.typeahead.js"></script>
-<script src="/assets/js/ace/elements.wysiwyg.js"></script>
-<script src="/assets/js/ace/elements.spinner.js"></script>
-<script src="/assets/js/ace/elements.treeview.js"></script>
-<script src="/assets/js/ace/elements.wizard.js"></script>
-<script src="/assets/js/ace/elements.aside.js"></script>
-<script src="/assets/js/ace/ace.js"></script>
-<script src="/assets/js/ace/ace.ajax-content.js"></script>
-<script src="/assets/js/ace/ace.touch-drag.js"></script>
-<script src="/assets/js/ace/ace.sidebar.js"></script>
-<script src="/assets/js/ace/ace.sidebar-scroll-1.js"></script>
-<script src="/assets/js/ace/ace.submenu-hover.js"></script>
-<script src="/assets/js/ace/ace.widget-box.js"></script>
-<script src="/assets/js/ace/ace.settings.js"></script>
-<script src="/assets/js/ace/ace.settings-rtl.js"></script>
-<script src="/assets/js/ace/ace.settings-skin.js"></script>
-<script src="/assets/js/ace/ace.widget-on-reload.js"></script>
-<script src="/assets/js/ace/ace.searchbox-autocomplete.js"></script>
+<script src="/libs/assets/js/ace/elements.scroller.js"></script>
+<script src="/libs/assets/js/ace/elements.colorpicker.js"></script>
+<script src="/libs/assets/js/ace/elements.fileinput.js"></script>
+<script src="/libs/assets/js/ace/elements.typeahead.js"></script>
+<script src="/libs/assets/js/ace/elements.wysiwyg.js"></script>
+<script src="/libs/assets/js/ace/elements.spinner.js"></script>
+<script src="/libs/assets/js/ace/elements.treeview.js"></script>
+<script src="/libs/assets/js/ace/elements.wizard.js"></script>
+<script src="/libs/assets/js/ace/elements.aside.js"></script>
+<script src="/libs/assets/js/ace/ace.js"></script>
+<script src="/libs/assets/js/ace/ace.ajax-content.js"></script>
+<script src="/libs/assets/js/ace/ace.touch-drag.js"></script>
+<script src="/libs/assets/js/ace/ace.sidebar.js"></script>
+<script src="/libs/assets/js/ace/ace.sidebar-scroll-1.js"></script>
+<script src="/libs/assets/js/ace/ace.submenu-hover.js"></script>
+<script src="/libs/assets/js/ace/ace.widget-box.js"></script>
+<script src="/libs/assets/js/ace/ace.settings.js"></script>
+<script src="/libs/assets/js/ace/ace.settings-rtl.js"></script>
+<script src="/libs/assets/js/ace/ace.settings-skin.js"></script>
+<script src="/libs/assets/js/ace/ace.widget-on-reload.js"></script>
+<script src="/libs/assets/js/ace/ace.searchbox-autocomplete.js"></script>
 
 <!-- inline scripts related to this page -->
 
 <!-- the following scripts are used in demo only for onpage help and you don't need them -->
-<link rel="stylesheet" href="/assets/css/ace.onpage-help.css"/>
-<link rel="stylesheet" href="/assets/js/themes/sunburst.css"/>
+<link rel="stylesheet" href="/libs/assets/css/ace.onpage-help.css"/>
+<link rel="stylesheet" href="/libs/assets/js/themes/sunburst.css"/>
 
 <script type="text/javascript"> ace.vars['base'] = '..'; </script>
-<script src="/assets/js/ace/elements.onpage-help.js"></script>
-<script src="/assets/js/ace/ace.onpage-help.js"></script>
-<script src="/assets/js/rainbow.js"></script>
-<script src="/assets/js/language/generic.js"></script>
-<script src="/assets/js/language/html.js"></script>
-<script src="/assets/js/language/css.js"></script>
-<script src="/assets/js/language/javascript.js"></script>
+<script src="/libs/assets/js/ace/elements.onpage-help.js"></script>
+<script src="/libs/assets/js/ace/ace.onpage-help.js"></script>
+<script src="/libs/assets/js/rainbow.js"></script>
+<script src="/libs/assets/js/language/generic.js"></script>
+<script src="/libs/assets/js/language/html.js"></script>
+<script src="/libs/assets/js/language/css.js"></script>
+<script src="/libs/assets/js/language/javascript.js"></script>
 <script type="text/javascript">
     doSel();
 
