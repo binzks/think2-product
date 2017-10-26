@@ -614,7 +614,7 @@ button.ui-button::-moz-focus-inner {
 }
 .ui-selectmenu-menu .ui-menu {
 	overflow: auto;
-	/* Support: IE7 */
+	/* MvcSupport: IE7 */
 	overflow-x: hidden;
 	padding-bottom: 1px;
 }

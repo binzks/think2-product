@@ -6,15 +6,13 @@ import org.springframework.context.ApplicationContextAware;
 import org.think2framework.context.ModelFactory;
 import org.think2framework.ide.bean.Datasource;
 import org.think2framework.ide.bean.Project;
-import org.think2framework.mvc.bean.Admin;
-import org.think2framework.mvc.bean.AdminPower;
+import org.think2framework.ide.bean.Version;
+import org.think2framework.mvc.MvcSupport;
 import org.think2framework.mvc.bean.Module;
 import org.think2framework.orm.OrmFactory;
 import org.think2framework.orm.Writer;
+import org.think2framework.utils.NumberUtils;
 import org.think2framework.utils.StringUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Configuration implements ApplicationContextAware {
 
@@ -53,57 +51,24 @@ public class Configuration implements ApplicationContextAware {
 			if (StringUtils.isNotBlank(packages)) {
 				ModelFactory.scanPackages(name, name, null, 0, StringUtils.split(packages, ","));
 			}
-			initSystem();
-			initIDE();
+			//MvcSupport.install();
+			//initIDE();
 			initialized = true;
 		}
 	}
 
-	/**
-	 * 初始化系统信息，创建表和基础数据
-	 */
-	private void initSystem() {
-		Writer moduleWriter = ModelFactory.createWriter(Module.class.getName());
-		List<Module> modules = new ArrayList<>();
-		if (moduleWriter.createTable()) {
-			modules.add(new Module("system", 0, Module.TYPE_GROUP, "fa-cog", "", "系统管理", "", 10, 1));
-			modules.add(new Module("system_module", 1, Module.TYPE_MODULE, "", Module.class.getName(), "模块管理",
-					"/tpl/list", 10, 1));
-			modules.add(new Module("system_admin", 1, Module.TYPE_GROUP, "", "", "管理员管理", "", 10, 1));
-			modules.add(new Module("system_admin_info", 3, Module.TYPE_MODULE, "", Admin.class.getName(), "管理员信息",
-					"/tpl/list", 10, 1));
-			modules.add(new Module("system_admin_power", 3, Module.TYPE_MODULE, "", AdminPower.class.getName(), "管理员权限",
-					"/tpl/list", 10, 2));
-			// modules.add(new Module("system_model", 1, Module.TYPE_MODULE, "",
-			// Model.class.getName(), "模型管理",
-			// "/tpl/list", 10, 1));
-			modules.add(new Module("ide", 0, Module.TYPE_GROUP, "fa-windows", "", "IDE", "", 10, 2));
-			modules.add(new Module("ide_project", 6, Module.TYPE_MODULE, "", Project.class.getName(), "项目管理",
-					"/tpl/list", 10, 1));
-			modules.add(new Module("ide_project_datasource", 6, Module.TYPE_MODULE, "", Datasource.class.getName(),
-					"数据源管理", "/tpl/list", 10, 2));
-			moduleWriter.batchInsert(modules);
-		}
-		Writer adminWriter = ModelFactory.createWriter(Admin.class.getName());
-		if (adminWriter.createTable()) {
-			Admin admin = new Admin();
-			admin.setCode("root");
-			admin.setName("超级管理员");
-			admin.setPassword("4ad418256efdfae2d275a9d6a8631df8");
-			adminWriter.insert(admin);
-		}
-		Writer adminPowerWriter = ModelFactory.createWriter(AdminPower.class.getName());
-		if (adminPowerWriter.createTable()) {
-			List<AdminPower> adminPowers = new ArrayList<>();
-			for (int i = 1; i <= modules.size(); i++) {
-				adminPowers.add(new AdminPower(1, i));
-			}
-			adminPowerWriter.batchInsert(adminPowers);
-		}
-	}
-
 	private void initIDE() {
+		// 添加ide模块
+		Writer moduleWriter = ModelFactory.createWriter(Module.class.getName());
+		int projectId = NumberUtils.toInt(moduleWriter
+				.insert(new Module("ide_project", 0, Module.TYPE_GROUP, "fa-desktop", "", "项目管理", "", 10, 2)));
+		moduleWriter.insert(new Module("ide_project_info", projectId, Module.TYPE_MODULE, "", Project.class.getName(),
+				"项目信息", "/tpl/list", 10, 1));
+		moduleWriter.insert(new Module("ide_project_datasource", projectId, Module.TYPE_MODULE, "",
+				Datasource.class.getName(), "数据源管理", "/tpl/list", 10, 2));
+		// 创建ide所需的表
 		ModelFactory.createWriter(Project.class.getName()).createTable();
+		ModelFactory.createWriter(Version.class.getName()).createTable();
 		ModelFactory.createWriter(Datasource.class.getName()).createTable();
 	}
 

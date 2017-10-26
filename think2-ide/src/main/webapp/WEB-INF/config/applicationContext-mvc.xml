@@ -27,7 +27,7 @@
     </bean>
 
     <!-- Controller Service -->
-    <context:component-scan base-package="org.think2framework.mvc.controller"/>
+    <context:component-scan base-package="org.think2framework.mvc.controller,org.think2framework.ide.controller"/>
 
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
