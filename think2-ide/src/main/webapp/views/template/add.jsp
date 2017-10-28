@@ -4,7 +4,7 @@
     <title>添加${title}</title>
 </head>
 <body>
-<form class="form-horizontal" role="form" action="/tpl/save${mid}.page" method="post">
+<form class="form-horizontal" role="form" action="/tpl/save${mid}.page" method="post" enctype="multipart/form-data">
     ${body}
     <div class="clearfix form-actions center">
         <div class="col-md-12">

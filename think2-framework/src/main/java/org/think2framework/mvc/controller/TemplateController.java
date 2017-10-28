@@ -122,7 +122,7 @@ public class TemplateController extends BaseController {
 	}
 
 	@RequestMapping(value = { "save{mid}{id}", "/save{mid}-{id}" }, method = RequestMethod.POST)
-	public String save(@PathVariable String mid, @PathVariable String id, Model model, HttpServletRequest request) {
+	public String save(@PathVariable String mid, @PathVariable String id, HttpServletRequest request) {
 		View view = SessionHelp.getView(mid, request.getSession());
 		Writer writer = ModelFactory.createWriter(view.getName());
 		Map<String, Object> map = new HashMap<>();
@@ -144,9 +144,6 @@ public class TemplateController extends BaseController {
 			map.put(view.getPk(), id);
 			writer.update(map);
 		}
-		model.addAttribute("body", view.getAddHtml());
-		model.addAttribute("uri", view.getUri() + mid + ".page");
-		model.addAttribute("title", view.getTitle());
 		return "redirect:" + view.getUri() + mid + ".page";
 	}
 }

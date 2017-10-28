@@ -7,7 +7,7 @@ import org.think2framework.orm.core.TypeUtils;
 import org.think2framework.orm.persistence.Column;
 import org.think2framework.orm.persistence.Table;
 
-@Table(name = "think2_ide_environment", comment = "系统环境表")
+@Table(name = "think2_ide_environment", uniques = { "name" }, comment = "系统环境表")
 public class Environment extends BaseCms {
 
 	@Column(comment = "环境名称")

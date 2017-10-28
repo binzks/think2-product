@@ -191,20 +191,6 @@
                         <!-- PAGE CONTENT BEGINS -->
                         <sitemesh:write property='body'/>
                         <!-- PAGE CONTENT ENDS -->
-                        <div class="input-group">
-                            <input id="date-timepicker1" type="text" data-date-format="YYYY-MM-DD HH:mm:ss"/>
-                            <span class="input-group-addon"><i class="fa fa-clock-o bigger-110"></i></span>
-                        </div>
-
-                        <div class="input-group">
-                            <input id="date-timepicker2" type="text" class="form-control">
-                            <span class="input-group-addon"><i class="fa fa-clock-o bigger-110"></i></span>
-                        </div>
-                        <%--<div class="input-append date" id="date-timepicker1" name="" data-date="12-02-2012"--%>
-                        <%--data-date-format="dd-mm-yyyy">--%>
-                        <%--<input class="span2" size="16" type="text" value="12-02-2012">--%>
-                        <%--<span class="add-on"><i class="icon-th"></i></span>--%>
-                        <%--</div>--%>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.page-content -->

@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class AbstractHtmlTag implements HtmlTag {
 
-	private String tag; // 设置标签
+	protected String tag; // 设置标签
 
 	protected String text; // 文本内容
 

@@ -1,7 +1,6 @@
 package org.think2framework.mvc.view;
 
 import org.think2framework.mvc.view.core.*;
-import org.think2framework.orm.core.ClassUtils;
 import org.think2framework.orm.core.TypeUtils;
 import org.think2framework.utils.StringUtils;
 import org.think2framework.mvc.view.bean.Action;
@@ -316,43 +315,24 @@ public class View {
 	 * @return 编辑框
 	 */
 	private HtmlTag createCellHtmlTag(Cell cell) {
-		HtmlTag htmlTag;
 		String tag = cell.getTag();
 		if (TypeUtils.FIELD_BOOL.equalsIgnoreCase(tag)) {
-			SelectTag selectTag = new SelectTag();
-			selectTag.setOption(ClassUtils.FALSE_VALUE.toString(), "否");
-			selectTag.setOption(ClassUtils.TRUE_VALUE.toString(), "是");
-			htmlTag = selectTag;
+			return HtmlTagFactory.createBool(cell.getName(), cell.getRequired());
 		} else if (TypeUtils.FIELD_ITEM_INT.equalsIgnoreCase(tag) || TypeUtils.FIELD_ITEM.equalsIgnoreCase(tag)
 				|| TypeUtils.FIELD_DATA_ITEM_INT.equalsIgnoreCase(tag)
 				|| TypeUtils.FIELD_DATA_ITEM.equalsIgnoreCase(tag)) {
-			SelectTag selectTag = new SelectTag();
-			selectTag.setOptions(cell.getItems());
-			htmlTag = selectTag;
+			return HtmlTagFactory.createSelect(cell.getName(), cell.getRequired(), cell.getItems());
+		} else if (TypeUtils.FIELD_TIMESTAMP.equalsIgnoreCase(tag)) {
+			return HtmlTagFactory.createTimestamp(cell.getName(), cell.getRequired());
+		} else if (TypeUtils.FIELD_INT.equalsIgnoreCase(tag) || TypeUtils.FIELD_FLOAT.equalsIgnoreCase(tag)) {
+			return HtmlTagFactory.createNumber(cell.getName(), cell.getRequired());
+		} else if (TypeUtils.FIELD_DATE.equalsIgnoreCase(tag) || TypeUtils.FIELD_DATETIME.equalsIgnoreCase(tag)) {
+			return HtmlTagFactory.createDatetime(cell.getName(), cell.getRequired());
+		} else if (TypeUtils.FIELD_PASSWORD.equalsIgnoreCase(tag) || TypeUtils.FIELD_MOBILE.equalsIgnoreCase(tag)
+				|| TypeUtils.FIELD_TELEPHONE.equalsIgnoreCase(tag)) {
+			return HtmlTagFactory.createPassword(cell.getName(), cell.getRequired());
 		} else {
-			htmlTag = new SimpleHtmlTag("input", "col-xs-12 col-sm-12");
-			if (TypeUtils.FIELD_TIMESTAMP.equalsIgnoreCase(tag)) {
-				htmlTag = new TimestampTag();
-				htmlTag.setAttribute("id", "datetime-picker" + cell.getName());
-			} else if (TypeUtils.FIELD_INT.equalsIgnoreCase(tag) || TypeUtils.FIELD_FLOAT.equalsIgnoreCase(tag)) {
-				htmlTag.setAttribute("type", "number");
-			} else if (TypeUtils.FIELD_DATE.equalsIgnoreCase(tag) || TypeUtils.FIELD_DATETIME.equalsIgnoreCase(tag)) {
-				htmlTag = new DatetimeTag();
-				htmlTag.setAttribute("id", "datetime-picker" + cell.getName());
-			} else if (TypeUtils.FIELD_PASSWORD.equalsIgnoreCase(tag)) {
-				htmlTag.setAttribute("type", "password");
-			} else if (TypeUtils.FIELD_MOBILE.equalsIgnoreCase(tag)) {
-				htmlTag.setAttribute("type", "tel");
-			} else if (TypeUtils.FIELD_TELEPHONE.equalsIgnoreCase(tag)) {
-				htmlTag.setAttribute("type", "text");
-			} else {
-				htmlTag.setAttribute("type", "text");
-			}
+			return HtmlTagFactory.createInput(cell.getName(), cell.getRequired());
 		}
-        if (cell.getRequired()) {
-            htmlTag.setAttribute("required", "required");
-        }
-		htmlTag.setAttribute("name", cell.getName());
-		return htmlTag;
 	}
 }

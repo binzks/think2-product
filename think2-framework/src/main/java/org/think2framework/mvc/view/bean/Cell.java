@@ -3,7 +3,7 @@ package org.think2framework.mvc.view.bean;
 import java.util.List;
 
 /**
- * Created by zhoubin on 2017/6/12. 视图单元定义
+ * 视图单元定义
  */
 public class Cell {
 
