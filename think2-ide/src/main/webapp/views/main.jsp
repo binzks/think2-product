@@ -306,6 +306,18 @@
     }
 
     $("input[id^='datetime-picker']").datetimepicker();
+
+    $("input[id^='input-file']").ace_file_input({
+        no_file: '没有文件 ...',
+        btn_choose: '选择',
+        btn_change: '更换',
+        droppable: false,
+        onchange: null,
+        thumbnail: false, //| true | large
+        //whitelist:'gif|png|jpg|jpeg'
+        blacklist: 'exe|php|class|java|sh'
+        //onchange:''
+    });
 </script>
 </body>
 </html>

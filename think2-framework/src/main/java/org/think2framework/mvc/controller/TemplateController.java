@@ -5,10 +5,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.think2framework.context.ModelFactory;
+import org.think2framework.mvc.view.core.FileTag;
 import org.think2framework.orm.Query;
 import org.think2framework.orm.Writer;
 import org.think2framework.mvc.security.SessionHelp;
+import org.think2framework.utils.FileUtils;
 import org.think2framework.utils.StringUtils;
 import org.think2framework.mvc.view.HtmlTag;
 import org.think2framework.mvc.view.View;
@@ -134,7 +138,15 @@ public class TemplateController extends BaseController {
 		// 设置字段
 		for (Map.Entry<String, HtmlTag> entry : view.getAddHtmlTags().entrySet()) {
 			HtmlTag htmlTag = entry.getValue();
-			htmlTag.setValue(request.getParameter(entry.getKey()));
+			if (FileTag.class == htmlTag.getClass()) {
+				MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
+				MultipartFile file = multipartHttpServletRequest.getFile(entry.getKey());
+				if (null == file || file.isEmpty()) {
+					continue;
+				}
+			} else {
+				htmlTag.setValue(request.getParameter(entry.getKey()));
+			}
 			map.put(entry.getKey(), htmlTag.getValue());
 		}
 		// 新增

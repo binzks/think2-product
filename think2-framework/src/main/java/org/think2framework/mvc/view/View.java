@@ -331,6 +331,8 @@ public class View {
 		} else if (TypeUtils.FIELD_PASSWORD.equalsIgnoreCase(tag) || TypeUtils.FIELD_MOBILE.equalsIgnoreCase(tag)
 				|| TypeUtils.FIELD_TELEPHONE.equalsIgnoreCase(tag)) {
 			return HtmlTagFactory.createPassword(cell.getName(), cell.getRequired());
+		} else if (TypeUtils.FIELD_FILE.equalsIgnoreCase(tag)) {
+			return HtmlTagFactory.createFile(cell.getName(), cell.getRequired());
 		} else {
 			return HtmlTagFactory.createInput(cell.getName(), cell.getRequired());
 		}

@@ -11,7 +11,7 @@ import java.util.Map;
 public class DatetimeTag extends AbstractHtmlTag implements HtmlTag {
 
 	public DatetimeTag() {
-		super("input");
+		super("");
 		setAttribute("id", "datetime-picker" + System.currentTimeMillis());
 		setAttribute("type", "text");
 		setAttribute("data-date-format", "YYYY-MM-DD HH:mm:ss");

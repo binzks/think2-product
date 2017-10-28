@@ -1,10 +1,7 @@
 package org.think2framework.mvc.view;
 
 import org.think2framework.mvc.view.bean.Item;
-import org.think2framework.mvc.view.core.DatetimeTag;
-import org.think2framework.mvc.view.core.SelectTag;
-import org.think2framework.mvc.view.core.SimpleHtmlTag;
-import org.think2framework.mvc.view.core.TimestampTag;
+import org.think2framework.mvc.view.core.*;
 import org.think2framework.orm.core.ClassUtils;
 
 import java.util.ArrayList;
@@ -15,6 +12,15 @@ import java.util.List;
  */
 public class HtmlTagFactory {
 
+	/**
+	 * 创建一个bool类型选择框
+	 * 
+	 * @param name
+	 *            控件名称
+	 * @param required
+	 *            是否必选
+	 * @return bool类型选择框
+	 */
 	public static HtmlTag createBool(String name, Boolean required) {
 		List<Item> items = new ArrayList<>();
 		items.add(new Item("", ClassUtils.FALSE_VALUE.toString(), "否"));
@@ -22,6 +28,15 @@ public class HtmlTagFactory {
 		return createSelect(name, required, items);
 	}
 
+	/**
+	 * 创建一个选择框
+	 *
+	 * @param name
+	 *            控件名称
+	 * @param required
+	 *            是否必选
+	 * @return 选择框
+	 */
 	public static HtmlTag createSelect(String name, Boolean required, List<Item> items) {
 		SelectTag selectTag = new SelectTag();
 		selectTag.setOptions(items);
@@ -32,6 +47,15 @@ public class HtmlTagFactory {
 		return selectTag;
 	}
 
+	/**
+	 * 创建一个输入框
+	 *
+	 * @param name
+	 *            控件名称
+	 * @param required
+	 *            是否必选
+	 * @return 输入框
+	 */
 	public static HtmlTag createInput(String name, Boolean required) {
 		HtmlTag htmlTag = new SimpleHtmlTag("input", "col-xs-12 col-sm-12");
 		htmlTag.setAttribute("name", name);
@@ -42,18 +66,45 @@ public class HtmlTagFactory {
 		return htmlTag;
 	}
 
+	/**
+	 * 创建一个数字输入框
+	 *
+	 * @param name
+	 *            控件名称
+	 * @param required
+	 *            是否必选
+	 * @return 数字输入框
+	 */
 	public static HtmlTag createNumber(String name, Boolean required) {
 		HtmlTag htmlTag = createInput(name, required);
 		htmlTag.setAttribute("type", "number");
 		return htmlTag;
 	}
 
+	/**
+	 * 创建一个密码输入框
+	 *
+	 * @param name
+	 *            控件名称
+	 * @param required
+	 *            是否必选
+	 * @return 密码输入框
+	 */
 	public static HtmlTag createPassword(String name, Boolean required) {
 		HtmlTag htmlTag = createInput(name, required);
 		htmlTag.setAttribute("type", "password");
 		return htmlTag;
 	}
 
+	/**
+	 * 创建一个时间戳输入框
+	 *
+	 * @param name
+	 *            控件名称
+	 * @param required
+	 *            是否必选
+	 * @return 时间戳输入框
+	 */
 	public static HtmlTag createTimestamp(String name, Boolean required) {
 		TimestampTag timestampTag = new TimestampTag();
 		timestampTag.setAttribute("name", name);
@@ -63,6 +114,15 @@ public class HtmlTagFactory {
 		return timestampTag;
 	}
 
+	/**
+	 * 创建一个时间输入框
+	 *
+	 * @param name
+	 *            控件名称
+	 * @param required
+	 *            是否必选
+	 * @return 时间输入框
+	 */
 	public static HtmlTag createDatetime(String name, Boolean required) {
 		DatetimeTag datetimeTag = new DatetimeTag();
 		datetimeTag.setAttribute("name", name);
@@ -70,6 +130,24 @@ public class HtmlTagFactory {
 			datetimeTag.setAttribute("required", "required");
 		}
 		return datetimeTag;
+	}
+
+	/**
+	 * 创建一个文件选择框
+	 *
+	 * @param name
+	 *            控件名称
+	 * @param required
+	 *            是否必选
+	 * @return 文件选择框
+	 */
+	public static HtmlTag createFile(String name, Boolean required) {
+		FileTag fileTag = new FileTag();
+		fileTag.setAttribute("name", name);
+		if (required) {
+			fileTag.setAttribute("required", "required");
+		}
+		return fileTag;
 	}
 
 }

@@ -15,7 +15,7 @@ public class Environment extends BaseCms {
 	private String name;
 
 	@Column(comment = "环境对应的服务器地址")
-	@Cell(title = "服务器地址")
+	@Cell(title = "服务器地址", tag = TypeUtils.FIELD_FILE)
 	private String host;
 
 	@Column(comment = "服务器部署根目录", length = 200)
