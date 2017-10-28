@@ -11,7 +11,7 @@ import org.think2framework.orm.persistence.Table;
 public class Environment extends BaseCms {
 
 	@Column(comment = "环境名称")
-	@Cell(title = "环境名称")
+	@Cell(title = "环境名称", required = true)
 	private String name;
 
 	@Column(comment = "环境对应的服务器地址")

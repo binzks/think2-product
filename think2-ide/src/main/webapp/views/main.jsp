@@ -14,7 +14,7 @@
     <!-- text fonts -->
     <link rel="stylesheet" href="/libs/assets/css/ace-fonts.css"/>
     <!-- ace styles -->
-    <link rel="stylesheet" href="/libs/assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style"/>
+    <link rel="stylesheet" href="/libs/assets/css/ace.css" class="ace-main-stylesheet"/>
     <!--[if lte IE 9]>
     <link rel="stylesheet" href="/libs/assets/css/ace-part2.css" class="ace-main-stylesheet"/>
     <![endif]-->
@@ -31,30 +31,30 @@
     <![endif]-->
 
     <!-- bootstrap & fontawesome -->
-    <link rel="stylesheet" href="/libs/assets/css/bootstrap.css" />
-    <link rel="stylesheet" href="/libs/assets/css/font-awesome.css" />
+    <link rel="stylesheet" href="/libs/assets/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/libs/assets/css/font-awesome.css"/>
 
     <!-- page specific plugin styles -->
-    <link rel="stylesheet" href="/libs/assets/css/jquery-ui.custom.css" />
-    <link rel="stylesheet" href="/libs/assets/css/chosen.css" />
-    <link rel="stylesheet" href="/libs/assets/css/datepicker.css" />
-    <link rel="stylesheet" href="/libs/assets/css/bootstrap-timepicker.css" />
-    <link rel="stylesheet" href="/libs/assets/css/daterangepicker.css" />
-    <link rel="stylesheet" href="/libs/assets/css/bootstrap-datetimepicker.css" />
-    <link rel="stylesheet" href="/libs/assets/css/colorpicker.css" />
+    <link rel="stylesheet" href="/libs/assets/css/jquery-ui.custom.css"/>
+    <link rel="stylesheet" href="/libs/assets/css/chosen.css"/>
+    <link rel="stylesheet" href="/libs/assets/css/datepicker.css"/>
+    <link rel="stylesheet" href="/libs/assets/css/bootstrap-timepicker.css"/>
+    <link rel="stylesheet" href="/libs/assets/css/daterangepicker.css"/>
+    <link rel="stylesheet" href="/libs/assets/css/bootstrap-datetimepicker.css"/>
+    <link rel="stylesheet" href="/libs/assets/css/colorpicker.css"/>
 
     <!-- text fonts -->
-    <link rel="stylesheet" href="/libs/assets/css/ace-fonts.css" />
+    <link rel="stylesheet" href="/libs/assets/css/ace-fonts.css"/>
 
     <!-- ace styles -->
-    <link rel="stylesheet" href="/libs/assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
+    <link rel="stylesheet" href="/libs/assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style"/>
 
     <!--[if lte IE 9]>
-    <link rel="stylesheet" href="/libs/assets/css/ace-part2.css" class="ace-main-stylesheet" />
+    <link rel="stylesheet" href="/libs/assets/css/ace-part2.css" class="ace-main-stylesheet"/>
     <![endif]-->
 
     <!--[if lte IE 9]>
-    <link rel="stylesheet" href="/libs/assets/css/ace-ie.css" />
+    <link rel="stylesheet" href="/libs/assets/css/ace-ie.css"/>
     <![endif]-->
 
     <!-- inline styles related to this page -->
@@ -97,8 +97,8 @@
             <!-- #section:basics/navbar.layout.brand -->
             <a href="#" class="navbar-brand">
                 <small>
-                    <i class="fa fa-leaf"></i>
-                    Ace Admin
+                    <i class="fa fa-balance-scale green"></i>
+                    Think2 IDE
                 </small>
             </a>
 
@@ -115,7 +115,7 @@
                 <!-- #section:basics/navbar.user_menu -->
                 <li class="light-blue">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                        <img class="nav-user-photo" src="/libs/assets/avatars/user.jpg" alt="Jason's Photo"/>
+                        <%--<img class="nav-user-photo" src="/libs/assets/avatars/user.jpg" alt="Jason's Photo"/>--%>
                         <span class="user-info">
 									<small>${sessionScope.code} </small> ${sessionScope.name}
 								</span>
@@ -191,6 +191,20 @@
                         <!-- PAGE CONTENT BEGINS -->
                         <sitemesh:write property='body'/>
                         <!-- PAGE CONTENT ENDS -->
+                        <div class="input-group">
+                            <input id="date-timepicker1" type="text" data-date-format="YYYY-MM-DD HH:mm:ss"/>
+                            <span class="input-group-addon"><i class="fa fa-clock-o bigger-110"></i></span>
+                        </div>
+
+                        <div class="input-group">
+                            <input id="date-timepicker2" type="text" class="form-control">
+                            <span class="input-group-addon"><i class="fa fa-clock-o bigger-110"></i></span>
+                        </div>
+                        <%--<div class="input-append date" id="date-timepicker1" name="" data-date="12-02-2012"--%>
+                        <%--data-date-format="dd-mm-yyyy">--%>
+                        <%--<input class="span2" size="16" type="text" value="12-02-2012">--%>
+                        <%--<span class="add-on"><i class="icon-th"></i></span>--%>
+                        <%--</div>--%>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.page-content -->
@@ -220,6 +234,11 @@
     if ('ontouchstart' in document.documentElement) document.write("<script src='/libs/assets/js/jquery.mobile.custom.js'>" + "<" + "/script>");
 </script>
 <script src="/libs/assets/js/bootstrap.js"></script>
+<script src="/libs/assets/js/date-time/bootstrap-datepicker.js"></script>
+<script src="/libs/assets/js/date-time/bootstrap-timepicker.js"></script>
+<script src="/libs/assets/js/date-time/moment-cn.js"></script>
+<script src="/libs/assets/js/date-time/daterangepicker.js"></script>
+<script src="/libs/assets/js/date-time/bootstrap-datetimepicker.js"></script>
 
 <!-- page specific plugin scripts -->
 
@@ -290,13 +309,17 @@
             }
             liObj = document.getElementById("menu_" + url);
         }
-        liObj.setAttribute("class", "active");
-        liObj.parentNode.parentNode.setAttribute("class", "active open");
-        var parent = liObj.parentNode.parentNode.parentNode.parentNode;
-        if (parent.tagName == "LI") {
-            parent.setAttribute("class", "active open");
+        if (null != liObj) {
+            liObj.setAttribute("class", "active");
+            liObj.parentNode.parentNode.setAttribute("class", "active open");
+            var parent = liObj.parentNode.parentNode.parentNode.parentNode;
+            if (parent.tagName == "LI") {
+                parent.setAttribute("class", "active open");
+            }
         }
     }
+
+    $("input[id^='datetime-picker']").datetimepicker();
 </script>
 </body>
 </html>

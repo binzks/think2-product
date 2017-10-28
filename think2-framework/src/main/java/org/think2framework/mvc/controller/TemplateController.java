@@ -131,18 +131,16 @@ public class TemplateController extends BaseController {
 			String value = SessionHelp.getDefaultValue(entry.getValue(), request.getSession());
 			map.put(entry.getKey(), value);
 		}
+		// 设置字段
+		for (Map.Entry<String, HtmlTag> entry : view.getAddHtmlTags().entrySet()) {
+			HtmlTag htmlTag = entry.getValue();
+			htmlTag.setValue(request.getParameter(entry.getKey()));
+			map.put(entry.getKey(), htmlTag.getValue());
+		}
 		// 新增
 		if (StringUtils.isBlank(id)) {
-			// 设置添加的字段
-			for (Map.Entry<String, HtmlTag> entry : view.getAddHtmlTags().entrySet()) {
-				map.put(entry.getKey(), request.getParameter(entry.getKey()));
-			}
 			writer.insert(map);
 		} else {// 修改
-			// 设置修改的字段
-			for (Map.Entry<String, HtmlTag> entry : view.getEditHtmlTags().entrySet()) {
-				map.put(entry.getKey(), request.getParameter(entry.getKey()));
-			}
 			map.put(view.getPk(), id);
 			writer.update(map);
 		}

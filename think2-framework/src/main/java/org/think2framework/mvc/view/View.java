@@ -1,14 +1,11 @@
 package org.think2framework.mvc.view;
 
-import org.think2framework.mvc.view.core.DatetimeTag;
+import org.think2framework.mvc.view.core.*;
 import org.think2framework.orm.core.ClassUtils;
 import org.think2framework.orm.core.TypeUtils;
 import org.think2framework.utils.StringUtils;
 import org.think2framework.mvc.view.bean.Action;
 import org.think2framework.mvc.view.bean.Cell;
-import org.think2framework.mvc.view.core.ATag;
-import org.think2framework.mvc.view.core.SelectTag;
-import org.think2framework.mvc.view.core.SimpleHtmlTag;
 
 import java.util.*;
 
@@ -332,26 +329,29 @@ public class View {
 			SelectTag selectTag = new SelectTag();
 			selectTag.setOptions(cell.getItems());
 			htmlTag = selectTag;
-		} else if (TypeUtils.FIELD_TIMESTAMP.equalsIgnoreCase(tag)) {
-htmlTag = new DatetimeTag();
 		} else {
 			htmlTag = new SimpleHtmlTag("input", "col-xs-12 col-sm-12");
-			if (cell.getRequired()) {
-				htmlTag.setAttribute("required", "required");
-			}
-			if (TypeUtils.FIELD_INT.equalsIgnoreCase(tag) || TypeUtils.FIELD_FLOAT.equalsIgnoreCase(tag)) {
+			if (TypeUtils.FIELD_TIMESTAMP.equalsIgnoreCase(tag)) {
+				htmlTag = new TimestampTag();
+				htmlTag.setAttribute("id", "datetime-picker" + cell.getName());
+			} else if (TypeUtils.FIELD_INT.equalsIgnoreCase(tag) || TypeUtils.FIELD_FLOAT.equalsIgnoreCase(tag)) {
 				htmlTag.setAttribute("type", "number");
+			} else if (TypeUtils.FIELD_DATE.equalsIgnoreCase(tag) || TypeUtils.FIELD_DATETIME.equalsIgnoreCase(tag)) {
+				htmlTag = new DatetimeTag();
+				htmlTag.setAttribute("id", "datetime-picker" + cell.getName());
 			} else if (TypeUtils.FIELD_PASSWORD.equalsIgnoreCase(tag)) {
 				htmlTag.setAttribute("type", "password");
 			} else if (TypeUtils.FIELD_MOBILE.equalsIgnoreCase(tag)) {
 				htmlTag.setAttribute("type", "tel");
-				// htmlTag.setAttribute("maxlength", "11");
 			} else if (TypeUtils.FIELD_TELEPHONE.equalsIgnoreCase(tag)) {
 				htmlTag.setAttribute("type", "text");
 			} else {
 				htmlTag.setAttribute("type", "text");
 			}
 		}
+        if (cell.getRequired()) {
+            htmlTag.setAttribute("required", "required");
+        }
 		htmlTag.setAttribute("name", cell.getName());
 		return htmlTag;
 	}
