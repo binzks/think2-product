@@ -51,9 +51,9 @@ public class ClassUtils {
 						tag = TypeUtils.FIELD_FLOAT;
 					}
 				}
-				cells.add(new Cell(name, cell.title(), tag, cell.required(), cell.defaultValue(), cell.add(),
-						cell.width(), cell.search(), cell.display(), cell.detail(), cell.add(), cell.edit(),
-						cell.rowFilter(), cell.comment(), itemList));
+				cells.add(new Cell(name, cell.title(), tag, cell.required(), cell.length(), cell.defaultValue(),
+						cell.search(), cell.display(), cell.detail(), cell.add(), cell.edit(), cell.rowFilter(),
+						cell.comment(), itemList));
 			}
 		}
 		return cells;

@@ -131,7 +131,7 @@ public class View {
 		HtmlTag tableHead = new SimpleHtmlTag("thead");
 		for (Cell cell : cells) {
 			if (cell.getDisplay()) {
-				tableHead.appendChild(createTh(cell.getTitle(), cell.getWidth()));
+				tableHead.appendChild(createTh(cell.getTitle(), 0));
 			}
 			if (StringUtils.isNotBlank(cell.getDefaultValue())) {
 				defaultValues.put(cell.getName(), cell.getDefaultValue());
@@ -325,19 +325,20 @@ public class View {
 		} else if (TypeUtils.FIELD_TIMESTAMP.equalsIgnoreCase(tag)) {
 			return HtmlTagFactory.createTimestamp(cell.getName(), cell.getRequired());
 		} else if (TypeUtils.FIELD_INT.equalsIgnoreCase(tag) || TypeUtils.FIELD_FLOAT.equalsIgnoreCase(tag)) {
-			return HtmlTagFactory.createNumber(cell.getName(), cell.getRequired());
+			return HtmlTagFactory.createNumber(cell.getName(), cell.getRequired(), cell.getLength(), cell.getComment());
 		} else if (TypeUtils.FIELD_DATE.equalsIgnoreCase(tag) || TypeUtils.FIELD_DATETIME.equalsIgnoreCase(tag)) {
 			return HtmlTagFactory.createDatetime(cell.getName(), cell.getRequired());
 		} else if (TypeUtils.FIELD_PASSWORD.equalsIgnoreCase(tag) || TypeUtils.FIELD_MOBILE.equalsIgnoreCase(tag)
 				|| TypeUtils.FIELD_TELEPHONE.equalsIgnoreCase(tag)) {
-			return HtmlTagFactory.createPassword(cell.getName(), cell.getRequired());
+			return HtmlTagFactory.createPassword(cell.getName(), cell.getRequired(), cell.getLength(),
+					cell.getComment());
 		} else if (TypeUtils.FIELD_FILE.equalsIgnoreCase(tag)) {
 			return HtmlTagFactory.createFile(cell.getName(), cell.getRequired());
 		} else if (TypeUtils.FIELD_MULTIPLE.equalsIgnoreCase(tag)
 				|| TypeUtils.FIELD_DATA_MULTIPLE.equalsIgnoreCase(tag)) {
 			return HtmlTagFactory.createMultipleSelect(cell.getName(), cell.getRequired(), cell.getItems());
 		} else {
-			return HtmlTagFactory.createInput(cell.getName(), cell.getRequired());
+			return HtmlTagFactory.createInput(cell.getName(), cell.getRequired(), cell.getLength(), cell.getComment());
 		}
 	}
 }

@@ -1,5 +1,7 @@
 package org.think2framework.mvc.view.bean;
 
+import org.think2framework.orm.core.TypeUtils;
+
 import java.util.List;
 
 /**
@@ -7,49 +9,114 @@ import java.util.List;
  */
 public class Cell {
 
-	private String name; // 名称，单模块唯一
+	/**
+	 * 名称，单模块唯一
+	 *
+	 * @return 名称
+	 */
+	private String name;
 
-	private String title; // 标题
+	/**
+	 * 标题
+	 *
+	 * @return 标题
+	 */
+	private String title;
 
-	private String tag; // 标签，根据标签操作单元
+	/**
+	 * 标签，根据标签操作单元，默认问文本
+	 *
+	 * @return 标签
+	 */
+	private String tag = TypeUtils.FIELD_TEXT;
 
-	private Boolean required = false; // 是否必填项，默认false
+	/**
+	 * 是否必填项，默认false
+	 *
+	 * @return 是否必填项
+	 */
+	private Boolean required;
 
-	private String defaultValue; // 默认值，now当前时间，user.id登录用户id，user.name登录用户名，其他则填值
+	/**
+	 * 单元格最大长度
+	 *
+	 * @return 最大长度
+	 */
+	private Integer length = 0;
 
-	private Boolean center = true; // 列是否居中默认true
+	/**
+	 * 默认值，now当前时间，user.id登录用户id，user.name登录用户名，其他则填值
+	 *
+	 * @return 默认值
+	 */
+	private String defaultValue = "";
 
-	private Integer width = 0; // 列长度，默认0表示自动
+	/**
+	 * 是否作为搜索项，默认false
+	 *
+	 * @return 是否作为搜索项
+	 */
+	private Boolean search = false;
 
-	private Boolean search = false; // 是否作为搜索页，默认false，TEXT查询为like
+	/**
+	 * 查询页面是否显示列，默认true
+	 *
+	 * @return 查询页面是否显示列
+	 */
+	private Boolean display = true;
 
-	private Boolean display = true; // 查询页面是否显示列，默认true
+	/**
+	 * 显示详情页面是否显示列，默认true
+	 *
+	 * @return 显示详情页面是否显示列
+	 */
+	private Boolean detail = true;
 
-	private Boolean detail = true; // 显示详情页面是否显示列，默认true
+	/**
+	 * 添加页面是否需要添加列，默认true
+	 *
+	 * @return 添加页面是否需要添加列
+	 */
+	private Boolean add = true;
 
-	private Boolean add = true;// 添加页面是否需要添加列，默认true
+	/**
+	 * 编辑页面是否需要列，默认true
+	 *
+	 * @return 编辑页面是否需要列
+	 */
+	private Boolean edit = true;
 
-	private Boolean edit = true; // 编辑页面是否需要列，默认true
+	/**
+	 * 是否行级过滤，默认false，只有当类型为item或者dataItem的时候才有效
+	 *
+	 * @return 是否行级过滤
+	 */
+	private Boolean rowFilter = false;
 
-	private Boolean rowFilter = false; // 是否行级过滤，默认false，只有当类型为item或者dataItem的时候才有效
+	/**
+	 * 注释
+	 *
+	 * @return 注释
+	 */
+	private String comment = "";
 
-	private String comment; // 注释
-
-	private List<Item> items; // 单元格的item定义，主要用于状态选择、人员选择等选择类
+	/**
+	 * 单元格的item定义，主要用于状态选择、人员选择等选择类
+	 */
+	private List<Item> items;
 
 	public Cell() {
 	}
 
-	public Cell(String name, String title, String tag, Boolean required, String defaultValue, Boolean center,
-			Integer width, Boolean search, Boolean display, Boolean detail, Boolean add, Boolean edit,
-			Boolean rowFilter, String comment, List<Item> items) {
+	public Cell(String name, String title, String tag, Boolean required, Integer length, String defaultValue,
+			Boolean search, Boolean display, Boolean detail, Boolean add, Boolean edit, Boolean rowFilter,
+			String comment, List<Item> items) {
 		this.name = name;
 		this.title = title;
 		this.tag = tag;
 		this.required = required;
+		this.length = length;
 		this.defaultValue = defaultValue;
-		this.center = center;
-		this.width = width;
 		this.search = search;
 		this.display = display;
 		this.detail = detail;
@@ -92,28 +159,20 @@ public class Cell {
 		this.required = required;
 	}
 
+	public Integer getLength() {
+		return length;
+	}
+
+	public void setLength(Integer length) {
+		this.length = length;
+	}
+
 	public String getDefaultValue() {
 		return defaultValue;
 	}
 
 	public void setDefaultValue(String defaultValue) {
 		this.defaultValue = defaultValue;
-	}
-
-	public Boolean getCenter() {
-		return center;
-	}
-
-	public void setCenter(Boolean center) {
-		this.center = center;
-	}
-
-	public Integer getWidth() {
-		return width;
-	}
-
-	public void setWidth(Integer width) {
-		this.width = width;
 	}
 
 	public Boolean getSearch() {

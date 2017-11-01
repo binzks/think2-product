@@ -3,6 +3,7 @@ package org.think2framework.mvc.view;
 import org.think2framework.mvc.view.bean.Item;
 import org.think2framework.mvc.view.core.*;
 import org.think2framework.orm.core.ClassUtils;
+import org.think2framework.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,14 +74,24 @@ public class HtmlTagFactory {
 	 *            控件名称
 	 * @param required
 	 *            是否必选
+	 * @param length
+	 *            最大长度
+	 * @param comment
+	 *            注释
 	 * @return 输入框
 	 */
-	public static HtmlTag createInput(String name, Boolean required) {
+	public static HtmlTag createInput(String name, Boolean required, Integer length, String comment) {
 		HtmlTag htmlTag = new SimpleHtmlTag("input", "col-xs-12 col-sm-12");
 		htmlTag.setAttribute("name", name);
 		htmlTag.setAttribute("type", "text");
 		if (required) {
 			htmlTag.setAttribute("required", "required");
+		}
+		if (null != length && length > 0) {
+			htmlTag.setAttribute("maxlength", StringUtils.toString(length));
+		}
+		if (StringUtils.isNotBlank(comment)) {
+			htmlTag.setAttribute("placeholder", comment);
 		}
 		return htmlTag;
 	}
@@ -92,10 +103,14 @@ public class HtmlTagFactory {
 	 *            控件名称
 	 * @param required
 	 *            是否必选
+	 * @param length
+	 *            最大长度
+	 * @param comment
+	 *            注释
 	 * @return 数字输入框
 	 */
-	public static HtmlTag createNumber(String name, Boolean required) {
-		HtmlTag htmlTag = createInput(name, required);
+	public static HtmlTag createNumber(String name, Boolean required, Integer length, String comment) {
+		HtmlTag htmlTag = createInput(name, required, length, comment);
 		htmlTag.setAttribute("type", "number");
 		return htmlTag;
 	}
@@ -107,10 +122,14 @@ public class HtmlTagFactory {
 	 *            控件名称
 	 * @param required
 	 *            是否必选
+	 * @param length
+	 *            最大长度
+	 * @param comment
+	 *            注释
 	 * @return 密码输入框
 	 */
-	public static HtmlTag createPassword(String name, Boolean required) {
-		HtmlTag htmlTag = createInput(name, required);
+	public static HtmlTag createPassword(String name, Boolean required, Integer length, String comment) {
+		HtmlTag htmlTag = createInput(name, required, length, comment);
 		htmlTag.setAttribute("type", "password");
 		return htmlTag;
 	}

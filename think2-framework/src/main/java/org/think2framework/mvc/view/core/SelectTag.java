@@ -33,7 +33,7 @@ public class SelectTag extends AbstractHtmlTag implements HtmlTag {
 	public SelectTag() {
 		super("select");
 		options = new LinkedHashMap<>();
-		options.put("", "");
+		options.put("", ""); // 设置空选项
 		setAttribute("class", "chosen-select form-control");
 		setAttribute("data-placeholder", "请选择...");
 	}
@@ -41,6 +41,8 @@ public class SelectTag extends AbstractHtmlTag implements HtmlTag {
 	/**
 	 * 设置选项，如果选项中带模型，则设置items，在每次获取html的时候时候刷新数据，如果没有则一次性添加后不再修改
 	 * 
+	 * @param items
+	 *            选项定义
 	 */
 	public void setOptions(List<Item> items) {
 		if (null == items) {
@@ -127,7 +129,7 @@ public class SelectTag extends AbstractHtmlTag implements HtmlTag {
 
 	@Override
 	public String getText() {
-	    refreshOptions();
+		refreshOptions();
 		StringBuffer text = new StringBuffer();
 		for (Map.Entry<String, String> entry : options.entrySet()) {
 			if (checkValue(entry.getKey())) {

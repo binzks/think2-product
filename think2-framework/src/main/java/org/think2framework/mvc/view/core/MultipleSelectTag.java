@@ -11,7 +11,7 @@ public class MultipleSelectTag extends SelectTag implements HtmlTag {
 	public MultipleSelectTag() {
 		super();
 		setAttribute("class", "multiselect");
-		attributes.put("multiple", "");
+		setAttribute("multiple", "multiple");
 	}
 
 	@Override

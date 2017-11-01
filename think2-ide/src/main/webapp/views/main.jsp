@@ -232,7 +232,7 @@
 <!-- page specific plugin scripts -->
 <script src="/libs/assets/js/jquery.bootstrap-duallistbox.js"></script>
 <script src="/libs/assets/js/jquery.raty.js"></script>
-<script src="/libs/assets/js/bootstrap-multiselect-cn.js"></script>
+<script src="/libs/assets/js/bootstrap-multiselect.js"></script>
 <script src="/libs/assets/js/select2.js"></script>
 
 <!-- ace scripts -->
@@ -327,8 +327,22 @@
     });
 
     $('.multiselect').multiselect({
-        enableFiltering: true,
         buttonClass: 'btn btn-white btn-primary',
+        dropRight: false,
+        selectedClass: 'active',
+        // Maximum height of the dropdown menu.
+        // If maximum height is exceeded a scrollbar will be displayed.
+        maxHeight: 300,
+        checkboxName: false,
+        enableFiltering: true,
+        enableCaseInsensitiveFiltering: false,
+        enableClickableOptGroups: false,
+        filterPlaceholder: '搜索',
+        nonSelectedText: '没有选择',
+        nSelectedText: '已选择',
+        allSelectedText: '已全选',
+        numberDisplayed: 5,
+        disableIfEmpty: false,
         templates: {
             button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"></button>',
             ul: '<ul class="multiselect-container dropdown-menu"></ul>',

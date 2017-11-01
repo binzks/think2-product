@@ -10,36 +10,101 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Created by zhoubin on 16/7/11. 数据cell定义
+ * 数据cell定义
  */
 @Target({ METHOD, FIELD })
 @Retention(RUNTIME)
 public @interface Cell {
 
-	String name() default ""; // 名称，单模块唯一
+	/**
+	 * 名称，单模块唯一
+	 * 
+	 * @return 名称
+	 */
+	String name() default "";
 
-	String title(); // 标题
+	/**
+	 * 标题
+	 * 
+	 * @return 标题
+	 */
+	String title();
 
-	String tag() default TypeUtils.FIELD_TEXT; // 标签，根据标签操作单元，默认问文本
+	/**
+	 * 标签，根据标签操作单元，默认问文本
+	 * 
+	 * @return 标签
+	 */
+	String tag() default TypeUtils.FIELD_TEXT;
 
-	boolean required() default false; // 是否必填项，默认false
+	/**
+	 * 是否必填项，默认false
+	 * 
+	 * @return 是否必填项
+	 */
+	boolean required() default false;
 
-	String defaultValue() default ""; // 默认值，now当前时间，user.id登录用户id，user.name登录用户名，其他则填值
+	/**
+	 * 单元格最大长度
+	 *
+	 * @return 最大长度
+	 */
+	int length() default 0;
 
-	int width() default 0; // 列长度，默认0表示自动
+	/**
+	 * 默认值，now当前时间，user.id登录用户id，user.name登录用户名，其他则填值
+	 * 
+	 * @return 默认值
+	 */
+	String defaultValue() default "";
 
-	boolean search() default false; // 是否作为搜索页，默认false，TEXT查询为like
+	/**
+	 * 是否作为搜索项，默认false
+	 * 
+	 * @return 是否作为搜索项
+	 */
+	boolean search() default false;
 
-	boolean display() default true; // 查询页面是否显示列，默认true
+	/**
+	 * 查询页面是否显示列，默认true
+	 * 
+	 * @return 查询页面是否显示列
+	 */
+	boolean display() default true;
 
-	boolean detail() default true; // 显示详情页面是否显示列，默认true
+	/**
+	 * 显示详情页面是否显示列，默认true
+	 * 
+	 * @return 显示详情页面是否显示列
+	 */
+	boolean detail() default true;
 
-	boolean add() default true;// 添加页面是否需要添加列，默认true
+	/**
+	 * 添加页面是否需要添加列，默认true
+	 * 
+	 * @return 添加页面是否需要添加列
+	 */
+	boolean add() default true;
 
-	boolean edit() default true; // 编辑页面是否需要列，默认true
+	/**
+	 * 编辑页面是否需要列，默认true
+	 * 
+	 * @return 编辑页面是否需要列
+	 */
+	boolean edit() default true;
 
-	boolean rowFilter() default false; // 是否行级过滤，默认false，只有当类型为item或者dataItem的时候才有效
+	/**
+	 * 是否行级过滤，默认false，只有当类型为item或者dataItem的时候才有效
+	 * 
+	 * @return 是否行级过滤
+	 */
+	boolean rowFilter() default false;
 
-	String comment() default ""; // 注释
+	/**
+	 * 注释
+	 * 
+	 * @return 注释
+	 */
+	String comment() default "";
 
 }
