@@ -7,7 +7,7 @@ import org.think2framework.mvc.WorkflowFactory;
 import org.think2framework.utils.StringUtils;
 
 /**
- * Created by zhoubin on 16/7/8. 配置
+ * think2框架默认配置
  */
 public class Configuration implements ApplicationContextAware {
 
@@ -68,7 +68,8 @@ public class Configuration implements ApplicationContextAware {
 	 *            模型路径和名称
 	 */
 	public void setModel(String model) {
-//		ModelFactory.setModelFiles(this.getClass().getResource("/").getPath() + model);
+		// ModelFactory.setModelFiles(this.getClass().getResource("/").getPath() +
+		// model);
 	}
 
 	// /**

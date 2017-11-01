@@ -9,15 +9,16 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.think2framework.context.ModelFactory;
 import org.think2framework.mvc.view.core.FileTag;
+import org.think2framework.mvc.view.core.MultipleSelectTag;
 import org.think2framework.orm.Query;
 import org.think2framework.orm.Writer;
 import org.think2framework.mvc.security.SessionHelp;
-import org.think2framework.utils.FileUtils;
 import org.think2framework.utils.StringUtils;
 import org.think2framework.mvc.view.HtmlTag;
 import org.think2framework.mvc.view.View;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -129,6 +130,13 @@ public class TemplateController extends BaseController {
 	public String save(@PathVariable String mid, @PathVariable String id, HttpServletRequest request) {
 		View view = SessionHelp.getView(mid, request.getSession());
 		Writer writer = ModelFactory.createWriter(view.getName());
+		// 获取实际编辑的标签map，如果id不存在表示新增，存在表示修改
+		Map<String, HtmlTag> htmlTagMap;
+		if (StringUtils.isBlank(id)) {
+			htmlTagMap = view.getAddHtmlTags();
+		} else {
+			htmlTagMap = view.getEditHtmlTags();
+		}
 		Map<String, Object> map = new HashMap<>();
 		// 设置默认值
 		for (Map.Entry<String, String> entry : view.getDefaultValues().entrySet()) {
@@ -136,18 +144,28 @@ public class TemplateController extends BaseController {
 			map.put(entry.getKey(), value);
 		}
 		// 设置字段
-		for (Map.Entry<String, HtmlTag> entry : view.getAddHtmlTags().entrySet()) {
+		for (Map.Entry<String, HtmlTag> entry : htmlTagMap.entrySet()) {
+			String key = entry.getKey();
 			HtmlTag htmlTag = entry.getValue();
-			if (FileTag.class == htmlTag.getClass()) {
+			if (FileTag.class == htmlTag.getClass()) { // 文件
 				MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
-				MultipartFile file = multipartHttpServletRequest.getFile(entry.getKey());
+				MultipartFile file = multipartHttpServletRequest.getFile(key);
 				if (null == file || file.isEmpty()) {
 					continue;
 				}
+				String filePath = "";
+				map.put(entry.getKey(), filePath);
+			} else if (MultipleSelectTag.class == htmlTag.getClass()) { // 多选框
+				String[] values = request.getParameterValues(key);
+				StringBuffer v = new StringBuffer(",");
+				for (String value : values) {
+					v.append(value).append(",");
+				}
+				map.put(key, v.toString());
 			} else {
-				htmlTag.setValue(request.getParameter(entry.getKey()));
+				htmlTag.setValue(request.getParameter(key));
+				map.put(key, htmlTag.getValue());
 			}
-			map.put(entry.getKey(), htmlTag.getValue());
 		}
 		// 新增
 		if (StringUtils.isBlank(id)) {

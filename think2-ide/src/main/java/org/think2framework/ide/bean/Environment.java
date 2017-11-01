@@ -15,17 +15,17 @@ public class Environment extends BaseCms {
 	private String name;
 
 	@Column(comment = "环境对应的服务器地址")
-	@Cell(title = "服务器地址", tag = TypeUtils.FIELD_FILE)
+	@Cell(title = "服务器地址")
 	private String host;
 
 	@Column(comment = "服务器部署根目录", length = 200)
 	@Cell(title = "根目录")
 	private String directory;
 
-	@Column(name = "datasource_id", comment = "数据源id", length = 11)
-	@Cell(title = "数据源", tag = TypeUtils.FIELD_DATA_ITEM_INT)
+	@Column(name = "datasource_id", comment = "数据源id", nullable = false, length = 11)
+	@Cell(name = "datasource_id", title = "数据源", required = true, tag = TypeUtils.FIELD_DATA_MULTIPLE)
 	@Item(model = "org.think2framework.ide.bean.Datasource", key = "id", value = "name")
-	private Integer dsId;
+	private String dsId;
 
 	public String getName() {
 		return name;
@@ -51,11 +51,11 @@ public class Environment extends BaseCms {
 		this.directory = directory;
 	}
 
-	public Integer getDsId() {
+	public String getDsId() {
 		return dsId;
 	}
 
-	public void setDsId(Integer dsId) {
+	public void setDsId(String dsId) {
 		this.dsId = dsId;
 	}
 }

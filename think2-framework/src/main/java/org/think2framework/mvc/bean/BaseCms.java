@@ -22,7 +22,7 @@ public class BaseCms {
 	private Integer id;
 
 	@Column(nullable = false, length = 1, defaultValue = "0", comment = "状态0-启用 99-停用")
-	@Cell(title = "状态", required = true, search = true, tag = TypeUtils.FIELD_ITEM_INT, defaultValue = "99")
+	@Cell(title = "状态", required = true, search = true, tag = TypeUtils.FIELD_ITEM_INT, defaultValue = "0")
 	@Item(key = "0", value = "启用")
 	@Item(key = "99", value = "停用")
 	private Integer status;

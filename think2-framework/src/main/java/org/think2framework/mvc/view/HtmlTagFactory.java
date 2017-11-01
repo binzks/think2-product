@@ -48,6 +48,25 @@ public class HtmlTagFactory {
 	}
 
 	/**
+	 * 创建一个多选框
+	 *
+	 * @param name
+	 *            控件名称
+	 * @param required
+	 *            是否必选
+	 * @return 选择框
+	 */
+	public static HtmlTag createMultipleSelect(String name, Boolean required, List<Item> items) {
+		MultipleSelectTag multipleSelectTag = new MultipleSelectTag();
+		multipleSelectTag.setOptions(items);
+		multipleSelectTag.setAttribute("name", name);
+		if (required) {
+			multipleSelectTag.setAttribute("required", "required");
+		}
+		return multipleSelectTag;
+	}
+
+	/**
 	 * 创建一个输入框
 	 *
 	 * @param name

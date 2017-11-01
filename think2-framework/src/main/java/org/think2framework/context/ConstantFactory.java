@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by zhoubin on 16/2/16. 常量工厂
+ * 常量工厂
  */
 public class ConstantFactory {
 

@@ -26,7 +26,7 @@ import java.io.File;
 import java.util.*;
 
 /**
- * Created by zhoubin on 16/7/11. 模型工厂
+ * 模型工厂
  */
 public class ModelFactory {
 

@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="/libs/assets/css/bootstrap.css"/>
     <link rel="stylesheet" href="/libs/assets/css/font-awesome.css"/>
     <!-- page specific plugin styles -->
+    <link rel="stylesheet" href="/libs/assets/css/bootstrap-duallistbox.css"/>
+    <link rel="stylesheet" href="/libs/assets/css/bootstrap-multiselect.css"/>
+    <link rel="stylesheet" href="/libs/assets/css/select2.css"/>
     <!-- text fonts -->
     <link rel="stylesheet" href="/libs/assets/css/ace-fonts.css"/>
     <!-- ace styles -->
@@ -227,6 +230,10 @@
 <script src="/libs/assets/js/date-time/bootstrap-datetimepicker.js"></script>
 
 <!-- page specific plugin scripts -->
+<script src="/libs/assets/js/jquery.bootstrap-duallistbox.js"></script>
+<script src="/libs/assets/js/jquery.raty.js"></script>
+<script src="/libs/assets/js/bootstrap-multiselect-cn.js"></script>
+<script src="/libs/assets/js/select2.js"></script>
 
 <!-- ace scripts -->
 <script src="/libs/assets/js/ace/elements.scroller.js"></script>
@@ -318,6 +325,21 @@
         blacklist: 'exe|php|class|java|sh'
         //onchange:''
     });
+
+    $('.multiselect').multiselect({
+        enableFiltering: true,
+        buttonClass: 'btn btn-white btn-primary',
+        templates: {
+            button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"></button>',
+            ul: '<ul class="multiselect-container dropdown-menu"></ul>',
+            filter: '<li class="multiselect-item filter"><div class="input-group"><span class="input-group-addon"><i class="fa fa-search"></i></span><input class="form-control multiselect-search" type="text"></div></li>',
+            filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default btn-white btn-grey multiselect-clear-filter" type="button"><i class="fa fa-times-circle red2"></i></button></span>',
+            li: '<li><a href="javascript:void(0);"><label></label></a></li>',
+            divider: '<li class="multiselect-item divider"></li>',
+            liGroup: '<li class="multiselect-item group"><label class="multiselect-group"></label></li>'
+        }
+    });
+
 </script>
 </body>
 </html>

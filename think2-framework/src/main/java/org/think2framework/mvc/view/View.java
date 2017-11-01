@@ -9,7 +9,7 @@ import org.think2framework.mvc.view.bean.Cell;
 import java.util.*;
 
 /**
- * Created by zhoubin on 2017/6/12. 视图定义
+ * 视图定义
  */
 public class View {
 
@@ -333,6 +333,9 @@ public class View {
 			return HtmlTagFactory.createPassword(cell.getName(), cell.getRequired());
 		} else if (TypeUtils.FIELD_FILE.equalsIgnoreCase(tag)) {
 			return HtmlTagFactory.createFile(cell.getName(), cell.getRequired());
+		} else if (TypeUtils.FIELD_MULTIPLE.equalsIgnoreCase(tag)
+				|| TypeUtils.FIELD_DATA_MULTIPLE.equalsIgnoreCase(tag)) {
+			return HtmlTagFactory.createMultipleSelect(cell.getName(), cell.getRequired(), cell.getItems());
 		} else {
 			return HtmlTagFactory.createInput(cell.getName(), cell.getRequired());
 		}

@@ -41,8 +41,8 @@ public class SystemController extends BaseController {
 		Writer moduleWriter = ModelFactory.createWriter(Module.class.getName());
 		int environmentId = NumberUtils.toInt(moduleWriter
 				.insert(new Module("ide_environment", 0, Module.TYPE_GROUP, "fa-windows", "", "系统环境", "", 10, 2)));
-		int modelId = NumberUtils.toInt(
-				moduleWriter.insert(new Module("ide_model", 0, Module.TYPE_GROUP, "fa-android", "", "模型管理", "", 10, 3)));
+		int modelId = NumberUtils.toInt(moduleWriter
+				.insert(new Module("ide_model", 0, Module.TYPE_GROUP, "fa-android", "", "模型管理", "", 10, 3)));
 		int projectId = NumberUtils.toInt(moduleWriter
 				.insert(new Module("ide_project", 0, Module.TYPE_GROUP, "fa-apple", "", "项目管理", "", 10, 4)));
 		moduleWriter.insert(new Module("ide_datasource", environmentId, Module.TYPE_MODULE, "",

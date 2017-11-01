@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by zhoubin on 16/7/24. 消息工厂,主要用于处理系统的错误和正确消息提示 错误内容中?代表需要替换为其他参数
+ * 消息工厂,主要用于处理系统的错误和正确消息提示 错误内容中?代表需要替换为其他参数
  */
 public class MessageFactory {
 
