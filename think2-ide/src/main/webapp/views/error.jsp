@@ -10,9 +10,17 @@
     <div class="well">
         <h1 class="grey lighter smaller">
 				<span class="blue bigger-125"> <i class="icon-sitemap"></i>
-					系统错误，请联系管理员！${msg }
+					${msg }
 				</span>
         </h1>
+    </div>
+    <div class="clearfix form-actions center">
+        <div class="col-md-12">
+            <button class="btn btn-sm" type="reset"
+                    onclick="location.href='javascript:history.go(-1);'">
+                <i class="icon-undo bigger-110"></i> 返回
+            </button>
+        </div>
     </div>
 </div>
 </body>

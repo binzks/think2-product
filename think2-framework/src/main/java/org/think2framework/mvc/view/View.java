@@ -152,7 +152,14 @@ public class View {
 				continue;
 			}
 			HtmlTag group = new SimpleHtmlTag("div", "form-group");
-			group.appendChild(new SimpleHtmlTag("label", "col-sm-3 control-label no-padding-right", cell.getTitle()));
+			// 必填项红色标注
+			if (cell.getRequired()) {
+				group.appendChild(
+						new SimpleHtmlTag("label", "col-sm-3 control-label red no-padding-right", cell.getTitle()));
+			} else {
+				group.appendChild(
+						new SimpleHtmlTag("label", "col-sm-3 control-label no-padding-right", cell.getTitle()));
+			}
 			HtmlTag div = new SimpleHtmlTag("div", "col-sm-6");
 			div.appendChild(tag);
 			group.appendChild(div);

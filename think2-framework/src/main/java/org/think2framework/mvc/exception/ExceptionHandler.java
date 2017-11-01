@@ -2,8 +2,10 @@ package org.think2framework.mvc.exception;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
+import org.think2framework.utils.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,7 +42,7 @@ import javax.servlet.http.HttpServletResponse;
 //                  不见满街漂亮妹，哪个归得程序员？
 
 /**
- * Created by zhoubin on 16/7/24. 统一的异常处理,返回错误页面
+ * 统一的异常处理,返回错误页面
  */
 public class ExceptionHandler implements HandlerExceptionResolver {
 
@@ -50,7 +52,12 @@ public class ExceptionHandler implements HandlerExceptionResolver {
 	public ModelAndView resolveException(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
 			Object o, Exception e) {
 		logger.error(e);
-		return new ModelAndView("error", "msg", e.getMessage()); // 返回一个新的ModelAndView，返回为200，否则返回500
+		String message = "系统未知错误，请联系管理员！" + e.getMessage();
+		if (DuplicateKeyException.class == e.getClass()) {
+			message = "数据" + StringUtils.substring(message, StringUtils.indexOf(message, "Duplicate entry '") + 17,
+					StringUtils.indexOf(message, "' for key")) + "已存在！";
+		}
+		return new ModelAndView("error", "msg", message); // 返回一个新的ModelAndView，返回为200，否则返回500
 	}
 
 }
